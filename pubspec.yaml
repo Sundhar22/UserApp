@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
+  google_maps_flutter: ^2.5.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
