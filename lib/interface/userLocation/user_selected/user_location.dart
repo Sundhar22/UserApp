@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
 
-import 'package:user_app/interface/userLocation/widget/location_widgets.dart';
+import 'package:user_app/interface/userLocation/user_selected/widget/location_widgets.dart';
 
 class UserLocation extends StatelessWidget {
   const UserLocation({super.key});
@@ -22,7 +22,6 @@ class UserLocation extends StatelessWidget {
                 minChildSize: 0.2.h,
                 builder: (context, scrollController) {
                   return Container(
-                    // height: 450.h,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     decoration: BoxDecoration(

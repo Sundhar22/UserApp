@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constant/colors/app_color.dart';
+import '../../../../constant/colors/app_color.dart';
 
 Container locationHead() {
   return Container(
@@ -144,3 +144,4 @@ SizedBox locationInputTextFelid({
     ),
   );
 }
+
