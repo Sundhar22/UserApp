@@ -78,7 +78,6 @@ Container dragIndicator() {
   );
 }
 
-
 AppBar userLocationAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
@@ -144,4 +143,3 @@ SizedBox locationInputTextFelid({
     ),
   );
 }
-

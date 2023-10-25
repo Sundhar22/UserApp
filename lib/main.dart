@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/interface/userLocation/user_choice/user_choice.dart';
+import 'package:user_app/features/home/home.dart';
 
-import 'interface/onboarding/onboarding_page.dart';
-import 'interface/userLocation/user_selected/user_location.dart';
+import 'features/onboarding/onboarding_page.dart';
+import 'features/userLocation/user_choice/user_choice.dart';
+import 'features/userLocation/user_selected/user_location.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,11 +24,13 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
           fontFamily: 'Urbanist',
         ),
-        initialRoute: 'user-location-choice',
+        initialRoute: 'home',
+
         routes: {
           '/onboarding': (context) => const OnBoardingPage(),
           'user-location': (context) => const UserLocation(),
           'user-location-choice': (context) => const UserLocationChoice(),
+          'home': (context) => const HomePage(),
         },
       ),
     );
