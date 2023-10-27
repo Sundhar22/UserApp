@@ -16,8 +16,40 @@ Container innerContainerWidget() {
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [searchBar(), currentLocation()],
+      children: [
+        searchBar("Search for area, street name...", (String val) {}, () {}),
+        currentLocation()
+      ],
     ),
+  );
+}
+
+Row headline(String headline, void Function() onTap) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        headline,
+        style: TextStyle(
+          fontSize: 17.sp,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      TextButton(
+        onPressed: onTap,
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          splashFactory: NoSplash.splashFactory,
+        ),
+        child: const Text(
+          "See All",
+          style: TextStyle(
+            fontSize: 14.5,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    ],
   );
 }
 
@@ -73,10 +105,12 @@ GestureDetector currentLocation() {
   );
 }
 
-Widget searchBar() {
+Widget searchBar(String hintText, Function(String val) onChanged, void Function() onTap) {
   return SizedBox(
     height: 39.h,
     child: SearchBar(
+      onTap: onTap,
+      onChanged: onChanged,
       textStyle: MaterialStatePropertyAll(
         TextStyle(
           fontSize: 16.sp,
@@ -86,7 +120,7 @@ Widget searchBar() {
       ),
       elevation: const MaterialStatePropertyAll(0),
       backgroundColor: MaterialStatePropertyAll(Colors.grey.shade100),
-      hintText: "Search for area, street name...",
+      hintText: hintText,
       hintStyle: MaterialStatePropertyAll(
         TextStyle(
           fontSize: 16.sp,

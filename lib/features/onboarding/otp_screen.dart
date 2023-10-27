@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/interface/onboarding/counter.dart';
-import 'package:user_app/interface/onboarding/widgets/elevated_button.dart';
+import 'package:user_app/features/onboarding/counter.dart';
+import 'package:user_app/features/onboarding/widgets/elevated_button.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/interface/onboarding/widgets/elevated_button.dart';
+import 'package:user_app/features/onboarding/widgets/elevated_button.dart';
 
 class MailVerification extends StatelessWidget {
   const MailVerification({super.key});
