@@ -2,7 +2,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-
 import 'widgets/onboard_widget.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -21,7 +20,6 @@ class OnBoardingPage extends StatelessWidget {
               NotificationListener<OverscrollIndicatorNotification>(
                 onNotification: (OverscrollIndicatorNotification overscroll) {
                   overscroll.disallowIndicator();
-
                   return true;
                 },
                 child: PageView(

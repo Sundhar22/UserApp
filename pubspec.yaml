@@ -32,6 +32,7 @@ dependencies:
   dots_indicator: ^3.0.0
   flutter:
     sdk: flutter
+  flutter_otp_text_field: ^1.1.1
   flutter_screenutil: ^5.9.0
   google_maps_flutter: ^2.5.0
 

@@ -78,7 +78,6 @@ Container dragIndicator() {
   );
 }
 
-
 AppBar userLocationAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
@@ -108,7 +107,6 @@ SizedBox locationInputTextFelid({
   required String tittle,
 }) {
   return SizedBox(
-    // height: 75.h,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,4 +142,3 @@ SizedBox locationInputTextFelid({
     ),
   );
 }
-
