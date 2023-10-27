@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/features/onboarding/onboarding_page.dart';
-import 'package:user_app/features/onboarding/otp_screen.dart';
-import 'package:user_app/features/onboarding/user_registration.dart';
+import 'package:user_app/constant/theme/app_theme.dart';
+import 'package:user_app/features/home/ui/home.dart';
+import 'package:user_app/features/onboarding/ui/pages/onboarding_page.dart';
+import 'package:user_app/features/onboarding/ui/pages/otp_screen.dart';
+import 'package:user_app/features/onboarding/ui/pages/user_registration.dart';
 import 'package:user_app/features/userLocation/user_choice/user_choice.dart';
 import 'package:user_app/features/userLocation/user_selected/user_location.dart';
 
@@ -20,10 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'User App',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
-          fontFamily: 'Urbanist',
-        ),
+        theme: buildApp(),
         initialRoute: 'home',
         routes: {
           'register': (context) => const UserRegistrationScreen(),
@@ -31,6 +30,7 @@ class MyApp extends StatelessWidget {
           'onboarding': (context) => const OnBoardingPage(),
           'user-location': (context) => const UserLocation(),
           'user-location-choice': (context) => const UserLocationChoice(),
+          'home': (context) => const HomePage(),
         },
       ),
     );

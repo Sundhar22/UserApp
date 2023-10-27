@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'home_widgets.dart';
+import 'service_card.dart';
+import 'service_card_widget.dart';
 
 class MoreService extends StatelessWidget {
   MoreService({super.key});

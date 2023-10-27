@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../constant/colors/app_color.dart';
+import 'home_page_search_bar.dart';
 
 Container innerContainerWidget() {
   return Container(
@@ -17,7 +17,10 @@ Container innerContainerWidget() {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        searchBar("Search for area, street name...", (String val) {}, () {}),
+        HomePageSearchBar(
+            hintText: "Search for area, street name...",
+            onChanged: (String val) {},
+            onTap: () {}),
         currentLocation()
       ],
     ),
@@ -100,41 +103,6 @@ GestureDetector currentLocation() {
             size: 20,
           ),
         ],
-      ),
-    ),
-  );
-}
-
-Widget searchBar(String hintText, Function(String val) onChanged, void Function() onTap) {
-  return SizedBox(
-    height: 39.h,
-    child: SearchBar(
-      onTap: onTap,
-      onChanged: onChanged,
-      textStyle: MaterialStatePropertyAll(
-        TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.normal,
-          color: Colors.black.withOpacity(0.8),
-        ),
-      ),
-      elevation: const MaterialStatePropertyAll(0),
-      backgroundColor: MaterialStatePropertyAll(Colors.grey.shade100),
-      hintText: hintText,
-      hintStyle: MaterialStatePropertyAll(
-        TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-      leading: Image.asset(
-        'assets/icons/search-50.png',
-        height: 20.h,
-        width: 20.w,
-        color: Colors.grey.shade700,
-      ),
-      padding: MaterialStatePropertyAll(
-        EdgeInsets.symmetric(horizontal: 15.w, vertical: 2.h),
       ),
     ),
   );

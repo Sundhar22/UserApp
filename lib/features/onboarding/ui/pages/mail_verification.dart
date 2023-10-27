@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/features/onboarding/widgets/elevated_button.dart';
+import 'package:user_app/features/onboarding/ui/widgets/custom_text_field.dart';
+import 'package:user_app/features/onboarding/ui/widgets/elevated_button.dart';
 
 class MailVerification extends StatelessWidget {
   const MailVerification({super.key});
@@ -48,56 +48,6 @@ class MailVerification extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.fieldName,
-  });
-
-  final String fieldName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            fieldName,
-            style: TextStyle(
-              fontSize: 15.5.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 5.h),
-          TextField(
-            minLines: 1,
-            decoration: InputDecoration(
-              suffixIcon: fieldName == "Mobile Number"
-                  ? const Icon(Icons.done, color: Colors.green)
-                  : null,
-              contentPadding: EdgeInsets.all(10.r),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(
-                  color: Colors.grey.shade300,
-                ),
-              ),
-            ),
-            style: TextStyle(
-              color: AppColor.textPrimaryColor,
-              fontSize: 16.5.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
       ),
     );
   }

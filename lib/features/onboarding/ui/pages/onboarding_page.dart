@@ -2,7 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
-import 'widgets/onboard_widget.dart';
+import '../widgets/onboard_widget.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
