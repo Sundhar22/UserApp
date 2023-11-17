@@ -51,28 +51,40 @@ class HomeWidget extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Stack(
-              children: [
-                Image.asset(
-                  'assets/icons/notification-50.png',
-                  height: 25.h,
-                  width: 25.w,
-                ),
-                Positioned(
-                  top: 2,
-                  right: 3,
-                  child: Container(
-                    height: 8.h,
-                    width: 8.w,
-                    decoration: const BoxDecoration(
-                      color: Colors.redAccent,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                )
-              ],
+          NotificationIconCustom(onTap: () {})
+        ],
+      ),
+    );
+  }
+}
+
+class NotificationIconCustom extends StatelessWidget {
+  const NotificationIconCustom(
+      {super.key, required this.onTap, this.height, this.width});
+  final void Function() onTap;
+  final double? height;
+  final double? width;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Image.asset(
+            'assets/icons/notification-50.png',
+            height: height ?? 25.h,
+            width: width ?? 25.w,
+          ),
+          Positioned(
+            top: 2,
+            right: 3,
+            child: Container(
+              height: 8.h,
+              width: 8.w,
+              decoration: const BoxDecoration(
+                color: Colors.redAccent,
+                shape: BoxShape.circle,
+              ),
             ),
           )
         ],
