@@ -67,7 +67,9 @@ class UserLocation extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.r)),
                             ),
-                            child: const Text("Save Address"),
+                            child: const Text("Save Address",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16)),
                           ),
                         ],
                       ),

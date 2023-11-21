@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
       ),
     ];
     return Scaffold(
+        extendBody: true,
         backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -86,7 +87,12 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
-                  child: headline("On-Demand Services", () {}),
+                  child: headline(
+                      "On-Demand Services",
+                      () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MoreService()))),
                 ),
                 Padding(
                   padding:

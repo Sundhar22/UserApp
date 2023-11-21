@@ -96,12 +96,14 @@ class MoreService extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20.h),
-            serviceCardWidget(services, 350.h),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20.h),
+              serviceCardWidget(services, 350.h),
+            ],
+          ),
         ),
       ),
     );
