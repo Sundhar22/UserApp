@@ -6,7 +6,7 @@ import 'home_page_search_bar.dart';
 Container innerContainerWidget() {
   return Container(
     height: 145.h,
-    padding: EdgeInsets.symmetric(vertical: 20.h),
+    padding: EdgeInsets.symmetric(vertical: 15.h),
     decoration: BoxDecoration(
       border: Border(
           bottom: BorderSide(
