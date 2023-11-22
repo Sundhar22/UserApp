@@ -17,7 +17,7 @@ ThemeData buildApp() {
     iconTheme: const IconThemeData(color: Colors.black),
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
-      iconColor: MaterialStatePropertyAll(Colors.black),
+      iconColor: MaterialStatePropertyAll(Colors.white),
     )),
   );
 }
