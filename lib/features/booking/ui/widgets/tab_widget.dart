@@ -18,6 +18,7 @@ class CustomTabs extends StatelessWidget {
           border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
       child: TabBar(
         controller: _tabController,
+        tabAlignment:TabAlignment.start ,
         automaticIndicatorColorAdjustment: true,
         isScrollable: true,
         indicatorColor: AppColor.primaryColor,

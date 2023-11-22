@@ -14,7 +14,7 @@ class _BookingPageState extends State<BookingPage>
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 8, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     super.initState();
   }
 
