@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
 import 'package:user_app/features/home/ui/home.dart';
+import 'package:user_app/features/profile/ui/profile_ui.dart';
 
 import '../../booking/ui/booking.dart';
 
@@ -12,14 +13,8 @@ class NavBar extends StatefulWidget {
   State<NavBar> createState() => _NavBarState();
 }
 
-
 class _NavBarState extends State<NavBar> {
-  List<Widget> pages = const <Widget>[
-    HomePage(),
-BookingPage(),
-    HomePage(),
-    // ProfilePage(),
-  ];
+  List<Widget> pages = const <Widget>[HomePage(), BookingPage(), ProfilePage()];
   int index = 0;
   @override
   Widget build(BuildContext context) {
