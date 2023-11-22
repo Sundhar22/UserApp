@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
 import 'package:user_app/features/home/ui/home.dart';
 
-import '../../booking/ui/booking_page.dart';
+import '../../booking/ui/booking.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
