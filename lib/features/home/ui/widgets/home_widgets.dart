@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../widgets/notification/ui/notification_page.dart';
+
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
 
@@ -51,7 +53,12 @@ class HomeWidget extends StatelessWidget {
               ],
             ),
           ),
-          NotificationIconCustom(onTap: () {})
+          NotificationIconCustom(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  NotificationPage()),
+            ),
+          ),
         ],
       ),
     );

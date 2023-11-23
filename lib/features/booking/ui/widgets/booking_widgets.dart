@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../home/ui/widgets/home_widgets.dart';
+import '../../../widgets/notification/ui/notification_page.dart';
 import 'tab_widget.dart';
 
-AppBar bookingAppBar(TabController tabController) {
+AppBar bookingAppBar(TabController tabController, BuildContext context) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -32,7 +33,10 @@ AppBar bookingAppBar(TabController tabController) {
               width: 20.w,
             ),
             NotificationIconCustom(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationPage()),
+              ),
               height: 20.h,
               width: 20.w,
             ),

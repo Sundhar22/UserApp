@@ -3,6 +3,13 @@ import 'package:user_app/constant/colors/app_color.dart';
 
 ThemeData buildApp() {
   return ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      foregroundColor: Colors.black,
+      scrolledUnderElevation: 0,
+    ),
     colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
     fontFamily: 'Urbanist',
     elevatedButtonTheme: const ElevatedButtonThemeData(
@@ -16,8 +23,11 @@ ThemeData buildApp() {
     ),
     iconTheme: const IconThemeData(color: Colors.black),
     iconButtonTheme: const IconButtonThemeData(
-        style: ButtonStyle(
-      iconColor: MaterialStatePropertyAll(Colors.white),
-    )),
+      style: ButtonStyle(
+        iconColor: MaterialStatePropertyAll(
+          Colors.black,
+        ),
+      ),
+    ),
   );
 }

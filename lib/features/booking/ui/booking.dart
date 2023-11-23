@@ -21,7 +21,7 @@ class _BookingPageState extends State<BookingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bookingAppBar(_tabController),
+      appBar: bookingAppBar(_tabController, context),
       body: TabBarView(
         controller: _tabController,
         children: const [

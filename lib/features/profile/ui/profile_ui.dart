@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
 
 import '../../home/ui/widgets/home_widgets.dart';
+import '../../widgets/notification/ui/notification_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -10,7 +11,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: profileAppBar(),
+      appBar: profileAppBar(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -262,7 +263,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  AppBar profileAppBar() {
+  AppBar profileAppBar(BuildContext context) {
     return AppBar(
       title: Text(
         'My Profile',
@@ -277,7 +278,10 @@ class ProfilePage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0.w),
           child: NotificationIconCustom(
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationPage()),
+            ),
             height: 20.h,
             width: 20.w,
           ),
