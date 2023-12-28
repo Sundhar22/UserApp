@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'service_card.dart';
 import 'service_card_widget.dart';
 
@@ -56,13 +57,13 @@ class MoreService extends StatelessWidget {
     ),
     serviceCard(
       img: "fridge-50.png",
-      title: "fridge",
+      title: "Fridge",
       color: Colors.deepPurpleAccent,
       onTap: () {},
     ),
     serviceCard(
       img: "bullet-camera-100.png",
-      title: "CCTV service",
+      title: "CCTV",
       color: Colors.redAccent,
       onTap: () {},
     ),
@@ -74,7 +75,7 @@ class MoreService extends StatelessWidget {
     ),
     serviceCard(
       img: "car-battery-100.png",
-      title: "Battery service",
+      title: "Battery",
       color: Colors.green,
       onTap: () {},
     ),
