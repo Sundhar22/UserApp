@@ -10,6 +10,7 @@ import 'package:user_app/features/auth/ui/user_registration.dart';
 import 'package:user_app/features/booking/ui/booking.dart';
 import 'package:user_app/features/home/ui/home.dart';
 import 'package:user_app/features/onboarding/ui/pages/onboarding_page.dart';
+import 'package:user_app/features/order/ui/order.dart';
 import 'package:user_app/features/userLocation/user_choice/user_choice.dart';
 import 'package:user_app/features/userLocation/user_selected/user_location.dart';
 import 'package:user_app/features/widgets/nav_bar/nav_bar.dart';
@@ -32,8 +33,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'User App',
           debugShowCheckedModeBanner: false,
-          theme: buildApp(),
-          initialRoute: 'register',
+          theme: buildApp(context),
+          initialRoute: 'order',
           routes: {
             'nav': (context) => const NavBar(),
             'register': (context) => const UserRegistrationScreen(),
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             'home': (context) => const HomePage(),
             'booking': (context) => const BookingPage(),
             'user-details-reg': (context) => const UserDetailsReg(),
+            'order': (context) => const OrderPage(),
           },
         ),
       ),

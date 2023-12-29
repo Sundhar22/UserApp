@@ -32,9 +32,7 @@ class OtpScreen extends StatelessWidget {
                     numberOfFields: 6,
                     focusedBorderColor: AppColor.primaryColor,
                     autoFocus: true,
-
                     showFieldAsBox: true,
-
                     onSubmit: (String verificationCode) {
                       BlocProvider.of<RegisterBloc>(context).add(
                         VerifyOtp(
