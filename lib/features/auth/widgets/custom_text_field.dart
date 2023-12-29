@@ -49,7 +49,7 @@ class CustomTextField extends StatelessWidget {
               fontSize: 16.5.sp,
               fontWeight: FontWeight.w500,
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: TextInputAction.done,
           ),
         ],
       ),

@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/features/auth/bloc/register_bloc.dart';
+import 'package:user_app/features/auth/func/register_func.dart';
 import 'package:user_app/features/auth/widgets/custom_text_field.dart';
 import 'package:user_app/features/auth/widgets/elevated_button.dart';
 
 import '../../../constant/colors/app_color.dart';
 import '../../widgets/flutterToast/flutter_toast.dart';
 
-class MailVerification extends StatelessWidget {
-  const MailVerification({super.key});
+class UserDetailsReg extends StatelessWidget {
+  const UserDetailsReg({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +66,25 @@ class MailVerification extends StatelessWidget {
                     fieldName: "Email Address",
                     onSubmitted: (value) => emailSubmitted(value, context)),
                 SizedBox(height: 180.h),
-
                 CustomElevatedButton(
                   onPressed: () {
-                    print(
-                        '\x1B[33m${context.read<RegisterBloc>().state.firstName}\x1B[0m');
-                    print(
-                        '\x1B[33m${context.read<RegisterBloc>().state.lastName}\x1B[0m');
-                    print(
-                        '\x1B[33m${context.read<RegisterBloc>().state.email}\x1B[0m');
-                    
-
-                    // Navigator.pushNamed(context, "user-location-choice");
+                    if (context.read<RegisterBloc>().state.email != null &&
+                        context.read<RegisterBloc>().state.firstName != null) {
+                      registerUserDetails(
+                        firstName:
+                            context.read<RegisterBloc>().state.firstName!,
+                        lastName: context.read<RegisterBloc>().state.lastName!,
+                        email: context.read<RegisterBloc>().state.email!,
+                      );
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'user-location-choice',
+                          (Route<dynamic> route) => false);
+                    } else {
+                      toastMessage(
+                          'Please enter your first name and email address',
+                          context);
+                    }
                   },
                 ),
               ],
@@ -118,7 +124,7 @@ class MailVerification extends StatelessWidget {
   }
 
   void firstNameSubmitted(value, BuildContext context) {
-    if (value.isNotEmpty) {
+    if (value.isNotEmpty && value.length > 2 && value != '') {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(firstName: value));
     } else {
       toastMessage('Please enter a first name', context);
@@ -126,9 +132,6 @@ class MailVerification extends StatelessWidget {
   }
 
   emailSubmitted(String value, BuildContext context) {
-    if (value.isEmpty) {
-      toastMessage('Please enter an email', context);
-    }
     if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(email: value));
     } else {

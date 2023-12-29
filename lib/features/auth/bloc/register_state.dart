@@ -15,7 +15,7 @@ class RegisterState {
     this.otp,
     this.email,
     this.firstName,
-    this.lastName,
+    this.lastName = '',
   });
 
   RegisterState copyWith(
