@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'User App',
           debugShowCheckedModeBanner: false,
           theme: buildApp(),
-          initialRoute: 'register',
+          initialRoute: 'nav',
           routes: {
             'nav': (context) => const NavBar(),
             'register': (context) => const UserRegistrationScreen(),
