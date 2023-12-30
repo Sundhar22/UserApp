@@ -6,9 +6,11 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.fieldName,
+    required this.onSubmitted,
   });
 
   final String fieldName;
+  final void Function(String) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,7 @@ class CustomTextField extends StatelessWidget {
           TextField(
             minLines: 1,
             decoration: InputDecoration(
-              suffixIcon: fieldName == "Mobile Number"
-                  ? const Icon(Icons.done, color: Colors.green)
-                  : null,
+              hintText: "Enter $fieldName",
               contentPadding: EdgeInsets.all(10.r),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
@@ -40,11 +40,16 @@ class CustomTextField extends StatelessWidget {
                 ),
               ),
             ),
+            keyboardType: fieldName == "Email Address"
+                ? TextInputType.emailAddress
+                : TextInputType.text,
+            onSubmitted: onSubmitted,
             style: TextStyle(
               color: AppColor.textPrimaryColor,
               fontSize: 16.5.sp,
               fontWeight: FontWeight.w500,
             ),
+            textInputAction: TextInputAction.done,
           ),
         ],
       ),

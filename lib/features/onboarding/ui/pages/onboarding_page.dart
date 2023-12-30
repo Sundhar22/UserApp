@@ -114,8 +114,8 @@ class OnBoardingPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: 25.w, right: 25.w),
                             child: ElevatedButton(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, 'user-location-choice'),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, 'register'),
                               style: ElevatedButton.styleFrom(
                                 splashFactory: NoSplash.splashFactory,
                                 shape: RoundedRectangleBorder(
@@ -131,8 +131,7 @@ class OnBoardingPage extends StatelessWidget {
                             ),
                           ),
                         )
-                      :
-                      Positioned(
+                      : Positioned(
                           bottom: 40.h,
                           right: 0,
                           child: Padding(

@@ -1,19 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/constant/bloc_provider/bloc_providers.dart';
 import 'package:user_app/constant/theme/app_theme.dart';
+import 'package:user_app/features/auth/ui/otp_screen.dart';
+import 'package:user_app/features/auth/ui/user_deatils_reg.dart';
+import 'package:user_app/features/auth/ui/user_registration.dart';
 import 'package:user_app/features/booking/ui/booking.dart';
 import 'package:user_app/features/home/ui/home.dart';
 import 'package:user_app/features/onboarding/ui/pages/onboarding_page.dart';
-import 'package:user_app/features/onboarding/ui/pages/otp_screen.dart';
-import 'package:user_app/features/onboarding/ui/pages/user_registration.dart';
 import 'package:user_app/features/userLocation/user_choice/user_choice.dart';
 import 'package:user_app/features/userLocation/user_selected/user_location.dart';
 import 'package:user_app/features/widgets/nav_bar/nav_bar.dart';
+import 'package:user_app/firebase_options.dart';
 
-import 'features/onboarding/bloc/onboarding_bloc.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => OnboardingBloc())],
+      providers: BlocProviders.get(),
       child: ScreenUtilInit(
         child: MaterialApp(
           title: 'User App',
@@ -39,6 +43,7 @@ class MyApp extends StatelessWidget {
             'user-location-choice': (context) => const UserLocationChoice(),
             'home': (context) => const HomePage(),
             'booking': (context) => const BookingPage(),
+            'user-details-reg': (context) => const UserDetailsReg(),
           },
         ),
       ),
