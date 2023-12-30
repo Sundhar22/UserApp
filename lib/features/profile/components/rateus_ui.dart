@@ -12,7 +12,7 @@ Future rateUs(BuildContext context) {
         height: 400.h,
         child: Column(
           children: [
-            ratingpage(context),
+            ratingPage(context),
           ],
         ),
       ),
@@ -20,7 +20,7 @@ Future rateUs(BuildContext context) {
   );
 }
 
-Widget ratingpage(BuildContext context) {
+Widget ratingPage(BuildContext context) {
   return Column(
     children: [
       Image.asset(

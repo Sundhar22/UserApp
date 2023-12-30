@@ -118,11 +118,15 @@ class _CustomerServiceState extends State<CustomerService> {
   }
 
   Widget _serviceProvideContainer(String content, String time) {
-    return _messageContainer(content, time, MessageType.serviceProvider);
+    return Align(
+        alignment: Alignment.centerLeft,
+        child: _messageContainer(content, time, MessageType.serviceProvider));
   }
 
   Widget _userContainer(String content, String time) {
-    return _messageContainer(content, time, MessageType.user);
+    return Align(
+        alignment: Alignment.centerRight,
+        child: _messageContainer(content, time, MessageType.user));
   }
 
   Widget _messageContainer(String content, String time, MessageType type) {
@@ -130,19 +134,19 @@ class _CustomerServiceState extends State<CustomerService> {
 
     return Container(
       alignment: Alignment.centerRight,
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      width: 260.w,
+      margin: EdgeInsets.all(10.r),
+      padding: EdgeInsets.all(10.r),
+      width: 270.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: isServiceProvider
               ? const Radius.circular(0)
-              : const Radius.circular(10),
+              : Radius.circular(10.r),
           topRight: isServiceProvider
-              ? const Radius.circular(10)
+              ? Radius.circular(10.r)
               : const Radius.circular(0),
-          bottomLeft: const Radius.circular(10),
-          bottomRight: const Radius.circular(10),
+          bottomLeft: Radius.circular(10.r),
+          bottomRight: Radius.circular(10.r),
         ),
         color: isServiceProvider
             ? AppColor.textSecondaryColor.withOpacity(0.1)
