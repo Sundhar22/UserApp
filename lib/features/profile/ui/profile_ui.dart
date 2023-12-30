@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
+import 'package:user_app/features/profile/components/help_center_ui.dart';
+import 'package:user_app/features/profile/components/manage_address_ui.dart';
+import 'package:user_app/features/profile/components/rateus_ui.dart';
 
 import '../../home/ui/widgets/home_widgets.dart';
 import '../../widgets/notification/ui/notification_page.dart';
@@ -26,7 +29,7 @@ class ProfilePage extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.1),
               ),
               // Profile Content
-              profileContent(),
+              profileContent(context),
               Divider(
                 color: Colors.grey.withOpacity(0.1),
               ),
@@ -101,7 +104,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  SizedBox profileContent() {
+  SizedBox profileContent(BuildContext context) {
     return SizedBox(
       height: 350.h,
       child: Column(
@@ -119,8 +122,15 @@ class ProfilePage extends StatelessWidget {
           ),
           profileContentWidget(
             iconPath: 'assets/icons/location-100.png',
-            title: 'Manage Address',
-            onTap: () {},
+            title: 'Manage Addresses',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const ManageAddresses(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/wallet-100.png',
@@ -130,12 +140,21 @@ class ProfilePage extends StatelessWidget {
           profileContentWidget(
             iconPath: 'assets/icons/help-100.png',
             title: 'Help Center',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const HelpCenter(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/star-100-2.png',
             title: 'Rate Us',
-            onTap: () {},
+            onTap: () {
+              rateUs(context);
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/about-100.png',
@@ -147,10 +166,13 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Row profileContentWidget(
-      {required String iconPath,
-      required String title,
-      required Function onTap}) {
+ 
+
+  Row profileContentWidget({
+    required String iconPath,
+    required String title,
+    required void Function() onTap,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -178,7 +200,7 @@ class ProfilePage extends StatelessWidget {
         ),
         IconButton(
             style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
-            onPressed: () {},
+            onPressed: onTap,
             icon: Icon(
               Icons.arrow_forward_ios_rounded,
               size: 15.sp,
