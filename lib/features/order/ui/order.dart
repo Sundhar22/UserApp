@@ -3,7 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/features/order/bloc/order_bloc.dart';
 import 'package:user_app/features/order/bloc/order_state.dart';
+import 'package:user_app/features/order/ui/installation_choices.dart';
+import 'package:user_app/features/order/ui/pick_service_date.dart';
+import 'package:user_app/features/order/ui/pick_service_time.dart';
+import 'package:user_app/features/order/ui/service_quantity.dart';
 import 'package:user_app/features/order/ui/type_of_service.dart';
+import 'package:user_app/features/order/widgets/order_title.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -14,22 +19,35 @@ class OrderPage extends StatelessWidget {
       builder: (context, state) {
         bool isInstallation = state.requestType == "Installation";
         return Scaffold(
-          bottomSheet: Container(
-            height: 58.h,
-            color: isInstallation ? Colors.blue : Colors.red,
-            child: Center(
-                child: Text(
-              isInstallation ? "Request Installation" : "Request Repair",
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            )),
-          ),
+          extendBody: true,
+          bottomSheet: (state.requestType != "" &&
+                  state.serviceDate != "" &&
+                  state.serviceTime != "" &&
+                  state.productQuantity != 0)
+              ? GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 58.h,
+                    color: isInstallation ? Colors.blue : Colors.red,
+                    child: Center(
+                        child: Text(
+                      isInstallation
+                          ? "Request Installation"
+                          : "Request Repair",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    )),
+                  ),
+                )
+              : null,
           appBar: AppBar(
-            backgroundColor: state.requestType == "Installation"
-                ? Colors.blueAccent.withOpacity(.1)
-                : Colors.redAccent.withOpacity(.1),
+            backgroundColor: state.requestType == ""
+                ? Colors.grey.withOpacity(.1)
+                : state.requestType == "Installation"
+                    ? Colors.blueAccent.withOpacity(.1)
+                    : Colors.redAccent.withOpacity(.1),
             leading: IconButton(
                 onPressed: () {}, icon: const Icon(Icons.arrow_back)),
             title: const Text("Request Service"),
@@ -39,51 +57,18 @@ class OrderPage extends StatelessWidget {
               child: const TypeOfService(),
             ),
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const InstallationChoice(),
-              Text(
-                "Select Date Of Service",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(
-                height: 55.h,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    DateWidget(),
-                    DateWidget(),
-                    DateWidget(),
-                    DateWidget(),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              Text(
-                "Select Time of Service",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(
-                height: 55.h,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    DateWidget(),
-                    DateWidget(),
-                    DateWidget(),
-                    DateWidget(),
-                  ],
-                ),
-              )
-            ],
+          body: const SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InstallationChoice(),
+                SelectQuantity(),
+                PickServiceDate(),
+                ServiceTime(),
+                OptionalMessage(),
+              ],
+            ),
           ),
         );
       },
@@ -91,100 +76,46 @@ class OrderPage extends StatelessWidget {
   }
 }
 
-class DateWidget extends StatelessWidget {
-  const DateWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10, right: 15),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: .5,
-            color: Colors.black,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10))),
-      child: const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.access_time_rounded),
-          SizedBox(width: 10),
-          Text(
-            "Wed, 25th Jan",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InstallationChoice extends StatelessWidget {
-  const InstallationChoice({
+class OptionalMessage extends StatelessWidget {
+  const OptionalMessage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Choose Which one to install !",
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: DropdownMenu(
-              initialSelection: "Tube Light",
-              inputDecorationTheme: InputDecorationTheme(
-                errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red)),
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(),
-              ),
-              dropdownMenuEntries: [
-                DropdownMenuEntry(
-                  value: "Tube Light",
-                  label: "Tube Light",
+          const OrderTitle(title: "Optional Instructions"),
+          const SizedBox(height: 15),
+          BlocBuilder<OrderBloc, OrderState>(
+            builder: (context, state) {
+              return TextField(
+                minLines: 1,
+                maxLines: null,
+                decoration: InputDecoration(
+                  hintText: "Your Instructions goes here",
+                  contentPadding: EdgeInsets.all(10.r),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
                 ),
-                DropdownMenuEntry(
-                  value: "Spot Light",
-                  label: "Spot Light",
+                onSubmitted: (s) {
+                  state.productQuantity = int.parse(s);
+                },
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.5.sp,
+                  fontWeight: FontWeight.w500,
                 ),
-                DropdownMenuEntry(
-                  value: "Junction Light",
-                  label: "Junction Light",
-                ),
-                DropdownMenuEntry(
-                  value: "Celling Light",
-                  label: "Celling Light",
-                ),
-                DropdownMenuEntry(
-                  value: "Surface Light",
-                  label: "Surface Light",
-                ),
-                DropdownMenuEntry(
-                  value: "Unmossal Light",
-                  label: "Unmossal Light",
-                ),
-                DropdownMenuEntry(
-                  value: "Strip Light",
-                  label: "Strip Light",
-                ),
-              ],
-            ),
+                textInputAction: TextInputAction.done,
+              );
+            },
           ),
         ],
       ),

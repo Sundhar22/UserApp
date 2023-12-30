@@ -15,9 +15,6 @@ class TypeOfService extends StatelessWidget {
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          // color: state.requestType == "Installation"
-          //     ? Colors.blueAccent.withOpacity(.1)
-          //     : Colors.redAccent.withOpacity(.1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -38,6 +35,15 @@ class TypeOfService extends StatelessWidget {
                   BlocProvider.of<OrderBloc>(context).add(OrderEvents());
                 },
                 child: const Text("Repair"),
+              ),
+              RadioMenuButton(
+                value: "Combo",
+                groupValue: state.requestType,
+                onChanged: (value) {
+                  state.requestType = value!;
+                  BlocProvider.of<OrderBloc>(context).add(OrderEvents());
+                },
+                child: const Text("Combo"),
               ),
             ],
           ),

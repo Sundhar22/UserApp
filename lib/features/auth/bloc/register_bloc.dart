@@ -18,6 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<VerifyOtp>((event, emit) {
       emit(state.copyWith(otp: event.otp));
     });
+
     on<RegisterUserWithEmail>((event, emit) {
       if (event.email != null) {
         emit(state.copyWith(email: event.email));

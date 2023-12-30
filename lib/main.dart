@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: buildApp(context),
           initialRoute: 'order',
-          routes: {
+          routes: <String, WidgetBuilder>{
             'nav': (context) => const NavBar(),
             'register': (context) => const UserRegistrationScreen(),
             'otp': (context) => const OtpScreen(),

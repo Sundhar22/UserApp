@@ -6,7 +6,23 @@ class OrderBloc extends Bloc<OrderEvents, OrderState> {
   OrderBloc() : super(OrderState()) {
     on<OrderEvents>(
       (event, emit) {
-        emit(OrderState(requestType: state.requestType));
+        emit(
+          state.copyWith(requestType: state.requestType),
+        );
+      },
+    );
+
+    on<OrderDateEvents>(
+      (event, emit) {
+        emit(
+          state.copyWith(serviceDate: state.serviceDate),
+        );
+      },
+    );
+
+    on<OrderTimeEvents>(
+      (event, emit) {
+        emit(state.copyWith(serviceTime: state.serviceTime));
       },
     );
   }
