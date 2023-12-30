@@ -30,12 +30,10 @@ environment:
 dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.13.6
-  convex_bottom_bar: ^3.2.0
   cupertino_icons: ^1.0.2
   dots_indicator: ^3.0.0
   firebase_auth: ^4.14.1
   firebase_core: ^2.23.0
-  firebase_dynamic_links: ^5.4.8
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
