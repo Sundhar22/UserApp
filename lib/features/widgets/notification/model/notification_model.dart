@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class NotificationContent {
   final String title;
   final String content;
@@ -13,7 +12,8 @@ class NotificationContent {
   factory NotificationContent.fromMap(Map<String, dynamic> map) {
     return NotificationContent(
       title: map['title'] as String,
-      content: map['body'] as String, date: map['time'] as String,
+      content: map['body'] as String,
+      date: map['time'] as String,
     );
   }
 }

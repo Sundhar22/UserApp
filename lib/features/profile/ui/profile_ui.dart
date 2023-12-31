@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/constant/colors/app_color.dart';
 import 'package:user_app/features/profile/components/help_center_ui.dart';
 import 'package:user_app/features/profile/components/manage_address_ui.dart';
+import 'package:user_app/features/profile/components/notification_ui.dart';
+import 'package:user_app/features/profile/components/payment_ui.dart';
 import 'package:user_app/features/profile/components/rateus_ui.dart';
 
 import '../../home/ui/widgets/home_widgets.dart';
@@ -118,7 +120,15 @@ class ProfilePage extends StatelessWidget {
           profileContentWidget(
             iconPath: 'assets/icons/notification-100.png',
             title: 'Notification',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      const NotificationSettings(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/location-100.png',
@@ -135,7 +145,14 @@ class ProfilePage extends StatelessWidget {
           profileContentWidget(
             iconPath: 'assets/icons/wallet-100.png',
             title: 'Payment',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>  PaymentHistory(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/help-100.png',
@@ -165,8 +182,6 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
- 
 
   Row profileContentWidget({
     required String iconPath,

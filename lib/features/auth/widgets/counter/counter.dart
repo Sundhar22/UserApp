@@ -1,7 +1,7 @@
-import 'dart:async';
+// import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/constant/colors/app_color.dart';
+// import 'package:user_app/constant/colors/app_color.dart';
 
 class SecondsCounter extends StatelessWidget {
   const SecondsCounter({super.key});
@@ -19,7 +19,7 @@ class SecondsCounter extends StatelessWidget {
       ),
       child: Container(
         alignment: Alignment.bottomRight,
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // Text(

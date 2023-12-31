@@ -215,7 +215,7 @@ class _BookingCardState extends State<BookingCard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Date Container
-        Container(
+        SizedBox(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
