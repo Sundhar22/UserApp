@@ -29,9 +29,13 @@ class ServiceTime extends StatelessWidget {
                   context: context,
                   initialTime: TimeOfDay.now(),
                 );
-                if (time != null) {
-                  state.serviceTime = time.format(context);
-                  BlocProvider.of<OrderBloc>(context).add(OrderDateEvents());
+
+                //  Updating the selected time to the satate
+                if (context.mounted) {
+                  if (time != null) {
+                    BlocProvider.of<OrderBloc>(context).add(OrderTimingsUpdate(
+                        timeOfService: time.format(context)));
+                  }
                 }
               },
               child: Container(

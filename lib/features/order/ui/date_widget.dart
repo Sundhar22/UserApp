@@ -33,12 +33,12 @@ class DateWidget extends StatelessWidget {
                 initialDate: DateTime.now(),
               );
               if (date != null) {
-                state.serviceDate = formatDate(date);
-                BlocProvider.of<OrderBloc>(context).add(OrderDateEvents());
+                BlocProvider.of<OrderBloc>(context)
+                    .add(OrderTimingsUpdate(dateOfService: formatDate(date)));
               }
             } else {
-              state.serviceDate = date;
-              BlocProvider.of<OrderBloc>(context).add(OrderDateEvents());
+              BlocProvider.of<OrderBloc>(context)
+                  .add(OrderTimingsUpdate(dateOfService: date));
             }
           },
           child: Container(

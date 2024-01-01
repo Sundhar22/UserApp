@@ -22,8 +22,8 @@ class TypeOfService extends StatelessWidget {
                 value: "Installation",
                 groupValue: state.requestType,
                 onChanged: (value) {
-                  state.requestType = value!;
-                  BlocProvider.of<OrderBloc>(context).add(OrderEvents());
+                  BlocProvider.of<OrderBloc>(context)
+                      .add(OrderTypeUpdate(typeOfService: value!));
                 },
                 child: const Text("Installation"),
               ),
@@ -31,8 +31,8 @@ class TypeOfService extends StatelessWidget {
                 value: "Repair",
                 groupValue: state.requestType,
                 onChanged: (value) {
-                  state.requestType = value!;
-                  BlocProvider.of<OrderBloc>(context).add(OrderEvents());
+                  BlocProvider.of<OrderBloc>(context)
+                      .add(OrderTypeUpdate(typeOfService: value!));
                 },
                 child: const Text("Repair"),
               ),
@@ -40,8 +40,8 @@ class TypeOfService extends StatelessWidget {
                 value: "Combo",
                 groupValue: state.requestType,
                 onChanged: (value) {
-                  state.requestType = value!;
-                  BlocProvider.of<OrderBloc>(context).add(OrderEvents());
+                  BlocProvider.of<OrderBloc>(context)
+                      .add(OrderTypeUpdate(typeOfService: value!));
                 },
                 child: const Text("Combo"),
               ),

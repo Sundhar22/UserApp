@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/features/order/bloc/order_bloc.dart';
+import 'package:user_app/features/order/bloc/order_events.dart';
 import 'package:user_app/features/order/bloc/order_state.dart';
 import 'package:user_app/features/order/widgets/order_title.dart';
 
@@ -37,7 +38,8 @@ class SelectQuantity extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.number,
                   onSubmitted: (s) {
-                    state.productQuantity = int.parse(s);
+                    BlocProvider.of<OrderBloc>(context)
+                        .add(OrderDetailsUpdate(productQuantity: int.parse(s)));
                   },
                   style: TextStyle(
                     color: Colors.black,

@@ -19,13 +19,11 @@ class OrderPage extends StatelessWidget {
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
         return Scaffold(
-          extendBody: true,
+          bottomSheet: const RequestButton(),
           appBar: AppBar(
-            backgroundColor: state.requestType == ""
-                ? Colors.grey.withOpacity(.1)
-                : state.requestType == "Installation"
-                    ? Colors.blueAccent.withOpacity(.1)
-                    : Colors.redAccent.withOpacity(.1),
+            backgroundColor: state.requestType == "Installation"
+                ? Colors.blueAccent.withOpacity(.1)
+                : Colors.redAccent.withOpacity(.1),
             leading: IconButton(
                 onPressed: () {}, icon: const Icon(Icons.arrow_back)),
             title: const Text("Request Service"),
@@ -45,7 +43,6 @@ class OrderPage extends StatelessWidget {
                 PickServiceDate(),
                 ServiceTime(),
                 OptionalMessage(),
-                PlaceOrderButton(),
               ],
             ),
           ),
