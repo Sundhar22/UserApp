@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/features/order/widgets/order_title.dart';
 
 class InstallationChoice extends StatelessWidget {

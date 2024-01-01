@@ -40,8 +40,6 @@ class DateWidget extends StatelessWidget {
               state.serviceDate = date;
               BlocProvider.of<OrderBloc>(context).add(OrderDateEvents());
             }
-
-            //
           },
           child: Container(
             margin: EdgeInsets.only(top: 10.h, right: 15.w, left: 10.w),
@@ -70,7 +68,7 @@ class DateWidget extends StatelessWidget {
                   style: TextStyle(
                     color: textColor(),
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:user_app/features/order/bloc/order_bloc.dart';
 import 'package:user_app/features/order/bloc/order_state.dart';
 import 'package:user_app/features/order/ui/installation_choices.dart';
@@ -11,8 +10,6 @@ import 'package:user_app/features/order/ui/pick_service_time.dart';
 import 'package:user_app/features/order/ui/place_order_button.dart';
 import 'package:user_app/features/order/ui/service_quantity.dart';
 import 'package:user_app/features/order/ui/type_of_service.dart';
-import 'package:user_app/features/order/widgets/order_title.dart';
-import 'package:vibration/vibration.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -21,31 +18,8 @@ class OrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
-        bool isInstallation = state.requestType == "Installation";
         return Scaffold(
           extendBody: true,
-          // bottomSheet: (state.requestType != "" &&
-          //         state.serviceDate != "" &&
-          //         state.serviceTime != "" &&
-          //         state.productQuantity != 0)
-          //     ? GestureDetector(
-          //         onTap: () {},
-          //         child: Container(
-          //           height: 58.h,
-          //           color: isInstallation ? Colors.blue : Colors.red,
-          //           child: Center(
-          //               child: Text(
-          //             isInstallation
-          //                 ? "Request Installation"
-          //                 : "Request Repair",
-          //             style: const TextStyle(
-          //               color: Colors.white,
-          //               fontSize: 18,
-          //             ),
-          //           )),
-          //         ),
-          //       )
-          //     : null,
           appBar: AppBar(
             backgroundColor: state.requestType == ""
                 ? Colors.grey.withOpacity(.1)

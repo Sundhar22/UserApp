@@ -13,7 +13,7 @@ class OptionalMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,7 +23,7 @@ class OptionalMessage extends StatelessWidget {
             builder: (context, state) {
               return TextField(
                 minLines: 1,
-                maxLines: null,
+                maxLines: 30,
                 decoration: InputDecoration(
                   hintText: "Your Instructions goes here",
                   contentPadding: EdgeInsets.all(10.r),

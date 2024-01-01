@@ -8,11 +8,28 @@ class OrderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w500,
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: title,
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontFamily: 'Urbanist',
+            ),
+          ),
+          TextSpan(
+            text: " *",
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.red,
+              fontFamily: 'Urbanist',
+            ),
+          ),
+        ],
       ),
     );
   }
