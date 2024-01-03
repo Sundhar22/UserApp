@@ -10,6 +10,10 @@ ThemeData buildApp(BuildContext context) {
         foregroundColor: Colors.black,
         scrolledUnderElevation: 0,
       ),
+      dialogTheme: const DialogTheme(
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+      ),
       dropdownMenuTheme: const DropdownMenuThemeData(
         textStyle: TextStyle(
           fontWeight: FontWeight.w500,

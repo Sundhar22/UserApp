@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/features/order/widgets/order_title.dart';
 
 class InstallationChoice extends StatelessWidget {
@@ -8,15 +9,15 @@ class InstallationChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 10, left: 10),
+    return Padding(
+      padding: EdgeInsets.only(top: 15.h, left: 10.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          OrderTitle(title: "Choose Which one to install !"),
+          const OrderTitle(title: "Choose Which one to install !"),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: DropdownMenu(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: const DropdownMenu(
               hintText: "Select Type",
               initialSelection: "",
               inputDecorationTheme: InputDecorationTheme(

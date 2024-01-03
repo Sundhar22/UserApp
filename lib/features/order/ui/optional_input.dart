@@ -14,18 +14,19 @@ class OptionalMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 25,
-        horizontal: 10,
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+        top: 30,
+        bottom: 50,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const OrderTitle(title: "Optional Instructions"),
+          const OrderTitle(title: "Optional Instructions", isOptional: true),
           const SizedBox(height: 15),
           BlocBuilder<OrderBloc, OrderState>(
             builder: (context, state) {
-              print(state.optionalInstruction);
               return TextField(
                 minLines: 1,
                 maxLines: 30,
@@ -45,13 +46,18 @@ class OptionalMessage extends StatelessWidget {
                     OrderKeyBoardTapEvent(iskeyBoardActivated: true),
                   );
                 },
-                onSubmitted: (s) async {
-                  await Future.delayed(const Duration(milliseconds: 500));
 
+                // Submit Event
+                onSubmitted: (s) async {
+                  BlocProvider.of<OrderBloc>(context).add(
+                    OrderDetailsUpdate(
+                      optionalInstructions: s,
+                    ),
+                  );
+
+                  // Event
+                  await Future.delayed(const Duration(milliseconds: 200));
                   if (context.mounted) {
-                    BlocProvider.of<OrderBloc>(context).add(
-                      OrderDetailsUpdate(optionalInstructions: s),
-                    );
                     BlocProvider.of<OrderBloc>(context).add(
                       OrderKeyBoardTapEvent(iskeyBoardActivated: false),
                     );

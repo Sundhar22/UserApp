@@ -5,34 +5,35 @@ import 'package:user_app/features/order/bloc/order_state.dart';
 class OrderBloc extends Bloc<OrderEvents, OrderState> {
   OrderBloc() : super(OrderState()) {
     on<OrderTypeUpdate>((event, emit) {
-      emit(state.copyWith(requestType: event.typeOfService));
+      emit(state.copyWith(
+        requestType: event.typeOfService,
+        productQuantity: 0,
+      ));
     });
 
     on<OrderDetailsUpdate>(
       (event, emit) {
-        if (event.productQuantity != 0) {
-          emit(
-            state.copyWith(
-              productQuantity: event.productQuantity,
-            ),
-          );
+        if (event.optionalInstructions != "") {
+          emit(state.copyWith(optionalInstruction: event.optionalInstructions));
         }
 
-        if (event.optionalInstructions != null) {
-          emit(state.copyWith(optionalInstruction: event.optionalInstructions));
+        if (event.productQuantity != 0) {
+          emit(state.copyWith(productQuantity: event.productQuantity));
         }
       },
     );
 
     on<OrderTimingsUpdate>(
       (event, emit) {
-        if (event.dateOfService != "") {
+        if (event.dateOfService != "" &&
+            event.dateOfService != state.serviceDate) {
           emit(
             state.copyWith(serviceDate: event.dateOfService),
           );
         }
 
-        if (event.timeOfService != "") {
+        if (event.timeOfService != "" &&
+            event.timeOfService != state.serviceTime) {
           emit(state.copyWith(serviceTime: event.timeOfService));
         }
       },

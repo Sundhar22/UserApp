@@ -32,7 +32,7 @@ class DateWidget extends StatelessWidget {
                 lastDate: DateTime.now().add(const Duration(days: 7)),
                 initialDate: DateTime.now(),
               );
-              if (date != null) {
+              if (date != null && context.mounted) {
                 BlocProvider.of<OrderBloc>(context)
                     .add(OrderTimingsUpdate(dateOfService: formatDate(date)));
               }
@@ -48,7 +48,7 @@ class DateWidget extends StatelessWidget {
                 color: returnColor(),
                 border: Border.all(
                   width: 1.w,
-                  color: !isSelected ? Colors.black : Colors.transparent,
+                  color: !isSelected ? Colors.grey : Colors.transparent,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.r))),
             child: Row(
@@ -68,7 +68,7 @@ class DateWidget extends StatelessWidget {
                   style: TextStyle(
                     color: textColor(),
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

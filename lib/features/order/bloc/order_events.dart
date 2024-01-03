@@ -20,12 +20,12 @@ class OrderTypeUpdate extends OrderEvents {
 class OrderDetailsUpdate extends OrderEvents {
   String productOfService;
   int productQuantity;
-  String? optionalInstructions;
+  String optionalInstructions;
 
   OrderDetailsUpdate({
     this.productOfService = "",
     this.productQuantity = 0,
-    String? optionalInstructions,
+    this.optionalInstructions = "",
   });
 
   OrderDetailsUpdate copyWith({

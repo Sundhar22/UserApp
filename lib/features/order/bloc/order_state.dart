@@ -5,7 +5,7 @@ class OrderState {
   String serviceDate;
   String serviceTime;
   bool iskeyBoardActivated;
-  String? optionalInstruction;
+  String optionalInstruction;
 
   //
   OrderState({
@@ -14,7 +14,7 @@ class OrderState {
     this.serviceDate = "",
     this.serviceTime = "",
     this.iskeyBoardActivated = false,
-    String? optionalInstruction,
+    this.optionalInstruction = "",
   });
 
   OrderState copyWith({
