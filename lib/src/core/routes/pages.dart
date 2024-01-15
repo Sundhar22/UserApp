@@ -43,7 +43,7 @@ class AppRoute {
     PageEntity(
         route:  RoutesName.location,
         bloc: LocationBloc,
-        page: const UserLocationChoice()),
+        page:  UserLocationChoice()),
     PageEntity(
         route: RoutesName.appPage,
         bloc: ApplicationBloc,

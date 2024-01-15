@@ -22,6 +22,7 @@ Container locationHead() {
               Image.asset('assets/icons/location-48.png',
                   height: 25.h, width: 25.w),
               Column(
+                
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(

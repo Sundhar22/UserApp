@@ -1,8 +1,5 @@
- 
-    library app_icons;
-    class AppIcons {
+library app_icons;
 
-        static const String opps = "assets/svg/opps.svg";
-        static const String wifi = "assets/svg/wifi.svg";
-
-    }
+class AppIcons {
+  static const String markerPin = 'assets/icons/location-96.png';
+}

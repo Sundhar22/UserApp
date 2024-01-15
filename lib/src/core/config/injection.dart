@@ -9,5 +9,6 @@ class DependencyInjection {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+        
   }
 }

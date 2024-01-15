@@ -1,10 +1,8 @@
- 
-    class  LocationModel {
-        // ...
-        // A model is a more generic term and can represent structured data used within an application. 
-        // ...
-        // fromJson
-        // ...
-        // toJson
-   
-    }
+import 'package:user_app/src/features/location/domain/entities/entities.dart';
+
+class LocationModel extends LocationEntity {
+  LocationModel({required super.status});
+  LocationEntity toEntity() {
+    return LocationEntity(status: status);
+  }
+}
