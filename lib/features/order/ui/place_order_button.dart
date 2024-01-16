@@ -11,6 +11,7 @@ class RequestButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
+        // build
         bool isInstallation = state.requestType == "Installation";
         return (state.requestType != "" &&
                 state.serviceDate != "" &&
