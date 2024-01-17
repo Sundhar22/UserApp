@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/constant/colors/app_color.dart';
-import 'package:user_app/features/profile/profile_widgets/custom_appbar.dart';
+import 'package:user_app/src/core/constants/colors.dart';
+
+import 'package:user_app/src/features/profile/presentation/widgets/custom_appbar.dart';
 
 class NotificationSettings extends StatefulWidget {
   const NotificationSettings({super.key});
