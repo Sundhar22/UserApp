@@ -12,9 +12,9 @@ class Failure {
   const Failure(this.message);
 }
 
-class CatchError extends Failure {
-  CatchError(super.message);
-  
+class LocationPermissionFailure extends Failure {
+  LocationPermissionFailure(super.message);
 }
-
-
+class LocationUpDateFailure extends Failure {
+  LocationUpDateFailure(super.message);
+}

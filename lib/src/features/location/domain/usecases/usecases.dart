@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:user_app/src/core/error/error.dart';
 import 'package:user_app/src/features/location/domain/entities/entities.dart';
 
-import '../repositories/repositories.dart';
+import '../repositories/location_update_repositories.dart';
 
 class GetLocationUseCase {
   final LocationRepository repository;

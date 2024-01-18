@@ -3,6 +3,7 @@ library route_pages;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/application/presentation/bloc/application_bloc.dart';
 import 'package:user_app/src/features/application/presentation/pages/app_pages.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
@@ -37,16 +38,16 @@ class AppRoute {
         page: const UserDetailsReg(),
         route: RoutesName.register),
     PageEntity(
-        route:RoutesName.saveLocation,
-        bloc: LocationBloc,
+        route: RoutesName.saveLocation,
+        bloc: LocationBloc(locator()),
         page: const UserLocation()),
     PageEntity(
-        route:  RoutesName.location,
-        bloc: LocationBloc,
-        page:  UserLocationChoice()),
+        route: RoutesName.location,
+        bloc: LocationBloc(locator()),
+        page: const UserLocationChoice()),
     PageEntity(
         route: RoutesName.appPage,
-        bloc: ApplicationBloc,
+        bloc: ApplicationBloc(),
         page: const ApplicationPage())
   ];
 
