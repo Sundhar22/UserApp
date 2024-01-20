@@ -30,11 +30,10 @@ void main() {
       final result = await repository.upDateLocation(const GeoPoint(0, 0));
 
       // assert
-
       expect(
         result,
         equals(
-          Right<Failure, LocationEntity>(
+          const Right<Failure, LocationEntity>(
             LocationEntity(status: 'success'),
           ),
         ),

@@ -94,7 +94,7 @@ class OnBoardingPage extends StatelessWidget {
                         right: 25.w,
                       ),
                       child: DotsIndicator(
-                        position: context.watch<OnboardingBloc>().state.page,
+                        position: context.read<OnboardingBloc>().state.page,
                         decorator: DotsDecorator(
                           size: const Size.square(8),
                           activeColor: AppColor.primaryColor,
