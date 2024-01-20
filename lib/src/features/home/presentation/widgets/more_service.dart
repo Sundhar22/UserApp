@@ -88,6 +88,7 @@ class MoreService extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
         scrolledUnderElevation: 0,
+        centerTitle: true,
         title: Text(
           "On-Demand Services",
           style: TextStyle(
@@ -99,6 +100,7 @@ class MoreService extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20.h),
