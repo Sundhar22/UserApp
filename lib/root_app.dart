@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
+import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 
 import 'src/core/config/config.dart';
 
@@ -15,6 +16,7 @@ class RootApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => locator<LocationBloc>()),
+        BlocProvider(create: (context) => OrderBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

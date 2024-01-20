@@ -11,4 +11,6 @@ class RoutesName {
   static const booking = '/booking';
   static const appPage = '/app page';
   static const home = '/home';
+  static const order = '/order';
+      
 }
