@@ -7,6 +7,7 @@ abstract class LocationState extends Equatable {
 }
 
 class LocationInitial extends LocationState {}
+class LocationLoading extends LocationState {}
 
 class CurrentLocationLoadedState extends LocationState {
   final CurrentLocation currentLocation;

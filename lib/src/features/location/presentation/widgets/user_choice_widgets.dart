@@ -8,7 +8,7 @@ import '../bloc/location_bloc.dart';
 
 Container innerContainerWidget(BuildContext context) {
   return Container(
-    height: 145.h,
+    height: 200.h,
     padding: EdgeInsets.symmetric(vertical: 15.h),
     decoration: BoxDecoration(
       border: Border(
@@ -21,10 +21,42 @@ Container innerContainerWidget(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         HomePageSearchBar(
-            hintText: "Search for area, street name...",
-            onChanged: (String val) {},
-            onTap: () {}),
+          hintText: "Search for area, street name...",
+          onChanged: (String val) {},
+          onTap: () {},
+          padding:
+              EdgeInsets.only(top: 10.h, bottom: 5.h, left: 0.w, right: 0.w),
+        ),
         currentLocation(context),
+        // continueButton
+        Column(
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 335.w,
+                height: 35.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.r),
+                  color: AppColor.primaryColor,
+                ),
+                child: Center(
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )
       ],
     ),
   );
@@ -63,7 +95,6 @@ GestureDetector currentLocation(BuildContext context) {
   return GestureDetector(
     onTap: () async {
       context.read<LocationBloc>().add(GetCurrentLocationEvent());
-      print("current location");
     },
     child: Container(
       padding: EdgeInsets.symmetric(
@@ -78,35 +109,34 @@ GestureDetector currentLocation(BuildContext context) {
             0.1,
           )),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Image.asset(
-                'assets/icons/my-location-50.png',
-                color: AppColor.primaryColor,
-                height: 20.h,
-                width: 20.w,
-              ),
-              SizedBox(width: 10.w),
-              Text(
-                "Use my current location",
-                strutStyle: const StrutStyle(
-                  height: 1.5,
-                ),
-                style: TextStyle(
+          context.watch<LocationBloc>().state is LocationLoading
+              ? SizedBox(
+                  height: 20.h,
+                  width: 20.w,
+                  child: CircularProgressIndicator(
+                    color: AppColor.primaryColor,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Image.asset(
+                  'assets/icons/my-location-50.png',
                   color: AppColor.primaryColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  height: 20.h,
+                  width: 20.w,
                 ),
-              ),
-            ],
-          ),
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: AppColor.primaryColor,
-            size: 20,
+          Text(
+            "Use my current location",
+            strutStyle: const StrutStyle(
+              height: 1.5,
+            ),
+            style: TextStyle(
+              color: AppColor.primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -137,7 +167,7 @@ Positioned belowWidget(BuildContext context) {
     bottom: 0,
     child: Container(
       width: 375.w,
-      height: 250.h,
+      height: 270.h,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: Colors.white,

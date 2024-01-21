@@ -7,16 +7,18 @@ class HomePageSearchBar extends StatelessWidget {
     required this.hintText,
     required this.onChanged,
     required this.onTap,
+    this.padding,
   });
 
   final String hintText;
   final Function(String val) onChanged;
   final void Function() onTap;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
+      padding: padding ??
           EdgeInsets.only(top: 15.h, bottom: 10.h, left: 10.w, right: 10.w),
       child: SizedBox(
         height: 39.h,
