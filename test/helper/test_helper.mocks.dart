@@ -4,23 +4,33 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
-import 'dart:typed_data' as _i12;
+import 'dart:typed_data' as _i14;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i5;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:firebase_core/firebase_core.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
-import 'package:user_app/src/core/error/error.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i13;
+import 'package:user_app/src/core/error/error.dart' as _i10;
+import 'package:user_app/src/features/location/data/models/current_location_model.dart'
+    as _i8;
 import 'package:user_app/src/features/location/data/models/models.dart' as _i3;
+import 'package:user_app/src/features/location/data/sources/current_location_source.dart'
+    as _i17;
 import 'package:user_app/src/features/location/data/sources/sources.dart'
-    as _i10;
+    as _i12;
+import 'package:user_app/src/features/location/domain/entities/current_location_entites.dart'
+    as _i16;
 import 'package:user_app/src/features/location/domain/entities/entities.dart'
+    as _i11;
+import 'package:user_app/src/features/location/domain/repositories/current_location_repository.dart'
     as _i9;
-import 'package:user_app/src/features/location/domain/repositories/repositories.dart'
+import 'package:user_app/src/features/location/domain/repositories/location_update_repositories.dart'
     as _i7;
+import 'package:user_app/src/features/location/domain/usecases/current_location_usecase.dart'
+    as _i18;
 import 'package:user_app/src/features/location/domain/usecases/usecases.dart'
-    as _i13;
+    as _i15;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -194,6 +204,28 @@ class _FakeLocationRepository_14 extends _i1.SmartFake
         );
 }
 
+class _FakeCurrentLocationModel_15 extends _i1.SmartFake
+    implements _i8.CurrentLocationModel {
+  _FakeCurrentLocationModel_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCurrentLocationRepository_16 extends _i1.SmartFake
+    implements _i9.CurrentLocationRepository {
+  _FakeCurrentLocationRepository_16(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [LocationRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -204,7 +236,7 @@ class MockLocationRepository extends _i1.Mock
   }
 
   @override
-  _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>> upDateLocation(
+  _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>> upDateLocation(
           _i5.GeoPoint? location) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -212,22 +244,22 @@ class MockLocationRepository extends _i1.Mock
           [location],
         ),
         returnValue:
-            _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>>.value(
-                _FakeEither_0<_i8.Failure, _i9.LocationEntity>(
+            _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>>.value(
+                _FakeEither_0<_i10.Failure, _i11.LocationEntity>(
           this,
           Invocation.method(
             #upDateLocation,
             [location],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>>);
+      ) as _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>>);
 }
 
 /// A class which mocks [LocationRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLocationRemoteDataSource extends _i1.Mock
-    implements _i10.LocationRemoteDataSource {
+    implements _i12.LocationRemoteDataSource {
   MockLocationRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -278,7 +310,7 @@ class MockFirebaseFirestore extends _i1.Mock implements _i5.FirebaseFirestore {
   @override
   String get databaseURL => (super.noSuchMethod(
         Invocation.getter(#databaseURL),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i13.dummyValue<String>(
           this,
           Invocation.getter(#databaseURL),
         ),
@@ -372,7 +404,7 @@ class MockFirebaseFirestore extends _i1.Mock implements _i5.FirebaseFirestore {
       ) as _i6.Future<void>);
 
   @override
-  _i5.LoadBundleTask loadBundle(_i12.Uint8List? bundle) => (super.noSuchMethod(
+  _i5.LoadBundleTask loadBundle(_i14.Uint8List? bundle) => (super.noSuchMethod(
         Invocation.method(
           #loadBundle,
           [bundle],
@@ -534,8 +566,8 @@ class MockFirebaseFirestore extends _i1.Mock implements _i5.FirebaseFirestore {
             #maxAttempts: maxAttempts,
           },
         ),
-        returnValue: _i11.ifNotNull(
-              _i11.dummyValueOrNull<T>(
+        returnValue: _i13.ifNotNull(
+              _i13.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #runTransaction,
@@ -633,7 +665,7 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
   @override
   String get id => (super.noSuchMethod(
         Invocation.getter(#id),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i13.dummyValue<String>(
           this,
           Invocation.getter(#id),
         ),
@@ -651,7 +683,7 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
   @override
   String get path => (super.noSuchMethod(
         Invocation.getter(#path),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i13.dummyValue<String>(
           this,
           Invocation.getter(#path),
         ),
@@ -781,7 +813,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
   @override
   String get id => (super.noSuchMethod(
         Invocation.getter(#id),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i13.dummyValue<String>(
           this,
           Invocation.getter(#id),
         ),
@@ -790,7 +822,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
   @override
   String get path => (super.noSuchMethod(
         Invocation.getter(#path),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i13.dummyValue<String>(
           this,
           Invocation.getter(#path),
         ),
@@ -1151,7 +1183,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetLocationUseCase extends _i1.Mock
-    implements _i13.GetLocationUseCase {
+    implements _i15.GetLocationUseCase {
   MockGetLocationUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -1166,7 +1198,7 @@ class MockGetLocationUseCase extends _i1.Mock
       ) as _i7.LocationRepository);
 
   @override
-  _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>> execute(
+  _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>> execute(
           _i5.GeoPoint? geoPoint) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1174,13 +1206,106 @@ class MockGetLocationUseCase extends _i1.Mock
           [geoPoint],
         ),
         returnValue:
-            _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>>.value(
-                _FakeEither_0<_i8.Failure, _i9.LocationEntity>(
+            _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>>.value(
+                _FakeEither_0<_i10.Failure, _i11.LocationEntity>(
           this,
           Invocation.method(
             #execute,
             [geoPoint],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i8.Failure, _i9.LocationEntity>>);
+      ) as _i6.Future<_i2.Either<_i10.Failure, _i11.LocationEntity>>);
+}
+
+/// A class which mocks [CurrentLocationRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCurrentLocationRepository extends _i1.Mock
+    implements _i9.CurrentLocationRepository {
+  MockCurrentLocationRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>
+      getCurrentLocation() => (super.noSuchMethod(
+            Invocation.method(
+              #getCurrentLocation,
+              [],
+            ),
+            returnValue: _i6
+                .Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>.value(
+                _FakeEither_0<_i10.Failure, _i16.CurrentLocation>(
+              this,
+              Invocation.method(
+                #getCurrentLocation,
+                [],
+              ),
+            )),
+          ) as _i6.Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>);
+}
+
+/// A class which mocks [CurrentLocationSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCurrentLocationSource extends _i1.Mock
+    implements _i17.CurrentLocationSource {
+  MockCurrentLocationSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<_i8.CurrentLocationModel> getCurrentLocation() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentLocation,
+          [],
+        ),
+        returnValue: _i6.Future<_i8.CurrentLocationModel>.value(
+            _FakeCurrentLocationModel_15(
+          this,
+          Invocation.method(
+            #getCurrentLocation,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i8.CurrentLocationModel>);
+}
+
+/// A class which mocks [CurrentLocationUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCurrentLocationUseCase extends _i1.Mock
+    implements _i18.CurrentLocationUseCase {
+  MockCurrentLocationUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i9.CurrentLocationRepository get currentLocationRepository =>
+      (super.noSuchMethod(
+        Invocation.getter(#currentLocationRepository),
+        returnValue: _FakeCurrentLocationRepository_16(
+          this,
+          Invocation.getter(#currentLocationRepository),
+        ),
+      ) as _i9.CurrentLocationRepository);
+
+  @override
+  _i6.Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>
+      getCurrentLocation() => (super.noSuchMethod(
+            Invocation.method(
+              #getCurrentLocation,
+              [],
+            ),
+            returnValue: _i6
+                .Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>.value(
+                _FakeEither_0<_i10.Failure, _i16.CurrentLocation>(
+              this,
+              Invocation.method(
+                #getCurrentLocation,
+                [],
+              ),
+            )),
+          ) as _i6.Future<_i2.Either<_i10.Failure, _i16.CurrentLocation>>);
 }
