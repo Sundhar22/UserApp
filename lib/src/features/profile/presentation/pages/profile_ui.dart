@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/notification_ui.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/payment_ui.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../home/presentation/widgets/home_widgets.dart';
 import '../../../notification/presentation/pages/notification_page.dart';
@@ -117,7 +119,15 @@ class ProfilePage extends StatelessWidget {
           profileContentWidget(
             iconPath: 'assets/icons/notification-100.png',
             title: 'Notification',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      const NotificationSettings(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/location-100.png',
@@ -134,7 +144,14 @@ class ProfilePage extends StatelessWidget {
           profileContentWidget(
             iconPath: 'assets/icons/wallet-100.png',
             title: 'Payment',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>  PaymentHistory(),
+                ),
+              );
+            },
           ),
           profileContentWidget(
             iconPath: 'assets/icons/help-100.png',
@@ -164,8 +181,6 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
- 
 
   Row profileContentWidget({
     required String iconPath,

@@ -1,4 +1,4 @@
-import 'dart:async';
+// import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SecondsCounter extends StatelessWidget {
@@ -17,7 +17,7 @@ class SecondsCounter extends StatelessWidget {
       ),
       child: Container(
         alignment: Alignment.bottomRight,
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // Text(

@@ -16,6 +16,7 @@ import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_p
 import '../../features/auth/presentation/bloc/register_bloc.dart';
 import '../../features/auth/presentation/pages/user_registration.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
+import '../../features/order/presentation/pages/order.dart';
 import 'routes.dart';
 
 class AppRoute {
@@ -48,7 +49,11 @@ class AppRoute {
     PageEntity(
         route: RoutesName.appPage,
         bloc: ApplicationBloc(),
-        page: const ApplicationPage())
+        page: const ApplicationPage()),
+    PageEntity(
+        route: RoutesName.order,
+        bloc: ApplicationBloc(),
+        page: const OrderPage()),
   ];
 
   static List<BlocProvider> blocProvider() {
