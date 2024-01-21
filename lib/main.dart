@@ -19,7 +19,7 @@ import 'src/core/config/config.dart';
         child: MaterialApp(
           title: 'User App',
           debugShowCheckedModeBanner: false,
-          theme: buildApp(),
+          theme: buildApp(context),
           routes: getPageRoutes,
           initialRoute: 'order',
         ),
