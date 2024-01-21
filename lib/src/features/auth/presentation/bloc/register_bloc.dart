@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'register_event.dart';
 part 'register_state.dart';
 
@@ -19,7 +18,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<VerifyOtp>((event, emit) {
       emit(state.copyWith(otp: event.otp));
     });
-
     on<RegisterUserWithEmail>((event, emit) {
       if (event.email != null) {
         emit(state.copyWith(email: event.email));

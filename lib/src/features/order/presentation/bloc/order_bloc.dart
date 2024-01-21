@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/features/order/bloc/order_events.dart';
-import 'package:user_app/features/order/bloc/order_state.dart';
+
+import 'order_events.dart';
+import 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvents, OrderState> {
   OrderBloc() : super(OrderState()) {

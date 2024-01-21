@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/features/order/bloc/order_bloc.dart';
-import 'package:user_app/features/order/bloc/order_state.dart';
-import 'package:user_app/features/order/ui/date_widget.dart';
-import 'package:user_app/features/order/widgets/order_title.dart';
+import 'package:user_app/src/features/order/presentation/pages/date_widget.dart';
+import 'package:user_app/src/features/order/presentation/widgets/order_title.dart';
+
+import '../bloc/order_bloc.dart';
+import '../bloc/order_state.dart';
 
 class PickServiceDate extends StatelessWidget {
   const PickServiceDate({super.key});
