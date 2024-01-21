@@ -25,7 +25,7 @@ class RootApp extends StatelessWidget {
         builder: (context, ch) => const DismissKeyboard(
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: RoutesName.location,
+            initialRoute: RoutesName.order,
             onGenerateRoute: AppRoute.generate,
           ),
         ),
