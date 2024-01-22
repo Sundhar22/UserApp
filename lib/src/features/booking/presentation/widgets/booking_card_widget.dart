@@ -5,7 +5,23 @@ import 'package:user_app/src/features/booking/presentation/widgets/booking_deati
 import '../../../../core/constants/constants.dart';
 
 class BookingCard extends StatefulWidget {
-  const BookingCard({super.key});
+  final String id;
+  final String serviceName;
+  final String bookingType;
+  final String date;
+  final String time;
+  final String price;
+  final String imgUrl;
+  const BookingCard({
+    super.key,
+    required this.id,
+    required this.serviceName,
+    required this.bookingType,
+    required this.date,
+    required this.time,
+    required this.price,
+    required this.imgUrl,
+  });
 
   @override
   State<BookingCard> createState() => _BookingCardState();
@@ -29,11 +45,11 @@ class _BookingCardState extends State<BookingCard> {
         child: Column(
           children: [
             // Booking Card Header Section which contains ID and View Details Button
-            cardHeader(context),
+            cardHeader(context, widget.id),
             // Booking Card Body Section which contains Service Type,Booking Status and Picture
-            cardBody(),
+            cardBody(widget.serviceName, widget.bookingType),
             // Booking Card Bottom Section which contains Date,Time and Price
-            cardBottom(),
+            cardBottom(widget.date, widget.time, widget.price),
             // Booking Card Footer Section which contains Cancel Button and Modification Button
             cardFooter()
           ],
@@ -210,7 +226,7 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 
-  Row cardBottom() {
+  Row cardBottom(String date, String time, String price) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +249,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               SizedBox(
                 child: Text(
-                  "12/12/2021",
+                  date,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -263,7 +279,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               SizedBox(
                 child: Text(
-                  "12:00 PM",
+                  time,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -293,7 +309,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               SizedBox(
                 child: Text(
-                  "Rs. 500",
+                  "Rs. $price",
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -308,7 +324,7 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 
-  Container cardBody() {
+  Container cardBody(String serviceType, String bookingStatus) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
       child: Row(
@@ -333,7 +349,7 @@ class _BookingCardState extends State<BookingCard> {
                   margin: EdgeInsets.only(bottom: 4.h),
                   child: Text(
                     // "Service Type",
-                    "Cleaning",
+                    serviceType,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -344,15 +360,21 @@ class _BookingCardState extends State<BookingCard> {
                 Container(
                   padding: EdgeInsets.all(5.r),
                   decoration: BoxDecoration(
-                    color: Colors.green.shade100,
+                    color: bookingStatus == 'Scheduled' ||
+                            bookingStatus == 'Accepted'
+                        ? Colors.green.shade100
+                        : Colors.red.shade100,
                     borderRadius: BorderRadius.circular(5.r),
                   ),
                   child: Text(
                     // "Booking Status"
-                    'Scheduled',
+                    bookingStatus,
                     style: TextStyle(
                       fontSize: 12.sp,
-                      color: Colors.green,
+                      color: bookingStatus == 'Scheduled' ||
+                              bookingStatus == 'Accepted'
+                          ? Colors.green
+                          : Colors.red,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -365,7 +387,7 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 
-  Container cardHeader(BuildContext context) {
+  Container cardHeader(BuildContext context, String id) {
     return Container(
       // padding: EdgeInsets.all(4.r),
       decoration: BoxDecoration(
@@ -389,7 +411,7 @@ class _BookingCardState extends State<BookingCard> {
                         fontSize: 16.sp,
                         fontWeight: FontWeight.normal)),
                 TextSpan(
-                    text: '1234567890',
+                    text: id,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 16.sp,

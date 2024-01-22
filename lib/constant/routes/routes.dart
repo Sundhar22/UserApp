@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_app/features/order/ui/order.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
 import 'package:user_app/src/features/auth/presentation/pages/user_deatils_reg.dart';
 import 'package:user_app/src/features/auth/presentation/pages/user_registration.dart';
@@ -8,8 +7,7 @@ import 'package:user_app/src/features/home/presentation/pages/home.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
-
-
+import 'package:user_app/src/features/order/presentation/pages/order.dart';
 
 Map<String, WidgetBuilder> get getPageRoutes {
   return <String, WidgetBuilder>{

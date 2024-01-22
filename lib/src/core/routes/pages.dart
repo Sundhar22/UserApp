@@ -8,6 +8,9 @@ import 'package:user_app/src/features/application/presentation/bloc/application_
 import 'package:user_app/src/features/application/presentation/pages/app_pages.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
 import 'package:user_app/src/features/auth/presentation/pages/user_deatils_reg.dart';
+import 'package:user_app/src/features/booking/presentation/bloc/booking_bloc.dart';
+import 'package:user_app/src/features/booking/presentation/functions/booking_firebase.dart';
+import 'package:user_app/src/features/booking/presentation/pages/booking.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
@@ -54,6 +57,10 @@ class AppRoute {
         route: RoutesName.order,
         bloc: ApplicationBloc(),
         page: const OrderPage()),
+    PageEntity(
+        route: RoutesName.booking,
+        bloc: BookingBloc(bookingFirestoreService: BookingFirestoreService()),
+        page: const BookingPage()),
   ];
 
   static List<BlocProvider> blocProvider() {
@@ -107,5 +114,8 @@ class BlocProviders {
   static get() => [
         BlocProvider(create: (context) => OnboardingBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
+        BlocProvider<BookingBloc>(
+            create: (context) => BookingBloc(
+                bookingFirestoreService: BookingFirestoreService())),
       ];
 }
