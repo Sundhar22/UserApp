@@ -26,6 +26,44 @@ class BookingFirestoreService {
   //   }
   // }
 
+// Future<void> updateFirestore(List<BookingModel> newBookingList) async {
+//   // Step 1: Retrieve existing data
+//   final QuerySnapshot querySnapshot =
+//       await FirebaseFirestore.instance.collection('Booking').get();
+
+//   // Step 2: Merge existing and new data
+//   final List<Map<String, dynamic>> mergedData = [];
+
+//   // Add existing data
+//   for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+//     mergedData.add(documentSnapshot.data() as Map<String, dynamic>);
+//   }
+
+//   // Add new data
+//   for (BookingModel booking in newBookingList) {
+//     final existingIndex =
+//         mergedData.indexWhere((element) => element['id'] == booking.id);
+
+//     if (existingIndex != -1) {
+//       // If the booking exists, update it
+//       mergedData[existingIndex] = booking.toJson();
+//     } else {
+//       // If the booking doesn't exist, add it
+//       mergedData.add(booking.toJson());
+//     }
+//   }
+
+//   // Step 3: Update Firestore with merged data
+//   for (Map<String, dynamic> data in mergedData) {
+//     final String id = data['id'];
+//     await FirebaseFirestore.instance
+//         .collection('Booking')
+//         .doc(id)
+//         .set(data);
+//   }
+// }
+
+
   Future<List<BookingModel>> get() async {
     List<BookingModel> bookingList = [];
     try {
@@ -47,3 +85,8 @@ class BookingFirestoreService {
     }
   }
 }
+
+
+
+
+

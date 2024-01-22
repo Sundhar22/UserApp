@@ -12,6 +12,17 @@ class BookingCard extends StatefulWidget {
   final String time;
   final String price;
   final String imgUrl;
+  final String serviceDetail;
+  final String location;
+  final String transactionId;
+  final String paymentMethod;
+  final String transactionDate;
+  final String transactionTime;
+  final String paymentStatus;
+  final String subtotal;
+  final String discount;
+  final String tax;
+  final String totalPrice;
   const BookingCard({
     super.key,
     required this.id,
@@ -21,6 +32,17 @@ class BookingCard extends StatefulWidget {
     required this.time,
     required this.price,
     required this.imgUrl,
+    required this.serviceDetail,
+    required this.location,
+    required this.transactionId,
+    required this.paymentMethod,
+    required this.transactionDate,
+    required this.transactionTime,
+    required this.paymentStatus,
+    required this.subtotal,
+    required this.discount,
+    required this.tax,
+    required this.totalPrice,
   });
 
   @override
@@ -45,7 +67,27 @@ class _BookingCardState extends State<BookingCard> {
         child: Column(
           children: [
             // Booking Card Header Section which contains ID and View Details Button
-            cardHeader(context, widget.id),
+            cardHeader(
+              context,
+              widget.id,
+              widget.serviceName,
+              widget.bookingType,
+              widget.date,
+              widget.time,
+              widget.price,
+              widget.imgUrl,
+              widget.serviceDetail,
+              widget.location,
+              widget.transactionId,
+              widget.paymentMethod,
+              widget.transactionDate,
+              widget.transactionTime,
+              widget.paymentStatus,
+              widget.subtotal,
+              widget.discount,
+              widget.tax,
+              widget.totalPrice,
+            ),
             // Booking Card Body Section which contains Service Type,Booking Status and Picture
             cardBody(widget.serviceName, widget.bookingType),
             // Booking Card Bottom Section which contains Date,Time and Price
@@ -387,7 +429,27 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 
-  Container cardHeader(BuildContext context, String id) {
+  Container cardHeader(
+    BuildContext context,
+    String id,
+    String serviceName,
+    String bookingType,
+    String date,
+    String time,
+    String price,
+    String imgUrl,
+    String serviceDetail,
+    String location,
+    String transactionId,
+    String paymentMethod,
+    String transactionDate,
+    String transactionTime,
+    String paymentStatus,
+    String subtotal,
+    String discount,
+    String tax,
+    String totalPrice,
+  ) {
     return Container(
       // padding: EdgeInsets.all(4.r),
       decoration: BoxDecoration(
@@ -423,6 +485,24 @@ class _BookingCardState extends State<BookingCard> {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return BookingDetails(
+                  bookingDetailId: id,
+                  bookingDetailImgUrl: imgUrl,
+                  bookingDetailBookingStatus: bookingType,
+                  bookingDetailDate: date,
+                  bookingDetailPrice: price,
+                  bookingDetailServiceName: serviceName,
+                  bookingDetailTime: time,
+                  bookingDetailDiscount: discount,
+                  bookingDetailLcation: location,
+                  bookingDetailPaymentMethod: paymentMethod,
+                  bookingDetailPaymentStatus: paymentStatus,
+                  bookingDetailServiceDetail: serviceDetail,
+                  bookingDetailSubtotal: subtotal,
+                  bookingDetailTax: tax,
+                  bookingDetailTotalPrice: totalPrice,
+                  bookingDetailTransactionDate: transactionDate,
+                  bookingDetailTransactionId: transactionId,
+                  bookingDetailTransactionTime: transactionTime,
                   editingWidget: cardFooter(),
                 );
               }));
