@@ -88,11 +88,14 @@ class _HomePageState extends State<HomePage> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
                   child: headline(
-                      "On-Demand Services",
-                      () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MoreService()))),
+                    "On-Demand Services",
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MoreService(),
+                      ),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding:

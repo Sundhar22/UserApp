@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:user_app/root_app.dart';
-import 'package:user_app/src/core/routes/pages.dart';
 
 import 'src/core/config/config.dart';
 
