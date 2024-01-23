@@ -1,45 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:time_range/time_range.dart';
-import 'package:user_app/src/features/order/presentation/pages/optional_input.dart';
-import 'package:user_app/src/features/order/presentation/pages/order_appbar.dart';
-import 'package:user_app/src/features/order/presentation/pages/pick_service_date.dart';
-import 'package:user_app/src/features/order/presentation/pages/pick_service_time.dart';
-import 'package:user_app/src/features/order/presentation/pages/place_order_button.dart';
-import 'package:user_app/src/features/order/presentation/pages/service_quantity.dart';
 
-import '../bloc/order_bloc.dart';
-import '../bloc/order_events.dart';
-import '../bloc/order_state.dart';
-import 'installation_choices.dart';
-
+import '../widgets/additional_input.dart';
+import '../widgets/date_time_widget.dart';
+import '../widgets/product_selection.dart';
+import '../widgets/service_type_indicator.dart';
+import '../widgets/service_widget.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderBloc, OrderState>(
-      builder: (context, state) {
-        return Scaffold(
-          bottomSheet: const RequestButton(),
-          appBar: buildAppBar(state),
-          body: const SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InstallationChoice(),
-                SelectQuantity(),
-                PickServiceDate(),
-                ServiceTime(),
-                OptionalMessage(),
-              ],
-            ),
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(elevation: 1),
+      backgroundColor: const Color.fromRGBO(250, 250, 250, 1),
+      body: const SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ServiceIndicator(),
+            ServiceTypeIndicator(),
+            ProductIndicator(),
+            DateTimeIndicator(),
+            AdditionalDetails(),
+          ],
+        ),
+      ),
     );
   }
 }
