@@ -14,30 +14,18 @@ class RequestButton extends StatelessWidget {
       builder: (context, state) {
         // build
         bool isInstallation = state.requestType == "Installation";
-        return (state.requestType != "" &&
-                state.serviceDate != "" &&
-                state.serviceTime != "" &&
-                state.productQuantity != 0 &&
-                !state.iskeyBoardActivated)
-            ? GestureDetector(
-                onTap: () {
-                  print(
-                      "${state.iskeyBoardActivated} ${state.optionalInstruction} ${state.productQuantity} ${state.requestType} ${state.serviceDate} ${state.serviceTime} ");
-                },
-                child: Container(
-                  height: 58.h,
-                  color: isInstallation ? Colors.blue : Colors.red,
-                  child: Center(
-                      child: Text(
-                    isInstallation ? "Request Installation" : "Request Repair",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  )),
-                ),
-              )
-            : const SizedBox();
+        return Container(
+          height: 58.h,
+          color: isInstallation ? Colors.blue : Colors.red,
+          child: Center(
+              child: Text(
+            isInstallation ? "Request Installation" : "Request Repair",
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          )),
+        );
       },
     );
   }

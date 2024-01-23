@@ -3,8 +3,17 @@ library theme;
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
+
 ThemeData buildApp() {
   return ThemeData(
+    datePickerTheme: const DatePickerThemeData(
+      elevation: 0,
+      surfaceTintColor: Colors.white,
+      shadowColor: Colors.white,
+    ),
+    dialogTheme: const DialogTheme(
+      elevation: 0,
+    ),
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,

@@ -7,6 +7,7 @@ import 'package:user_app/src/features/location/presentation/bloc/location_bloc.d
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 
 import 'src/core/config/config.dart';
+import 'src/core/theme/theme.dart';
 
 class RootApp extends StatelessWidget {
   const RootApp({super.key});
@@ -22,11 +23,12 @@ class RootApp extends StatelessWidget {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (context, ch) => const DismissKeyboard(
+        builder: (context, ch) => DismissKeyboard(
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: RoutesName.location,
+            initialRoute: RoutesName.order,
             onGenerateRoute: AppRoute.generate,
+            theme: buildApp(),
           ),
         ),
       ),
