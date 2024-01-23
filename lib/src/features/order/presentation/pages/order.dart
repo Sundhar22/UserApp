@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:user_app/src/features/order/presentation/pages/additional_input.dart';
-import 'package:user_app/src/features/order/presentation/pages/date_time_widget.dart';
-import 'package:user_app/src/features/order/presentation/pages/product_selection.dart';
-import 'package:user_app/src/features/order/presentation/pages/service_type_indicator.dart';
-import 'package:user_app/src/features/order/presentation/pages/service_widget.dart';
+
+import '../widgets/additional_input.dart';
+import '../widgets/date_time_widget.dart';
+import '../widgets/product_selection.dart';
+import '../widgets/service_type_indicator.dart';
+import '../widgets/service_widget.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});

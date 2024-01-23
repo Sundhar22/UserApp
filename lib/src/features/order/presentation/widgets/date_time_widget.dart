@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/constants/colors.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_events.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_state.dart';
@@ -39,23 +41,31 @@ class DateTimeIndicator extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    margin: const EdgeInsets.all(10),
+                    margin: EdgeInsets.all(10.r),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.r),
                       ),
                     ),
                     child: ListTile(
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.calendar_today_sharp,
+                        size: 20.sp,
+                        color: AppColor.primaryColor,
                       ),
-                      title: const Text("Date"),
+                      title: Text(
+                        "Date",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       subtitle: Text(
                         state.serviceDate,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -66,23 +76,31 @@ class DateTimeIndicator extends StatelessWidget {
                     showTimeRangePicker(context);
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
                         )),
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(
                         Icons.access_time_rounded,
+                        size: 20.sp,
+                        color: AppColor.primaryColor,
                       ),
-                      title: Text("Time"),
+                      title: Text(
+                        "Time",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       subtitle: Text(
                         "10:00AM - 01:00PM",
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),

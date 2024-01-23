@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/constants/constants.dart';
 import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
 
 class ServiceIndicator extends StatelessWidget {
@@ -6,30 +8,30 @@ class ServiceIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const OrderTile(
+    return OrderTile(
       tileHeading: "Service",
       children: [
         ListTile(
           leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.blue,
+            radius: 25.r,
+            backgroundColor: AppColor.primaryColor,
             child: Icon(
               Icons.light,
               color: Colors.white,
-              size: 28,
+              size: 28.sp,
             ),
           ),
           title: Text(
             "Light Regukar Service",
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
           subtitle: Text(
             "Installation / Repair",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 15.sp,
             ),
           ),
         ),

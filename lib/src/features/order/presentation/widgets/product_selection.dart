@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/order/presentation/functions/show_dialog.dart';
 import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
 
 class ProductIndicator extends StatefulWidget {
@@ -33,24 +32,24 @@ class ProductIndicatorState extends State<ProductIndicator> {
                 },
                 child: Container(
                   width: 70.w,
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
+                  margin: EdgeInsets.all(10.r),
+                  padding: EdgeInsets.all(10.r),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
                       color: Colors.grey,
                     ),
                   ),
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      Padding(
+                        padding: EdgeInsets.all(8.0.r),
                         child: Icon(
                           Icons.grade_outlined,
-                          size: 28,
+                          size: 20.sp,
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(height: 2.h),
                       const Text("Home")
                     ],
                   ),

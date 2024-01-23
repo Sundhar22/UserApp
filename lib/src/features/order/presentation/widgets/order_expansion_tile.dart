@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/colors.dart';
+
 class OrderTile extends StatelessWidget {
   const OrderTile({
     super.key,
@@ -14,16 +16,16 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.r),
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: const BoxDecoration(boxShadow: [
+            margin: EdgeInsets.symmetric(horizontal: 5.w),
+            decoration: BoxDecoration(boxShadow: const [
               BoxShadow(
                 color: Colors.white,
               ),
-            ], borderRadius: BorderRadius.all(Radius.circular(5))),
+            ], borderRadius: BorderRadius.all(Radius.circular(5.r))),
             child: ExpansionTile(
               initiallyExpanded: true,
               shape: Border.all(color: Colors.transparent),
@@ -31,12 +33,12 @@ class OrderTile extends StatelessWidget {
               title: Row(
                 children: [
                   Container(
-                    height: 25,
-                    width: 3,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
+                    height: 25.h,
+                    width: 3.w,
+                    decoration: BoxDecoration(
+                      color: AppColor.primaryColor,
                       borderRadius: BorderRadius.all(
-                        Radius.circular(25),
+                        Radius.circular(25.r),
                       ),
                     ),
                   ),
@@ -44,17 +46,17 @@ class OrderTile extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Text(
                       tileHeading,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ],
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.more_horiz,
-                size: 35,
+                size: 25.sp,
                 color: Colors.black,
               ),
               children: children,

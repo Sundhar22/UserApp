@@ -6,6 +6,8 @@ import 'package:user_app/src/features/order/presentation/bloc/order_events.dart'
 import 'package:user_app/src/features/order/presentation/bloc/order_state.dart';
 import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
 
+import '../../../../core/constants/constants.dart';
+
 class ServiceTypeIndicator extends StatelessWidget {
   const ServiceTypeIndicator({super.key});
 
@@ -32,10 +34,13 @@ class ServiceTypeIndicator extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.all(10.r),
+                    margin: EdgeInsets.symmetric(horizontal: 10.w),
                     decoration: BoxDecoration(
-                      color: isInstallation ? Colors.blue : Colors.transparent,
+                      borderRadius: BorderRadius.circular(12.r),
+                      color: isInstallation
+                          ? AppColor.primaryColor
+                          : const Color.fromRGBO(0, 0, 0, 0),
                       border: Border.all(
                         color:
                             isInstallation ? Colors.transparent : Colors.grey,
@@ -67,11 +72,13 @@ class ServiceTypeIndicator extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.all(10.r),
+                    margin: EdgeInsets.symmetric(horizontal: 10.w),
                     decoration: BoxDecoration(
-                        color:
-                            !isInstallation ? Colors.blue : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: !isInstallation
+                            ? AppColor.primaryColor
+                            : Colors.transparent,
                         border: Border.all(
                           color: !isInstallation
                               ? Colors.transparent
