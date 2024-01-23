@@ -1,5 +1,10 @@
+import 'package:equatable/equatable.dart';
 
-  part of 'booking_bloc.dart';
-  @immutable
-  abstract class BookingEvent {}
-  
+abstract class BookingEvent extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class FetchBookingDetails extends BookingEvent {
+  FetchBookingDetails();
+}

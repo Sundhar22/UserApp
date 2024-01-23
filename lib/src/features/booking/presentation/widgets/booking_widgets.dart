@@ -11,6 +11,11 @@ AppBar bookingAppBar(TabController tabController, BuildContext context) {
     elevation: 0,
     // toolbarHeight: 0.1.sh,
     scrolledUnderElevation: 0,
+    leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back)),
     title: Text(
       'My Booking',
       style: TextStyle(

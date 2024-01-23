@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
+import 'package:user_app/src/features/booking/presentation/pages/booking.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
@@ -16,6 +17,8 @@ import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
 import '../../features/auth/presentation/pages/user_deatils_reg.dart';
 import '../../features/auth/presentation/pages/user_registration.dart';
+import '../../features/booking/presentation/bloc/booking_bloc.dart';
+import '../../features/booking/presentation/functions/booking_firebase.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
 
 class AppRoute {
@@ -53,6 +56,12 @@ class AppRoute {
           route: RoutesName.order,
           bloc: BlocProvider(create: (context) => OrderBloc()),
           pages: const OrderPage()),
+      PageEntity(
+          route: RoutesName.booking,
+          bloc: BlocProvider(
+              create: (context) => BookingBloc(
+                  bookingFirestoreService: BookingFirestoreService())),
+          pages: const BookingPage())
     ];
   }
 
@@ -98,11 +107,4 @@ class PageEntity {
     required this.bloc,
     required this.pages,
   });
-}
-
-class BlocProviders {
-  static get() => [
-        BlocProvider(create: (context) => OnboardingBloc()),
-        BlocProvider(create: (context) => RegisterBloc()),
-      ];
 }
