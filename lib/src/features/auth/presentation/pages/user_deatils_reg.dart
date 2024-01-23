@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/features/auth/presentation/func/register_func.dart';
 import 'package:user_app/src/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
 
-import '../../../../core/widgets/flutterToast/flutter_toast.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/widgets/flutterToast/flutter_toast.dart';
 import '../bloc/register_bloc.dart';
 
 class UserDetailsReg extends StatelessWidget {
@@ -76,10 +77,8 @@ class UserDetailsReg extends StatelessWidget {
                         lastName: context.read<RegisterBloc>().state.lastName!,
                         email: context.read<RegisterBloc>().state.email!,
                       );
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          'user-location-choice',
-                          (Route<dynamic> route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          RoutesName.location, (Route<dynamic> route) => false);
                     } else {
                       toastMessage(
                           'Please enter your first name and email address',

@@ -15,10 +15,13 @@ class CustomTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade300),
+        ),
+      ),
       child: TabBar(
         controller: _tabController,
-        tabAlignment:TabAlignment.start ,
+        tabAlignment: TabAlignment.start,
         automaticIndicatorColorAdjustment: true,
         isScrollable: true,
         indicatorColor: AppColor.primaryColor,
@@ -33,23 +36,25 @@ class CustomTabs extends StatelessWidget {
             text: "Upcoming",
           ),
           Tab(
-            text: "Past",
+            text: "Accepted",
           ),
           Tab(
             text: "Cancelled",
           ),
-          Tab(
-            text: "Pending",
-          ),
-          Tab(
-            text: "Accepted",
-          ),
-          Tab(
-            text: "Rejected",
-          ),
-          Tab(
-            text: "All",
-          ),
+          // Tab(
+          //   text: "Past",
+          // ),
+
+          // Tab(
+          //   text: "Pending",
+          // ),
+
+          // Tab(
+          //   text: "Rejected",
+          // ),
+          // Tab(
+          //   text: "All",
+          // ),
         ],
       ),
     );

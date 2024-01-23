@@ -7,7 +7,6 @@ abstract class CurrentLocationSource {
 }
 
 class CurrentLocationSourceImpl implements CurrentLocationSource {
-  
   @override
   Future<CurrentLocationModel> getCurrentLocation() async {
     bool serviceEnabled;
@@ -19,6 +18,7 @@ class CurrentLocationSourceImpl implements CurrentLocationSource {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
+      await Geolocator.openLocationSettings();
       return throw LocationDisableException();
     }
 
@@ -39,14 +39,14 @@ class CurrentLocationSourceImpl implements CurrentLocationSource {
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       return throw LocationPermanentDeniedException();
-      
+
       // throw Exception(
       //     'Location permissions are permanently denied, we cannot request permissions.');
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    var result= await Geolocator.getCurrentPosition().then((value) {
+    var result = await Geolocator.getCurrentPosition().then((value) {
       return CurrentLocationModel(
         position: value,
       );

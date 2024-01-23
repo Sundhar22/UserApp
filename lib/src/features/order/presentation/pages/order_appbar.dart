@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/order/presentation/pages/type_of_service.dart';
-
-import '../bloc/order_bloc.dart';
-import '../bloc/order_events.dart';
 import '../bloc/order_state.dart';
+import '../widgets/type_of_service.dart';
 
 AppBar buildAppBar(OrderState state) {
   return AppBar(

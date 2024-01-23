@@ -1,16 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/constants/constants.dart';
 
 class BookingDetails extends StatelessWidget {
   final Container editingWidget;
+  final String bookingDetailId;
+  final String bookingDetailServiceName;
+  final String bookingDetailBookingStatus;
+  final String bookingDetailDate;
+  final String bookingDetailTime;
+  final String bookingDetailPrice;
+  final String bookingDetailImgUrl;
+  final String bookingDetailServiceDetail;
+  final String bookingDetailLcation;
+  final String bookingDetailTransactionId;
+  final String bookingDetailPaymentMethod;
+  final String bookingDetailTransactionDate;
+  final String bookingDetailTransactionTime;
+  final String bookingDetailPaymentStatus;
+  final String bookingDetailSubtotal;
+  final String bookingDetailDiscount;
+  final String bookingDetailTax;
+  final String bookingDetailTotalPrice;
   final BoxDecoration containerDecoration = BoxDecoration(
     color: Colors.black12.withOpacity(0.03),
     borderRadius: BorderRadius.circular(10.r),
   );
 
-  BookingDetails({super.key, required this.editingWidget});
+  BookingDetails({
+    super.key,
+    required this.editingWidget,
+    required this.bookingDetailId,
+    required this.bookingDetailServiceName,
+    required this.bookingDetailBookingStatus,
+    required this.bookingDetailDate,
+    required this.bookingDetailTime,
+    required this.bookingDetailPrice,
+    required this.bookingDetailImgUrl,
+    required this.bookingDetailServiceDetail,
+    required this.bookingDetailLcation,
+    required this.bookingDetailTransactionId,
+    required this.bookingDetailPaymentMethod,
+    required this.bookingDetailTransactionDate,
+    required this.bookingDetailTransactionTime,
+    required this.bookingDetailPaymentStatus,
+    required this.bookingDetailSubtotal,
+    required this.bookingDetailDiscount,
+    required this.bookingDetailTax,
+    required this.bookingDetailTotalPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +65,39 @@ class BookingDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // The Top Header Widget contain Booking ID and Status
-              idAndStatusWidgets(),
+              idAndStatusWidgets(
+                bookingDetailId,
+                bookingDetailBookingStatus,
+              ),
               // The Top Widget contain the Booking Details
-              bookingDetailsWidget(),
+              bookingDetailsWidget(
+                bookingDetailServiceName,
+                bookingDetailDate,
+                bookingDetailTime,
+                bookingDetailServiceDetail,
+                bookingDetailLcation,
+              ),
               Divider(
                 color: Colors.grey.withOpacity(.20),
               ),
               SizedBox(height: 5.h),
               // The Middle Widget contain the Transaction ID
-              transactionIDWidget(),
+              transactionIDWidget(bookingDetailTransactionId),
               SizedBox(height: 4.h),
               // The Middle Widget contain the Payment Details
-              paymentDetailsWidget(),
+              paymentDetailsWidget(
+                  bookingDetailPaymentMethod,
+                  bookingDetailTransactionDate,
+                  bookingDetailTransactionTime,
+                  bookingDetailPaymentStatus),
               SizedBox(height: 5.h),
               // The Bottom Widget contain the amount details
-              amountDetailsWidgets(),
+              amountDetailsWidgets(
+                bookingDetailSubtotal,
+                bookingDetailDiscount,
+                bookingDetailTax,
+                bookingDetailTotalPrice,
+              ),
             ],
           ),
         ),
@@ -49,7 +105,12 @@ class BookingDetails extends StatelessWidget {
     );
   }
 
-  Container amountDetailsWidgets() {
+  Container amountDetailsWidgets(
+    String subTotal,
+    String discount,
+    String tax,
+    String totalPrice,
+  ) {
     return Container(
       height: 128.h,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -57,16 +118,16 @@ class BookingDetails extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          detailCard(title: "Subtotal", value: '₹ 1000'),
-          detailCard(title: "Discount", value: '₹ 100'),
-          detailCard(title: "Tax", value: '₹ 100'),
+          detailCard(title: "Subtotal", value: '₹ $subTotal'),
+          detailCard(title: "Discount", value: '₹ $discount'),
+          detailCard(title: "Tax", value: '₹ $tax'),
           Divider(
             color: Colors.grey.withOpacity(.20),
           ),
           detailCard(
             title: "Total price",
             value: Text(
-              '₹ 1000',
+              '₹ $totalPrice',
               style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
@@ -78,7 +139,12 @@ class BookingDetails extends StatelessWidget {
     );
   }
 
-  Container paymentDetailsWidget() {
+  Container paymentDetailsWidget(
+    String trMethod,
+    String trDate,
+    String trTime,
+    String payStatus,
+  ) {
     return Container(
       height: 128.h,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -86,9 +152,9 @@ class BookingDetails extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          detailCard(title: "Payment Method", value: 'Upi'),
-          detailCard(title: "Date", value: '12/12/2021'),
-          detailCard(title: "Time", value: '1:00 PM'),
+          detailCard(title: "Payment Method", value: trMethod),
+          detailCard(title: "Date", value: trDate),
+          detailCard(title: "Time", value: trTime),
           detailCard(
               title: "Payment Status",
               value: Container(
@@ -98,7 +164,7 @@ class BookingDetails extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.r),
                 ),
                 child: Text(
-                  'Paid',
+                  payStatus,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -111,7 +177,7 @@ class BookingDetails extends StatelessWidget {
     );
   }
 
-  Column transactionIDWidget() {
+  Column transactionIDWidget(String trId) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -124,7 +190,7 @@ class BookingDetails extends StatelessWidget {
           ),
         ),
         Text(
-          "#12345678EGF",
+          trId,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16.sp,
@@ -134,7 +200,13 @@ class BookingDetails extends StatelessWidget {
     );
   }
 
-  Container bookingDetailsWidget() {
+  Container bookingDetailsWidget(
+    String serviceType,
+    String date,
+    String time,
+    String details,
+    String address,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.h),
       width: double.infinity,
@@ -144,13 +216,13 @@ class BookingDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Cleaning",
+            serviceType,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
-          Text("House,kitchen & Bathroom cleaning",
+          Text(details,
               style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
@@ -164,9 +236,9 @@ class BookingDetails extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                detailCard(title: "Date", value: "12/12/2021"),
-                detailCard(title: "Time", value: "12:00 PM"),
-                detailCard(title: "Location", value: "123, Street, City"),
+                detailCard(title: "Date", value: date),
+                detailCard(title: "Time", value: time),
+                detailCard(title: "Location", value: address),
               ],
             ),
           ),
@@ -198,7 +270,7 @@ class BookingDetails extends StatelessWidget {
     );
   }
 
-  Row idAndStatusWidgets() {
+  Row idAndStatusWidgets(String id, String bookingStatus) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,7 +288,7 @@ class BookingDetails extends StatelessWidget {
               ),
             ),
             Text(
-              "#12345678EGF",
+              id,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
@@ -228,14 +300,18 @@ class BookingDetails extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(5.r),
           decoration: BoxDecoration(
-            color: Colors.green.shade100,
+            color: bookingStatus == 'Scheduled' || bookingStatus == 'Accepted'
+                ? Colors.green.shade100
+                : Colors.red.shade100,
             borderRadius: BorderRadius.circular(5.r),
           ),
           child: Text(
-            'Scheduled',
+            bookingStatus,
             style: TextStyle(
               fontSize: 12.sp,
-              color: Colors.green,
+              color: bookingStatus == 'Scheduled' || bookingStatus == 'Accepted'
+                  ? Colors.green
+                  : Colors.red,
               fontWeight: FontWeight.w600,
             ),
           ),
