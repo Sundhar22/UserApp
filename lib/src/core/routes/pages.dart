@@ -3,79 +3,77 @@ library route_pages;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
-import 'package:user_app/src/features/application/presentation/bloc/application_bloc.dart';
-import 'package:user_app/src/features/application/presentation/pages/app_pages.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
-import 'package:user_app/src/features/auth/presentation/pages/user_deatils_reg.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
+import 'package:user_app/src/features/order/presentation/pages/order.dart';
 
+import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
+import '../../features/auth/presentation/pages/user_deatils_reg.dart';
 import '../../features/auth/presentation/pages/user_registration.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
-import '../../features/order/presentation/pages/order.dart';
-import 'routes.dart';
 
 class AppRoute {
-  static List<PageEntity> route = [
-    PageEntity(
-        bloc: OnboardingBloc(),
-        page: const OnBoardingPage(),
-        route: RoutesName.initial),
-    PageEntity(
-        bloc: RegisterBloc(),
-        page: const UserRegistrationScreen(),
-        route: RoutesName.login),
-    PageEntity(
-      bloc: RegisterBloc(),
-      page: const OtpScreen(),
-      route: RoutesName.otp,
-    ),
-    PageEntity(
-        bloc: RegisterBloc(),
-        page: const UserDetailsReg(),
-        route: RoutesName.register),
-    PageEntity(
-        route: RoutesName.saveLocation,
-        bloc: LocationBloc(locator()),
-        page: const UserLocation()),
-    PageEntity(
-        route: RoutesName.location,
-        bloc: LocationBloc(locator()),
-        page: UserLocationChoice()),
-    PageEntity(
-        route: RoutesName.appPage,
-        bloc: ApplicationBloc(),
-        page: const ApplicationPage()),
-    PageEntity(
-        route: RoutesName.order,
-        bloc: ApplicationBloc(),
-        page: const OrderPage()),
-  ];
+  static List<PageEntity> routes() {
+    return [
+      PageEntity(
+          route: RoutesName.initial,
+          bloc: BlocProvider(create: (context) => OnboardingBloc()),
+          pages: const OnBoardingPage()),
+      PageEntity(
+          route: RoutesName.login,
+          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          pages: const UserRegistrationScreen()),
+      PageEntity(
+          route: RoutesName.otp,
+          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          pages: const OtpScreen()),
+      PageEntity(
+          route: RoutesName.register,
+          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          pages: const UserDetailsReg()),
+      PageEntity(
+          route: RoutesName.location,
+          bloc: BlocProvider(create: (context) => locator<LocationBloc>()),
+          pages: const UserLocationChoice()),
+      PageEntity(
+          route: RoutesName.saveLocation,
+          bloc: BlocProvider(create: (context) => locator<LocationBloc>()),
+          pages: const UserLocation()),
+      PageEntity(
+          route: RoutesName.appPage,
+          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          pages: const ApplicationPage()),
+      PageEntity(
+          route: RoutesName.order,
+          bloc: BlocProvider(create: (context) => OrderBloc()),
+          pages: const OrderPage()),
+    ];
+  }
 
-  static List<BlocProvider> blocProvider() {
+  List<BlocProvider> allBlocProvider() {
     var blocs = <BlocProvider>[];
-
-    for (var element in route) {
+    routes().forEach((element) {
       if (!blocs.contains(element.bloc)) {
-        blocs.add(BlocProvider(create: (context) => element.bloc));
+        blocs.add(element.bloc);
       }
-    }
+    });
     return blocs;
   }
 
-  static const initial = RoutesName.initial;
-
   static Route<dynamic> generate(RouteSettings? settings) {
     if (settings!.name != null) {
-      var result = route.where((element) => element.route == settings.name);
+      var route = routes().where((element) => element.route == settings.name);
 
-      if (result.isNotEmpty) {
+      if (route.isNotEmpty) {
         return MaterialPageRoute(
-          builder: (context) => result.first.page,
+          builder: (context) => route.first.pages,
           settings: settings,
         );
       }
@@ -93,13 +91,13 @@ class AppRoute {
 }
 
 class PageEntity {
-  final String route;
+  String route;
   dynamic bloc;
-  final Widget page;
+  Widget pages;
   PageEntity({
     required this.route,
     required this.bloc,
-    required this.page,
+    required this.pages,
   });
 }
 

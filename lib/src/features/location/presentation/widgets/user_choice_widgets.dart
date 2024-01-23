@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/routes/routes.dart';
 
 import '../../../../core/constants/constants.dart';
-import '../../../home/presentation/widgets/home_page_search_bar.dart';
 import '../bloc/location_bloc.dart';
 
 Container innerContainerWidget(BuildContext context) {
   return Container(
-    height: 200.h,
+    height: 145.h,
     padding: EdgeInsets.symmetric(vertical: 15.h),
     decoration: BoxDecoration(
       border: Border(
@@ -20,42 +20,65 @@ Container innerContainerWidget(BuildContext context) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        HomePageSearchBar(
-          hintText: "Search for area, street name...",
-          onChanged: (String val) {},
-          onTap: () {},
-          padding:
-              EdgeInsets.only(top: 10.h, bottom: 5.h, left: 0.w, right: 0.w),
-        ),
+        searchBar(context),
         currentLocation(context),
-        // continueButton
-        Column(
-          children: [
-            SizedBox(
-              height: 10.h,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 335.w,
-                height: 35.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.r),
+      ],
+    ),
+  );
+}
+
+Container searchBar(BuildContext context) {
+  return Container(
+    height: 40.h,
+    width: 360.w,
+    padding: EdgeInsets.symmetric(
+      horizontal: 15.w,
+      // vertical: 2.h,
+    ),
+    decoration: BoxDecoration(
+        color: Colors.grey.shade100, borderRadius: BorderRadius.circular(25.r)),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        context.watch<LocationBloc>().state is SearchLoading
+            ? SizedBox(
+                height: 20.h,
+                width: 20.w,
+                child: CircularProgressIndicator(
                   color: AppColor.primaryColor,
+                  strokeWidth: 2,
                 ),
-                child: Center(
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+              )
+            : Image.asset(
+                'assets/icons/search-50.png',
+                height: 20.h,
+                width: 20.w,
+                color: Colors.grey.shade700,
               ),
+        SizedBox(
+          // height: 39.h,
+          width: 275.w,
+          child: TextField(
+            onSubmitted: (String val) {
+              context.read<LocationBloc>().add(SearchLocationEvent(val));
+              context.read<LocationBloc>().stream.listen((event) {
+                if (event is LocationSearchState) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RoutesName.saveLocation, (route) => false);
+                }
+              });
+            },
+            decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.only(left: 10.w, right: 10.w, bottom: 2.h),
+              hintText: "Search for area, street name...",
+              hintStyle: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.normal,
+              ),
+              border: InputBorder.none,
             ),
-          ],
+          ),
         )
       ],
     ),
@@ -95,6 +118,13 @@ GestureDetector currentLocation(BuildContext context) {
   return GestureDetector(
     onTap: () async {
       context.read<LocationBloc>().add(GetCurrentLocationEvent());
+
+      context.read<LocationBloc>().stream.listen((event) {
+        if (event is CurrentLocationLoadedState) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, RoutesName.saveLocation, (route) => false);
+        }
+      });
     },
     child: Container(
       padding: EdgeInsets.symmetric(
@@ -134,9 +164,14 @@ GestureDetector currentLocation(BuildContext context) {
             ),
             style: TextStyle(
               color: AppColor.primaryColor,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500,
             ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: AppColor.primaryColor,
+            size: 16.sp,
           ),
         ],
       ),
@@ -147,14 +182,13 @@ GestureDetector currentLocation(BuildContext context) {
 Row containerAppBar() {
   return Row(
     children: [
-      IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.arrow_back_rounded),
+      SizedBox(
+        width: 10.w,
       ),
-      const Text(
+      Text(
         "Your Address/Location",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -167,7 +201,7 @@ Positioned belowWidget(BuildContext context) {
     bottom: 0,
     child: Container(
       width: 375.w,
-      height: 270.h,
+      height: 250.h,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: Colors.white,

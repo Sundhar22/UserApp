@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 const HomeWidget(),
                 HomePageSearchBar(
                   hintText: "Search for service",
-                  onChanged: (val) {},
+                  onSubmitted: (val) {},
                   onTap: () {},
                 ),
                 Padding(

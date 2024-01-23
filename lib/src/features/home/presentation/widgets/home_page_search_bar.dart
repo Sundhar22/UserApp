@@ -5,14 +5,14 @@ class HomePageSearchBar extends StatelessWidget {
   const HomePageSearchBar({
     super.key,
     required this.hintText,
-    required this.onChanged,
-    required this.onTap,
+    required this.onSubmitted,
+    this.onTap,
     this.padding,
   });
 
   final String hintText;
-  final Function(String val) onChanged;
-  final void Function() onTap;
+  final Function(String val) onSubmitted;
+  final void Function()? onTap;
   final EdgeInsets? padding;
 
   @override
@@ -23,8 +23,8 @@ class HomePageSearchBar extends StatelessWidget {
       child: SizedBox(
         height: 39.h,
         child: SearchBar(
-          onTap: onTap,
-          onChanged: onChanged,
+          onTap: onTap ?? () {},
+          onSubmitted: onSubmitted,
           textStyle: MaterialStatePropertyAll(
             TextStyle(
               fontSize: 16.sp,

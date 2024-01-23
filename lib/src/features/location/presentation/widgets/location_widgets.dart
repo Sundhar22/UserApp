@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/routes/routes.dart';
 
 import '../../../../core/constants/constants.dart';
-
 
 Container locationHead() {
   return Container(
@@ -22,7 +22,6 @@ Container locationHead() {
               Image.asset('assets/icons/location-48.png',
                   height: 25.h, width: 25.w),
               Column(
-                
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -91,7 +90,7 @@ AppBar userLocationAppBar(BuildContext context) {
         color: Colors.black,
       ),
       onPressed: () {
-        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, RoutesName.location);
       },
     ),
     title: Text(
