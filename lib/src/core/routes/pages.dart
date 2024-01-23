@@ -20,6 +20,7 @@ import '../../features/auth/presentation/pages/user_registration.dart';
 import '../../features/booking/presentation/bloc/booking_bloc.dart';
 import '../../features/booking/presentation/functions/booking_firebase.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
+import '../animation/animation.dart';
 
 class AppRoute {
   static List<PageEntity> routes() {
@@ -80,9 +81,10 @@ class AppRoute {
       var route = routes().where((element) => element.route == settings.name);
 
       if (route.isNotEmpty) {
-        return MaterialPageRoute(
-          builder: (context) => route.first.pages,
-          settings: settings,
+        return getAnimateRoute(
+          route.first.pages,
+          settings,
+          
         );
       }
     }

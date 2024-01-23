@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:user_app/src/core/animation/animation.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 
 import '../../../../core/constants/constants.dart';
@@ -151,9 +152,8 @@ class UserLocation extends StatelessWidget {
                   SizedBox(height: 10.h),
                   ElevatedButton(
                     onPressed: () => Navigator.pushNamed(
-                      context,
-                      RoutesName.appPage,
-                    ),
+                        context, RoutesName.appPage,
+                        arguments: AnimationType.fade),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
                           horizontal: 20.w, vertical: 19.h),
