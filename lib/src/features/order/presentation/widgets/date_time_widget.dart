@@ -97,7 +97,7 @@ class DateTimeIndicator extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        "10:00AM - 01:00PM",
+                        state.serviceTime,
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,

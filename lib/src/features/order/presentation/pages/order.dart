@@ -12,7 +12,11 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 1),
+      appBar: AppBar(
+        elevation: 1,
+        title: const Text("Request Services"),
+        centerTitle: true,
+      ),
       backgroundColor: const Color.fromRGBO(250, 250, 250, 1),
       body: const SingleChildScrollView(
         child: Column(

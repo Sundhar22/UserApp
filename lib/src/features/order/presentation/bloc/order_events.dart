@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 sealed class OrderEvents {}
 
 class OrderTypeUpdate extends OrderEvents {
@@ -73,3 +72,5 @@ class OrderKeyBoardTapEvent extends OrderEvents {
     );
   }
 }
+
+class OrderProductUpdateEvent extends OrderEvents {}

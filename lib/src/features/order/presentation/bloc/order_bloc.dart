@@ -43,5 +43,11 @@ class OrderBloc extends Bloc<OrderEvents, OrderState> {
     on<OrderKeyBoardTapEvent>((event, emit) {
       emit(state.copyWith(iskeyBoardActivated: event.iskeyBoardActivated));
     });
+
+    on<OrderProductUpdateEvent>(
+      (event, emit) {
+        emit(state.copyWith());
+      },
+    );
   }
 }
