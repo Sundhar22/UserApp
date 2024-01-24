@@ -49,6 +49,7 @@ dependencies:
   get_it: ^7.6.6
   google_maps_flutter: ^2.5.0
   intl: ^0.19.0
+  shared_preferences: ^2.2.2
   time_range: ^1.1.0
   vibration: ^1.8.4
 

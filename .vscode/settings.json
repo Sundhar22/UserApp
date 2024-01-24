@@ -3,6 +3,7 @@
     "cupertino",
     "dartz",
     "Geolocator",
+    "Placemark",
     "screenutil"
   ],
   "files.exclude": {
