@@ -28,7 +28,7 @@ class VerifyOtpFunc {
       verificationFailed: verificationFailed,
       codeSent: otpCodeSend,
       codeAutoRetrievalTimeout: (String verificationId) {
-        toastMessage("Auto Retrieval Timeout", context);
+        toastMessage("Auto Retrieval Timeout", context, Colors.red);
         // You may handle this event if needed
       },
       timeout: const Duration(seconds: 60 * 2),
@@ -53,13 +53,13 @@ class VerifyOtpFunc {
 
         .then((value) => verifyLoginStatus(value, db))
         .catchError((e) {
-      toastMessage(e.toString(), context);
+      toastMessage(e.toString(), context, Colors.red);
     });
   }
 
   void startOtpTimer() {
     _otpTimer = Timer(const Duration(minutes: 2), () {
-      toastMessage("OTP Timeout", context);
+      toastMessage("OTP Timeout", context, Colors.red);
     });
   }
 
@@ -74,7 +74,7 @@ class VerifyOtpFunc {
   }
 
   void otpCodeSend(String verificationId, int? resendToken) {
-    toastMessage("OTP Sent", context);
+    toastMessage("OTP Sent", context, Colors.green);
     startOtpTimer(); // Start the timer when the OTP is sent
     BlocProvider.of<RegisterBloc>(context).add(
       RegisterUser(
@@ -86,14 +86,14 @@ class VerifyOtpFunc {
   }
 
   void verificationFailed(FirebaseAuthException e) {
-    toastMessage(e.message!, context);
+    toastMessage(e.message!, context, Colors.red);
     print(e.message);
   }
 
   void verificationCompleted(PhoneAuthCredential credential) {
     auth.signInWithCredential(credential);
 
-    toastMessage("WelcomeBack", context);
+    toastMessage("WelcomeBack", context, Colors.green);
     cancelOtpTimer(); // Cancel the timer upon successful verification
     Navigator.pushNamed(context, RoutesName.appPage);
   }
@@ -120,25 +120,27 @@ class VerifyOtpFunc {
       debugPrint('\x1B[33m ${auth.currentUser!.emailVerified}\x1B[0m');
 
       if (data['emailVerified'] == true && data['isLocationSelected'] == true) {
-        toastMessage("OTP Verified and Welcome back", context);
+        toastMessage("OTP Verified and Welcome back", context, Colors.green);
 
         // user not to go back to any of the previous screens
         Navigator.pushNamedAndRemoveUntil(
             context, RoutesName.appPage, (Route<dynamic> route) => false);
       } else if (data['emailVerified'] == true &&
           data['isLocationSelected'] == false) {
-        toastMessage("OTP Verified and Select your location", context);
+        toastMessage(
+            "OTP Verified and Select your location", context, Colors.green);
 // user not to go back to any of the previous screens
         Navigator.pushNamedAndRemoveUntil(
             context, RoutesName.location, (Route<dynamic> route) => false);
       } else {
-        toastMessage("OTP Verified and Enter your details", context);
+        toastMessage(
+            "OTP Verified and Enter your details", context, Colors.green);
         // user not to go back to any of the previous screens
         Navigator.pushNamedAndRemoveUntil(
             context, RoutesName.register, (Route<dynamic> route) => false);
       }
     } else {
-      toastMessage("OTP Verified", context);
+      toastMessage("OTP Verified", context, Colors.green);
 
       db.collection('users').doc(value.user!.uid).set({
         'uid': value.user!.uid,

@@ -5,13 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:user_app/src/core/routes/routes.dart';
+import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 
-import '../../../../core/animation/animation.dart';
 import '../../../../core/constants/constants.dart';
-import '../../../../core/global/navigation_arg.dart';
 import '../bloc/location_bloc.dart';
 
-Container locationHead() {
+Container locationHead(BuildContext context) {
   return Container(
     padding: EdgeInsets.only(bottom: 5.h),
     decoration: BoxDecoration(
@@ -21,25 +20,27 @@ Container locationHead() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 145.w,
+          width: 185.w,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset('assets/icons/location-48.png',
                   height: 25.h, width: 25.w),
+              SizedBox(width: 5.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Chennai",
+                    context.read<LocationBloc>().state.placemark!.locality!,
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w500,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "Tamil Nadu,India",
+                    '${context.read<LocationBloc>().state.placemark!.administrativeArea!},\n${context.read<LocationBloc>().state.placemark!.country!}',
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
@@ -113,6 +114,8 @@ AppBar userLocationAppBar(BuildContext context) {
 
 SizedBox locationInputTextFelid({
   required String tittle,
+  bool? autoFocus,
+  required TextEditingController controller,
 }) {
   return SizedBox(
     child: Column(
@@ -131,6 +134,8 @@ SizedBox locationInputTextFelid({
         TextField(
           maxLines: tittle == "Address Line" ? 3 : 1,
           minLines: 1,
+          autofocus: autoFocus ?? false,
+          controller: controller,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10.r),
             border: OutlineInputBorder(
@@ -222,10 +227,14 @@ LatLng sateUpdate(
 }
 
 DraggableScrollableSheet saveSheet() {
+  final flatNameController = TextEditingController();
+  final apartmentNameController = TextEditingController();
+  final addressLineController = TextEditingController();
+
   return DraggableScrollableSheet(
-      initialChildSize: 0.45.h,
-      maxChildSize: 0.5.h,
-      minChildSize: 0.2.h,
+      initialChildSize: 0.8.h,
+      maxChildSize: 0.8.h,
+      minChildSize: 0.1.h,
       builder: (context, scrollController) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -248,31 +257,50 @@ DraggableScrollableSheet saveSheet() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(child: dragIndicator()),
-                    locationHead(),
+                    locationHead(context),
                     SizedBox(height: 10.h),
                     locationInputTextFelid(
+                        autoFocus: true,
+                        controller: flatNameController,
+                        tittle: "Flat Name  (Optional)"),
+                    SizedBox(height: 10.h),
+                    locationInputTextFelid(
+                        controller: apartmentNameController,
                         tittle: "Apartment Name  (Optional)"),
                     SizedBox(height: 10.h),
                     locationInputTextFelid(
-                        tittle: "Apartment Name  (Optional)"),
-                    SizedBox(height: 10.h),
-                    locationInputTextFelid(tittle: "Address Line"),
+                      controller: addressLineController,
+                      tittle: "Address Line",
+                    ),
                   ],
                 ),
                 SizedBox(height: 10.h),
                 ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    RoutesName.appPage,
-                    arguments: const RouteArguments(
-                        navAnimationType: AnimationType.fade),
-                  ),
+                  onPressed: () {
+                    if (addressLineController.text.isNotEmpty) {
+                      context.read<LocationBloc>().add(
+                            SaveAddressEvent(
+                              flatName: flatNameController.text,
+                              apartmentAddress: apartmentNameController.text,
+                              address: addressLineController.text,
+                            ),
+                          );
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   RoutesName.appPage,
+                      //   arguments: const RouteArguments(
+                      //       navAnimationType: AnimationType.fade),
+                      // );
+                    } else {
+                      toastMessage('Enter a address ', context, Colors.red);
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 19.h),
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     backgroundColor: AppColor.primaryColor,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.r)),
+                        borderRadius: BorderRadius.circular(20.r)),
                   ),
                   child: const Text("Save Address",
                       style: TextStyle(color: Colors.white, fontSize: 16)),

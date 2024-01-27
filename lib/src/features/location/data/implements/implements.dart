@@ -13,8 +13,8 @@ class LocationRepositoryImp implements LocationRepository {
 
   @override
   Future<Either<Failure, LocationEntity>> upDateLocation(
-      GeoPoint location) async {
-    var result = await remoteDataSource.upDateLocation(location);
+      GeoPoint location, String address) async {
+    var result = await remoteDataSource.upDateLocation(location, address);
     try {
       return Right(result.toEntity());
     } on DBException {

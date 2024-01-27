@@ -46,7 +46,7 @@ class OtpScreen extends StatelessWidget {
                               ),
                             );
                             toastMessage(
-                                'You entered $verificationCode', context);
+                                'You entered $verificationCode', context,AppColor.primaryColor);
                           }, // end onSubmit
                         ),
                       ),

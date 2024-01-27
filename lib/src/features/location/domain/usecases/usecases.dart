@@ -10,7 +10,7 @@ class GetLocationUseCase {
 
   GetLocationUseCase({required this.repository});
 
-  Future<Either<Failure, LocationEntity>> execute(GeoPoint geoPoint) async {
-    return await repository.upDateLocation(geoPoint);
+  Future<Either<Failure, LocationEntity>> execute(GeoPoint geoPoint,String address) async {
+    return await repository.upDateLocation(geoPoint,address);
   }
 }

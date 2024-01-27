@@ -82,7 +82,8 @@ class UserDetailsReg extends StatelessWidget {
                     } else {
                       toastMessage(
                           'Please enter your first name and email address',
-                          context);
+                          context,
+                          Colors.red);
                     }
                   },
                 ),
@@ -126,7 +127,7 @@ class UserDetailsReg extends StatelessWidget {
     if (value.isNotEmpty && value.length > 2 && value != '') {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(firstName: value));
     } else {
-      toastMessage('Please enter a first name', context);
+      toastMessage('Please enter a first name', context,Colors.red);
     }
   }
 
@@ -134,7 +135,7 @@ class UserDetailsReg extends StatelessWidget {
     if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(email: value));
     } else {
-      toastMessage('Please enter a valid email', context);
+      toastMessage('Please enter a valid email', context,Colors.red);
     }
   }
 }
