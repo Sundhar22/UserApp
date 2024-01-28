@@ -52,7 +52,8 @@ Container locationHead(BuildContext context) {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, RoutesName.location),
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
             backgroundColor: AppColor.primaryColor.withOpacity(.12),
@@ -232,7 +233,7 @@ DraggableScrollableSheet saveSheet() {
   final addressLineController = TextEditingController();
 
   return DraggableScrollableSheet(
-      initialChildSize: 0.8.h,
+      initialChildSize: 0.6.h,
       maxChildSize: 0.8.h,
       minChildSize: 0.1.h,
       builder: (context, scrollController) {
@@ -275,35 +276,47 @@ DraggableScrollableSheet saveSheet() {
                   ],
                 ),
                 SizedBox(height: 10.h),
-                ElevatedButton(
-                  onPressed: () {
-                    if (addressLineController.text.isNotEmpty) {
-                      context.read<LocationBloc>().add(
-                            SaveAddressEvent(
-                              flatName: flatNameController.text,
-                              apartmentAddress: apartmentNameController.text,
-                              address: addressLineController.text,
-                            ),
-                          );
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   RoutesName.appPage,
-                      //   arguments: const RouteArguments(
-                      //       navAnimationType: AnimationType.fade),
-                      // );
-                    } else {
-                      toastMessage('Enter a address ', context, Colors.red);
+                BlocListener<LocationBloc, LocationState>(
+                  listener: (context, state) {
+                    print(state);
+                    if (state is SaveAddressLoadingState) {
+                      toastMessage(
+                          'Saving Address', context, AppColor.primaryColor);
+                    }
+
+                    if (state is LocationErrorState) {
+                      toastMessage(state.message, context, Colors.red);
+                    }
+                    if (state is SaveAddressSuccessState) {
+                      toastMessage('Address Saved', context, Colors.green);
+                      Navigator.pushReplacementNamed(
+                          context, RoutesName.appPage);
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    backgroundColor: AppColor.primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r)),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (addressLineController.text.isNotEmpty) {
+                        context.read<LocationBloc>().add(
+                              SaveAddressEvent(
+                                flatName: flatNameController.text,
+                                apartmentAddress: apartmentNameController.text,
+                                address: addressLineController.text,
+                              ),
+                            );
+                      } else {
+                        toastMessage('Enter a address ', context, Colors.red);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 10.h),
+                      backgroundColor: AppColor.primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r)),
+                    ),
+                    child: const Text("Save Address",
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
-                  child: const Text("Save Address",
-                      style: TextStyle(color: Colors.white, fontSize: 16)),
                 ),
               ],
             ),
