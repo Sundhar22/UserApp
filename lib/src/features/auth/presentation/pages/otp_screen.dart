@@ -8,7 +8,6 @@ import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.
 
 import '../../../../core/constants/constants.dart';
 import '../bloc/register_bloc.dart';
-import '../func/verify_otp_func.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});
@@ -17,7 +16,18 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<RegisterBloc, RegisterState>(
+        child: BlocConsumer<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterError) {
+              toastMessage(state.error!, context, Colors.red);
+            }
+            if (state is OtpVerified) {
+              Navigator.pushNamed(context, state.routesName as String);
+            }
+            if (state is Verifying) {
+              toastMessage('Verifying...', context, AppColor.primaryColor);
+            }
+          },
           builder: (context, state) {
             return SingleChildScrollView(
               child: SizedBox(
@@ -41,12 +51,12 @@ class OtpScreen extends StatelessWidget {
                           showFieldAsBox: true,
                           onSubmit: (String verificationCode) {
                             BlocProvider.of<RegisterBloc>(context).add(
-                              VerifyOtp(
+                              EnterOtp(
                                 otp: verificationCode,
                               ),
                             );
-                            toastMessage(
-                                'You entered $verificationCode', context,AppColor.primaryColor);
+                            toastMessage('You entered $verificationCode',
+                                context, AppColor.primaryColor);
                           }, // end onSubmit
                         ),
                       ),
@@ -55,9 +65,8 @@ class OtpScreen extends StatelessWidget {
                     const Spacer(),
                     CustomElevatedButton(
                       onPressed: () {
-                        VerifyOtpFunc(context: context).verifyOtp(
-                          context.read<RegisterBloc>().state.otp!,
-                          context.read<RegisterBloc>().state.verificationId!,
+                        BlocProvider.of<RegisterBloc>(context).add(
+                          VerifyOtp(),
                         );
                       },
                     ),

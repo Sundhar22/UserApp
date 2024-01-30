@@ -44,7 +44,7 @@ class CustomTextField extends StatelessWidget {
             keyboardType: fieldName == "Email Address"
                 ? TextInputType.emailAddress
                 : TextInputType.text,
-            onSubmitted: onSubmitted,
+            onChanged: onSubmitted,
             style: TextStyle(
               color: AppColor.textPrimaryColor,
               fontSize: 16.5.sp,

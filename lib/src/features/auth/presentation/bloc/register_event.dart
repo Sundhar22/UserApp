@@ -3,6 +3,16 @@ part of 'register_bloc.dart';
 @immutable
 sealed class RegisterEvent {}
 
+class VerifyPh extends RegisterEvent {
+  final String? userPhoneNumber;
+
+  VerifyPh({
+    this.userPhoneNumber,
+  });
+}
+
+class VerifyOtp extends RegisterEvent {}
+
 class RegisterUser extends RegisterEvent {
   final String? userPhoneNumber;
   final String? verificationId;
@@ -13,10 +23,10 @@ class RegisterUser extends RegisterEvent {
   });
 }
 
-class VerifyOtp extends RegisterEvent {
+class EnterOtp extends RegisterEvent {
   final String? otp;
 
-  VerifyOtp({
+  EnterOtp({
     this.otp,
   });
 }
@@ -32,3 +42,5 @@ class RegisterUserWithEmail extends RegisterEvent {
     this.lastName,
   });
 }
+
+class UserDetailsEvent extends RegisterEvent {}

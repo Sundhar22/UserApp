@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/auth/presentation/func/verify_otp_func.dart';
+import 'package:user_app/src/core/animation/animation.dart';
+import 'package:user_app/src/core/global/navigation_arg.dart';
+import 'package:user_app/src/core/routes/routes.dart';
+import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 
 import '../bloc/register_bloc.dart';
 import '../widgets/elevated_button.dart';
@@ -15,7 +18,22 @@ class UserRegistrationScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: BlocBuilder<RegisterBloc, RegisterState>(
+          child: BlocConsumer<RegisterBloc, RegisterState>(
+            listener: (BuildContext context, RegisterState state) {
+              print(state);
+              if (state is RegisterError) {
+                toastMessage(state.error!, context, Colors.red);
+              }
+              if (state is Loading) {
+                toastMessage("Loading...", context, Colors.green);
+              }
+              if (state is OtpSendState) {
+                toastMessage("Otp Send", context, Colors.green);
+                Navigator.pushNamed(context, RoutesName.otp,
+                    arguments: const RouteArguments(
+                        navAnimationType: AnimationType.customSlide));
+              }
+            },
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,9 +104,9 @@ class UserRegistrationScreen extends StatelessWidget {
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 15.h),
-                    child: CustomElevatedButton(onPressed: () async {
-                      VerifyOtpFunc(context: context)
-                          .verifyUserPhoneNumber(state.userPhoneNumber!);
+                    child: CustomElevatedButton(onPressed: () {
+                      context.read<RegisterBloc>().add(
+                          VerifyPh(userPhoneNumber: state.userPhoneNumber));
                     }),
                   )
                 ],

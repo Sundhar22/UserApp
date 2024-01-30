@@ -31,15 +31,15 @@ class AppRoute {
           pages: const OnBoardingPage()),
       PageEntity(
           route: RoutesName.login,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const UserRegistrationScreen()),
       PageEntity(
           route: RoutesName.otp,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const OtpScreen()),
       PageEntity(
           route: RoutesName.register,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const UserDetailsReg()),
       PageEntity(
           route: RoutesName.location,
@@ -51,7 +51,7 @@ class AppRoute {
           pages: const UserLocation()),
       PageEntity(
           route: RoutesName.appPage,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const ApplicationPage()),
       PageEntity(
           route: RoutesName.order,
