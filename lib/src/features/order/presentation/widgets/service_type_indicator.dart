@@ -22,14 +22,14 @@ class ServiceTypeIndicator extends StatelessWidget {
             return previous.requestType != current.requestType;
           },
           builder: (context, state) {
-            final bool isInstallation = state.requestType == "Installation";
+            final bool isInstallation = state.requestType == "Install";
             return Row(
               children: [
                 GestureDetector(
                   onTap: () {
                     BlocProvider.of<OrderBloc>(context).add(
                       OrderTypeUpdate(
-                        typeOfService: "Installation",
+                        typeOfService: "Install",
                       ),
                     );
                   },

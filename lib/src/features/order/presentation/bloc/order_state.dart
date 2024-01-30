@@ -6,15 +6,17 @@ class OrderState {
   String serviceTime;
   bool iskeyBoardActivated;
   String optionalInstruction;
+  double billAmount;
 
   //
   OrderState({
-    this.requestType = "Installation",
+    this.requestType = "Install",
     this.productQuantity = 0,
-    this.serviceDate = "",
-    this.serviceTime = "",
+    this.serviceDate = "Pick a Date",
+    this.serviceTime = "Pick a Time",
     this.iskeyBoardActivated = false,
     this.optionalInstruction = "",
+    this.billAmount = 0.0,
   });
 
   OrderState copyWith({
@@ -24,6 +26,7 @@ class OrderState {
     String? serviceTime,
     bool? iskeyBoardActivated,
     String? optionalInstruction,
+    double? billAmount,
   }) {
     return OrderState(
       requestType: requestType ?? this.requestType,
@@ -32,6 +35,7 @@ class OrderState {
       serviceTime: serviceTime ?? this.serviceTime,
       iskeyBoardActivated: iskeyBoardActivated ?? this.iskeyBoardActivated,
       optionalInstruction: optionalInstruction ?? this.optionalInstruction,
+      billAmount: billAmount ?? this.billAmount,
     );
   }
 }
