@@ -46,7 +46,7 @@ void main() {
     },
     act: (bloc) => bloc.add(GetCurrentLocationEvent()),
     expect: () => [
-      CurrentLocationErrorState(message: 'unable to get location'),
+      const CurrentLocationErrorState(message: 'unable to get location'),
     ],
   );
 }

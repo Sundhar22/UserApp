@@ -88,7 +88,6 @@ class _HelpCenterState extends State<HelpCenter> {
                             color: AppColor.textPrimaryColor,
                           ),
                         ),
-                        
                       ],
                     ),
                   ),

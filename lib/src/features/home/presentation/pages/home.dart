@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
         img: "more-50.png",
         title: "More",
         color: const Color.fromARGB(255, 0, 0, 255),
-        onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MoreService())),
+        onTap: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MoreService())),
       ),
     ];
     return Scaffold(
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MoreService(),
+                        builder: (context) => const MoreService(),
                       ),
                     ),
                   ),

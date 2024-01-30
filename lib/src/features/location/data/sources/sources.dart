@@ -18,7 +18,7 @@ class LocationRemoteDataSourceImp extends LocationRemoteDataSource {
       'isLocationSelected': true,
       'locations': FieldValue.arrayUnion([geoPoint]),
     }).then((_) {
-      return Future.value(LocationModel(status: "success"));
+      return Future.value(const LocationModel(status: "success"));
     }).catchError((error) => throw DBException());
 
     return result;

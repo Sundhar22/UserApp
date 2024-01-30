@@ -83,7 +83,7 @@ class _ManageAddressesState extends State<ManageAddresses> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (BuildContext context) =>  UserLocation(),
+            builder: (BuildContext context) => const UserLocation(),
           ),
         );
       },
