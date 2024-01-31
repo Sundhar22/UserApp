@@ -1,50 +1,73 @@
+// code with bloc
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/features/profile/data/models/models.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_event.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_state.dart';
 
 import '../../../../core/constants/constants.dart';
 import 'custom_appbar.dart';
+
 enum MessageType {
   serviceProvider,
   user,
 }
 
 class CustomerService extends StatefulWidget {
-  const CustomerService({super.key});
+  const CustomerService({Key? key}) : super(key: key);
 
   @override
   State<CustomerService> createState() => _CustomerServiceState();
 }
 
 class _CustomerServiceState extends State<CustomerService> {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: customAppBar("Customer Service"),
-      bottomSheet: BottomSheet(
+    return BlocProvider(
+      create: (context) => ChatBloc(),
+      child: Scaffold(
         backgroundColor: Colors.white,
-        shadowColor: Colors.white,
-        onClosing: () {},
-        builder: (BuildContext context) => _customTextFeild(),
-      ),
-      body: SizedBox(
-        width: 380.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _serviceProvideContainer("Hello Good Morning", "09:41 AM"),
-            _serviceProvideContainer(
-                "I am a customer service, is there anything i can help you with?",
-                "09:41 AM"),
-            _userContainer(
-                "Hi, I am having problem with my service payment", "09:42 AM"),
-          ],
+        appBar: customAppBar("Customer Service"),
+        bottomSheet: BottomSheet(
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
+          onClosing: () {},
+          builder: (BuildContext context) => _CustomTextField(
+            controller: _controller,
+          ),
+        ),
+        body: BlocBuilder<ChatBloc, ChatState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state.messages.isNotEmpty) {
+              return _MessageListView(messages: state.messages);
+            } else if (state.error != null) {
+              return Center(child: Text(state.error!));
+            } else {
+              return Container(); // Handle other states if needed
+            }
+          },
         ),
       ),
     );
   }
+}
 
-  Widget _customTextFeild() {
+class _CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+
+  const _CustomTextField({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -71,12 +94,13 @@ class _CustomerServiceState extends State<CustomerService> {
                       minHeight: 50.0,
                       maxHeight: 135.0,
                     ),
-                    child: const Scrollbar(
+                    child: Scrollbar(
                       child: TextField(
+                        controller: controller,
                         cursorColor: Colors.blue,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(
                             left: 15.0,
@@ -98,17 +122,24 @@ class _CustomerServiceState extends State<CustomerService> {
               ],
             ),
           ),
-          Container(
-            height: 35.h,
-            width: 35.h,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColor.primaryColor,
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.mic,
-                color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              context
+                  .read<ChatBloc>()
+                  .add(SendMessageEvent(message: controller.text));
+            },
+            child: Container(
+              height: 35.h,
+              width: 35.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColor.primaryColor,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.send,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -116,27 +147,55 @@ class _CustomerServiceState extends State<CustomerService> {
       ),
     );
   }
+}
 
-  Widget _serviceProvideContainer(String content, String time) {
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: _messageContainer(content, time, MessageType.serviceProvider));
+class _MessageListView extends StatelessWidget {
+  final List<Message> messages;
+
+  const _MessageListView({Key? key, required this.messages}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      reverse: true,
+      itemCount: messages.length,
+      itemBuilder: (context, index) {
+        final message = messages[index];
+        return _MessageContainer(
+          content: message.content,
+          timestamp: message.timestamp,
+          type: message.type,
+        );
+      },
+    );
   }
+}
 
-  Widget _userContainer(String content, String time) {
-    return Align(
-        alignment: Alignment.centerRight,
-        child: _messageContainer(content, time, MessageType.user));
-  }
+class _MessageContainer extends StatelessWidget {
+  final String content;
+  final Timestamp timestamp;
+  final MessageType type;
 
-  Widget _messageContainer(String content, String time, MessageType type) {
+  const _MessageContainer({
+    Key? key,
+    required this.content,
+    required this.timestamp,
+    required this.type,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final bool isServiceProvider = type == MessageType.serviceProvider;
+    final DateTime dateTime = timestamp.toDate();
+
+    final formattedTime = DateFormat.jm().format(dateTime);
 
     return Container(
-      alignment: Alignment.centerRight,
+      width: 270.w,
+      alignment:
+          isServiceProvider ? Alignment.centerLeft : Alignment.centerRight,
       margin: EdgeInsets.all(10.r),
       padding: EdgeInsets.all(10.r),
-      width: 270.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: isServiceProvider
@@ -153,26 +212,24 @@ class _CustomerServiceState extends State<CustomerService> {
             : AppColor.primaryColor,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 180.w,
-            child: Text(
-              content,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.normal,
-                color: isServiceProvider
-                    ? AppColor.textPrimaryColor
-                    : Colors.white,
+          Expanded(
+            child: SizedBox(
+              width: content.length < 10 ? 100.w : 150.w,
+              child: Text(
+                content,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.normal,
+                  color: isServiceProvider
+                      ? AppColor.textPrimaryColor
+                      : Colors.white,
+                ),
               ),
             ),
           ),
-          SizedBox(
-            width: 10.w,
-          ),
           Text(
-            time,
+            formattedTime,
             style: TextStyle(
               fontSize: 12.sp,
               color: isServiceProvider
@@ -185,3 +242,234 @@ class _CustomerServiceState extends State<CustomerService> {
     );
   }
 }
+
+
+
+// normal function code
+
+
+// import 'package:flutter/material.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:intl/intl.dart';
+
+// import '../../../../core/constants/constants.dart';
+// import 'custom_appbar.dart';
+
+// enum MessageType {
+//   serviceProvider,
+//   user,
+// }
+
+// class CustomerService extends StatefulWidget {
+//   const CustomerService({super.key});
+
+//   @override
+//   State<CustomerService> createState() => _CustomerServiceState();
+// }
+
+// class _CustomerServiceState extends State<CustomerService> {
+//   final TextEditingController _controller = TextEditingController();
+
+//   void _sendMessage() {
+//     if (_controller.text.isNotEmpty) {
+//       FirebaseFirestore.instance.collection('messages').add({
+//         'content': _controller.text,
+//         'time': DateTime.now(),
+//         'type': MessageType.user.toString(),
+//       });
+//       _controller.clear();
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: customAppBar("Customer Service"),
+//       bottomSheet: BottomSheet(
+//         backgroundColor: Colors.white,
+//         shadowColor: Colors.white,
+//         onClosing: () {},
+//         builder: (BuildContext context) => _customTextField(),
+//       ),
+//       body: SizedBox(
+//         height: 540.h,
+//         child: StreamBuilder(
+//           stream: FirebaseFirestore.instance
+//               .collection('messages')
+//               .orderBy('time', descending: true)
+//               .snapshots(),
+//           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return const Center(
+//                 child: CircularProgressIndicator(),
+//               );
+//             }
+//             final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
+//             return ListView.builder(
+//               reverse: true,
+//               itemCount: documents.length,
+//               itemBuilder: (context, int index) {
+//                 final message = documents[index].data() as Map<String, dynamic>;
+//                 return _messageContainer(
+//                   message['content'],
+//                   message['time'],
+//                   message['type'] == MessageType.serviceProvider.toString()
+//                       ? MessageType.serviceProvider
+//                       : MessageType.user,
+//                 );
+//               },
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _customTextField() {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         children: [
+//           Container(
+//             padding: EdgeInsets.symmetric(horizontal: 10.w),
+//             width: 280.w,
+//             height: 50.h,
+//             decoration: BoxDecoration(
+//               color: Colors.white,
+//               borderRadius: BorderRadius.circular(15),
+//               border: Border.all(
+//                 color: Colors.black.withOpacity(0.5),
+//               ),
+//             ),
+//             child: Row(
+//               children: [
+//                 Flexible(
+//                   child: ConstrainedBox(
+//                     constraints: BoxConstraints(
+//                       minWidth: 25.w,
+//                       maxWidth: 300.w,
+//                       minHeight: 50.0,
+//                       maxHeight: 135.0,
+//                     ),
+//                     child: Scrollbar(
+//                       child: TextField(
+//                         controller: _controller,
+//                         cursorColor: Colors.blue,
+//                         keyboardType: TextInputType.multiline,
+//                         maxLines: null,
+//                         decoration: const InputDecoration(
+//                           border: InputBorder.none,
+//                           contentPadding: EdgeInsets.only(
+//                             left: 15.0,
+//                             bottom: 2.0,
+//                           ),
+//                           hintText: "Message",
+//                           hintStyle: TextStyle(
+//                             color: Colors.grey,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Icon(
+//                   Icons.image,
+//                   color: AppColor.textSecondaryColor.withOpacity(0.5),
+//                 )
+//               ],
+//             ),
+//           ),
+//           GestureDetector(
+//             onTap: () {
+//               _sendMessage();
+//             },
+//             child: Container(
+//               height: 35.h,
+//               width: 35.h,
+//               decoration: BoxDecoration(
+//                 shape: BoxShape.circle,
+//                 color: AppColor.primaryColor,
+//               ),
+//               child: const Center(
+//                 child: Icon(
+//                   Icons.send,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _messageContainer(
+//     String content,
+//     Timestamp timestamp,
+//     MessageType type,
+//   ) {
+//     final bool isServiceProvider = type == MessageType.serviceProvider;
+//     final DateTime dateTime = timestamp.toDate();
+
+//     final formattedTime = DateFormat.jm().format(dateTime);
+
+//     return SizedBox(
+//       width: 270.w,
+//       child: Container(
+//         alignment:
+//             isServiceProvider ? Alignment.centerLeft : Alignment.centerRight,
+//         margin: EdgeInsets.all(10.r),
+//         padding: EdgeInsets.all(10.r),
+//         // width: 270.w,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.only(
+//             topLeft: isServiceProvider
+//                 ? const Radius.circular(0)
+//                 : Radius.circular(10.r),
+//             topRight: isServiceProvider
+//                 ? Radius.circular(10.r)
+//                 : const Radius.circular(0),
+//             bottomLeft: Radius.circular(10.r),
+//             bottomRight: Radius.circular(10.r),
+//           ),
+//           color: isServiceProvider
+//               ? AppColor.textSecondaryColor.withOpacity(0.1)
+//               : AppColor.primaryColor,
+//         ),
+//         child: Row(
+//           children: [
+//             SizedBox(
+//               width: content.length < 10 ? 100.w : 150.w,
+//               // width: 180.w,
+//               child: Text(
+//                 content,
+//                 style: TextStyle(
+//                   fontSize: 14.sp,
+//                   fontWeight: FontWeight.normal,
+//                   color: isServiceProvider
+//                       ? AppColor.textPrimaryColor
+//                       : Colors.white,
+//                 ),
+//               ),
+//             ),
+//             // SizedBox(
+//             //  width: 20.w,
+//             // ),
+//             Text(
+//               formattedTime,
+//               style: TextStyle(
+//                 fontSize: 12.sp,
+//                 color: isServiceProvider
+//                     ? AppColor.textSecondaryColor
+//                     : Colors.white.withOpacity(0.5),
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

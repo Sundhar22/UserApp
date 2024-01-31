@@ -12,6 +12,8 @@ import 'package:user_app/src/features/location/presentation/pages/user_location.
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
 
 import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
@@ -58,11 +60,15 @@ class AppRoute {
           bloc: BlocProvider(create: (context) => OrderBloc()),
           pages: const OrderPage()),
       PageEntity(
+          route: RoutesName.customerService,
+          bloc: BlocProvider(create: (context) => ChatBloc()),
+          pages: const CustomerService()),
+      PageEntity(
           route: RoutesName.booking,
           bloc: BlocProvider(
               create: (context) => BookingBloc(
                   bookingFirestoreService: BookingFirestoreService())),
-          pages: const BookingPage())
+          pages: const BookingPage()),
     ];
   }
 
@@ -84,7 +90,6 @@ class AppRoute {
         return getAnimateRoute(
           route.first.pages,
           settings,
-          
         );
       }
     }

@@ -19,7 +19,7 @@ void main() {
 
   GeoPoint geoPoint = const GeoPoint(-10.8544921875, 59.478568831926395);
 
-  var locationEntity = LocationEntity(status: "success");
+  var locationEntity = const LocationEntity(status: "success");
   test('checking repository through usecases', () async {
     // arrange
     when(mockLocationRepository.upDateLocation(geoPoint))

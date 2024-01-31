@@ -23,7 +23,7 @@ void main() {
       // arrange
 
       when(dataSource.upDateLocation(const GeoPoint(0, 0)))
-          .thenAnswer((_) async => LocationModel(status: 'success'));
+          .thenAnswer((_) async => const LocationModel(status: 'success'));
 
       // act
 
