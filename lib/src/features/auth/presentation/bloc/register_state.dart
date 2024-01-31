@@ -49,8 +49,11 @@ class RegisterError extends RegisterState {
   @override
   final String? userPhoneNumber;
 
-  RegisterError({this.error, this.userPhoneNumber})
-      : super(userPhoneNumber: userPhoneNumber);
+  @override
+  final String? verificationId;
+
+  RegisterError( {this.error,this.verificationId, this.userPhoneNumber})
+      : super(userPhoneNumber: userPhoneNumber, verificationId: verificationId);
 }
 
 class OtpSendState extends RegisterState {

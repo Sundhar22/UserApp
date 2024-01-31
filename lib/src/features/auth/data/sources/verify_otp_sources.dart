@@ -7,7 +7,7 @@ import 'package:user_app/src/core/routes/routes.dart';
 import '../../../../core/error/exception.dart';
 
 abstract class VerifyOtpRemoteDataSource {
-  Future<String> verifyOtp({String? otp, String? verificationId});
+  Future<String> verifyOtp(String otp, String verificationId);
 }
 
 class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
@@ -17,9 +17,9 @@ class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
   VerifyOtpRemoteDataSourceImp(this.auth, this.collection);
 
   @override
-  Future<String> verifyOtp({String? otp, String? verificationId}) async {
+  Future<String> verifyOtp(String otp, String verificationId) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId!, smsCode: otp!);
+        verificationId: verificationId, smsCode: otp);
     final Completer<String> completer = Completer();
 
     try {
@@ -28,30 +28,31 @@ class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
       DocumentSnapshot documentSnapshot =
           await collection.doc(result.user!.uid).get();
 
-      Map<String, dynamic> data =
-          documentSnapshot.data() as Map<String, dynamic>;
-
       if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+
         if (data['emailVerified'] == true &&
             data['isLocationSelected'] == true) {
           completer.complete(RoutesName.appPage);
         } else if (data['emailVerified'] == true &&
             data['isLocationSelected'] == false) {
-          completer.complete(RoutesName.location);
+          return RoutesName.location;
         } else {
-          completer.complete(RoutesName.register);
+          return RoutesName.register;
         }
       } else {
-        collection.doc(result.user!.uid).set({
+        await collection.doc(result.user!.uid).set({
           'uid': result.user!.uid,
           'phoneNumber': result.user!.phoneNumber,
           'emailVerified': false,
           'isLocationSelected': false,
         });
 
-        completer.complete(RoutesName.register);
+        return RoutesName.register;
       }
     } catch (e) {
+      print(e);
       completer.completeError(OtpInvalidException());
     }
     return completer.future;

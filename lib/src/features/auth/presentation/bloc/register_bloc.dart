@@ -30,7 +30,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     });
 
     //
-  on<RegisterUserWithEmail>((event, emit) {
+    on<RegisterUserWithEmail>((event, emit) {
       if (event.email != null) {
         emit(state.copyWith(email: event.email));
       }
@@ -41,7 +41,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         emit(state.copyWith(lastName: event.lastName));
       }
     });
-    // 
+    //
     on<VerifyPh>((event, emit) async {
       emit(Loading(event.userPhoneNumber));
       var result = await verifyPhNumUseCase
@@ -65,24 +65,26 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       var result = await verifyOtpUseCases.verifyOtp(
           otp: state.otp!, verificationId: state.verificationId!);
-
+    
       result.fold((l) {
         emit(RegisterError(
-            error: l.message, userPhoneNumber: state.userPhoneNumber));
+            error: l.message,
+            userPhoneNumber: state.userPhoneNumber,
+            verificationId: state.verificationId));
       }, (r) {
         emit(
             OtpVerified(routesName: r, userPhoneNumber: state.userPhoneNumber));
       });
     });
     //
-  
+
     on<UserDetailsEvent>((event, emit) async {
       emit(UpdatingUserDetails(state.email, state.firstName, state.lastName));
       var result = await userDetailsUseCases.call(
           firstName: state.firstName!,
           lastName: state.lastName!,
           email: state.email!);
-          
+
       result.fold((l) {
         emit(RegisterError(
             error: l.message, userPhoneNumber: state.userPhoneNumber));

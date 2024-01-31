@@ -9,6 +9,6 @@ class VerifyOtpUseCases {
 
   Future<Either<Failure, String>> verifyOtp(
       {required String otp, required String verificationId}) async {
-    return await repository.verifyOtp(otp: otp, verificationId: verificationId);
+    return await repository.verifyOtp(otp, verificationId);
   }
 }

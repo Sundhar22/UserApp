@@ -4,5 +4,5 @@ import '../../../../core/error/error.dart';
 
 abstract class VerifyOtpRepositories {
   Future<Either<Failure, String>> verifyOtp(
-      {String otp, String verificationId});
+      String otp, String verificationId);
 }
