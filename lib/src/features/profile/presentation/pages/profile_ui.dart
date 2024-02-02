@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/features/profile/presentation/pages/profile_edit_page.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/notification_ui.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/payment_ui.dart';
 import '../../../../core/constants/constants.dart';
@@ -22,7 +23,7 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              profileEditWidget(),
+              profileEditWidget(context),
               SizedBox(
                 height: 2.h,
               ),
@@ -148,7 +149,7 @@ class ProfilePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) =>  PaymentHistory(),
+                  builder: (BuildContext context) => PaymentHistory(),
                 ),
               );
             },
@@ -224,7 +225,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Row profileEditWidget() {
+  Row profileEditWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -235,7 +236,14 @@ class ProfilePage extends StatelessWidget {
           height: 26.h,
           width: 29.w,
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const ProfileEditPage(),
+                  ),
+                );
+              },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(EdgeInsets.zero),
                 backgroundColor: MaterialStateProperty.all(

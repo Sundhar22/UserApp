@@ -9,6 +9,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final now = DateTime.now();
 
   ChatBloc() : super(ChatState(messages: [], isLoading: true)) {
+    // Load previous messages from Firestore
+    FirebaseFirestore.instance
+        .collection('messages')
+        .orderBy('time', descending: true)
+        .get()
+        .then((querySnapshot) {
+      final message =
+          querySnapshot.docs.map((doc) => Message.fromDocument(doc)).toList();
+      add(MessageReceivedEvent(messages: message));
+    });
+
     on<ChatEvent>(_onEvent);
 
     FirebaseFirestore.instance
@@ -17,30 +28,30 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         .snapshots()
         .listen((snapshot) {
       add(SendMessageEvent(
-          message: snapshot.docs.map((doc) => Message.fromDocument(doc)).toList().toString()));
+          message: snapshot.docs
+              .map((doc) => Message.fromDocument(doc))
+              .toList()
+              .toString()));
     });
   }
 
   void _onEvent(ChatEvent event, Emitter<ChatState> emit) async {
     if (event is SendMessageEvent) {
       try {
-         final Timestamp timestamp = Timestamp.fromDate(now);
+        final Timestamp timestamp = Timestamp.now();
         await FirebaseFirestore.instance.collection('messages').add({
           'content': event.message,
-          'time': DateTime.now(),
+          'time': timestamp,
           'type': MessageType.user.toString(),
         });
         // Emitting the updated state after sending a message
-        emit(state.copyWith(
-            messages: [
-              ...state.messages,
-              Message(
-                  content: event.message,
-                  type: MessageType.user,
-                  timestamp: timestamp)
-            ],
-            isLoading: false));
-            
+        emit(state.copyWith(messages: [
+          ...state.messages,
+          Message(
+              content: event.message,
+              type: MessageType.user,
+              timestamp: timestamp)
+        ], isLoading: false));
       } catch (error) {
         // Emitting an error state if message sending fails
         emit(state.copyWith(isLoading: false, error: error.toString()));

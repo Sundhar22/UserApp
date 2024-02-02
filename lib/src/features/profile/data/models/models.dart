@@ -29,6 +29,7 @@ factory Message.fromDocument(DocumentSnapshot doc) {
   // Parse Firestore timestamp correctly
   final timestamp = Timestamp.fromDate(data['timestamp'] as DateTime);
 
+
   return Message(
     content: data['content'],
     timestamp: timestamp,
