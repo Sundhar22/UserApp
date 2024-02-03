@@ -52,7 +52,6 @@ class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
         return RoutesName.register;
       }
     } catch (e) {
-      print(e);
       completer.completeError(OtpInvalidException());
     }
     return completer.future;

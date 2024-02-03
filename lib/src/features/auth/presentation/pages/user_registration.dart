@@ -9,6 +9,7 @@ import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 
 import '../bloc/register_bloc.dart';
 import '../widgets/elevated_button.dart';
+import '../widgets/rich_text.dart';
 
 class UserRegistrationScreen extends StatelessWidget {
   const UserRegistrationScreen({super.key});
@@ -25,9 +26,10 @@ class UserRegistrationScreen extends StatelessWidget {
                 toastMessage(state.error!, context, Colors.red);
               }
               if (state is Loading) {
-                toastMessage("Loading...", context, Colors.green);
+                loadingDialog(context);
               }
               if (state is OtpSendState) {
+                if (Navigator.canPop(context)) Navigator.pop(context);
                 toastMessage("Otp Send", context, Colors.green);
                 Navigator.pushNamed(context, RoutesName.otp,
                     arguments: const RouteArguments(
@@ -45,7 +47,7 @@ class UserRegistrationScreen extends StatelessWidget {
                       "assets/img/banner.jpg",
                     ),
                   ),
-                  const UserRegistrationRichText(),
+                  userRegistrationRichText(),
                   Container(
                     margin:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 8.w),
@@ -119,30 +121,33 @@ class UserRegistrationScreen extends StatelessWidget {
   }
 }
 
-class UserRegistrationRichText extends StatelessWidget {
-  const UserRegistrationRichText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Welcome Back !\nLogin to Continue.",
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+void loadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.r)),
+        ),
+        child: Container(
+          height: 50.h,
+          width: 50.w,
+          decoration: BoxDecoration(
+            color: Colors.white60,
+            borderRadius: BorderRadius.all(Radius.circular(10.r)),
           ),
-          SizedBox(height: 15),
-          Text(
-            "Enter your mobile number. We will send you a One Time Password (OTP)",
-            style: TextStyle(fontSize: 15),
-          )
-        ],
-      ),
-    );
-  }
+          margin: EdgeInsets.symmetric(horizontal: 100.w),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

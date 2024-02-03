@@ -3,6 +3,7 @@
     "cupertino",
     "dartz",
     "Geolocator",
+    "Pinput",
     "Placemark",
     "screenutil"
   ],
@@ -32,8 +33,7 @@
     "devtools_options.yaml": true,
     "flutter_01.log": true,
     "pubspec.lock": true,
-    "README.md": true,
-    "android": true
+    "README.md": true
   },
   "hide-files.files": [
     ".dart_tool",
@@ -53,8 +53,7 @@
     "devtools_options.yaml",
     "flutter_01.log",
     "pubspec.lock",
-    "README.md",
-    "android"
+    "README.md"
   ],
   "path-autocomplete.extensionOnImport": true,
   "explorerExclude.backup": {},

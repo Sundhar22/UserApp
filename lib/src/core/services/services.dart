@@ -40,9 +40,6 @@ void setUpLocator() {
   locator.registerLazySingleton<CollectionReference>(
       () => collectionReference(firebaseFirestore: locator()));
 
-  locator.registerLazySingleton<DocumentReference>(() => documentReference(
-      collectionReference: locator(), firebaseAuth: locator()));
-
   // bloc
   locator.registerFactory(() => LocationBloc(locator(), locator()));
   locator.registerFactory(() => RegisterBloc(locator(), locator(), locator()));
@@ -78,8 +75,9 @@ void setUpLocator() {
 
   // source
 
-  locator.registerLazySingleton<LocationRemoteDataSource>(
-      () => LocationRemoteDataSourceImp(docReference: locator()));
+  locator.registerLazySingleton<LocationRemoteDataSource>(() =>
+      LocationRemoteDataSourceImp(
+          collectionReference: locator(), firebaseAuth: locator()));
 
   locator.registerLazySingleton<CurrentLocationSource>(
       () => CurrentLocationSourceImpl());
@@ -88,7 +86,7 @@ void setUpLocator() {
       () => VerifyPhNumRemoteDataSourceImpl(auth: locator()));
   locator.registerLazySingleton<VerifyOtpRemoteDataSource>(
       () => VerifyOtpRemoteDataSourceImp(locator(), locator()));
-  
+
   locator.registerLazySingleton<UserDetailRemoteSource>(
-      () => UserDetailRemoteSourceImp(docReference: locator()));
+      () => UserDetailRemoteSourceImp(locator(), locator()));
 }

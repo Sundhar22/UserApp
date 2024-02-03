@@ -38,7 +38,7 @@ class AppRoute {
       PageEntity(
           route: RoutesName.otp,
           bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
-          pages: const OtpScreen()),
+          pages:  OtpScreen()),
       PageEntity(
           route: RoutesName.register,
           bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
