@@ -2,6 +2,7 @@ library route_pages;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/src/core/config/config.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
@@ -38,7 +39,7 @@ class AppRoute {
       PageEntity(
           route: RoutesName.otp,
           bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
-          pages:  OtpScreen()),
+          pages: const OtpScreen()),
       PageEntity(
           route: RoutesName.register,
           bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
@@ -87,6 +88,14 @@ class AppRoute {
       var route = routes().where((element) => element.route == settings.name);
 
       if (route.isNotEmpty) {
+        if (DependencyInjection.storageService.getDeviceFirstOpen() &&
+            settings.name == RoutesName.initial) {
+          return getAnimateRoute(
+            const ApplicationPage(),
+            settings,
+          );
+        }
+
         return getAnimateRoute(
           route.first.pages,
           settings,

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:user_app/src/core/config/config.dart';
+import 'package:user_app/src/core/constants/app_const.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 
@@ -277,8 +279,7 @@ DraggableScrollableSheet saveSheet() {
                 ),
                 SizedBox(height: 10.h),
                 BlocListener<LocationBloc, LocationState>(
-                  listener: (context, state) {
-                    print(state);
+                  listener: (context, state) async {
                     if (state is SaveAddressLoadingState) {
                       toastMessage(
                           'Saving Address', context, AppColor.primaryColor);
@@ -289,13 +290,16 @@ DraggableScrollableSheet saveSheet() {
                     }
                     if (state is SaveAddressSuccessState) {
                       toastMessage('Address Saved', context, Colors.green);
-                      Navigator.pushReplacementNamed(
-                          context, RoutesName.appPage);
+                      DependencyInjection.storageService
+                          .setBool(AppConstants.FIRST_TIME_OPEN, true);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, RoutesName.appPage, (route) => false);
                     }
                   },
                   child: ElevatedButton(
                     onPressed: () {
-                      if (addressLineController.text.isNotEmpty) {
+                      if (addressLineController.text.isNotEmpty &&
+                          addressLineController.text.length > 10) {
                         context.read<LocationBloc>().add(
                               SaveAddressEvent(
                                 flatName: flatNameController.text,
@@ -304,7 +308,8 @@ DraggableScrollableSheet saveSheet() {
                               ),
                             );
                       } else {
-                        toastMessage('Enter a address ', context, Colors.red);
+                        toastMessage('Enter a address more than 10 letters ',
+                            context, Colors.red);
                       }
                     },
                     style: ElevatedButton.styleFrom(

@@ -19,10 +19,8 @@ class RootApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, ch) => DismissKeyboard(
           child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateInitialRoutes: (initialRoute) {
-              return [AppRoute.generate(RouteSettings(name: initialRoute))];
-            },
+            debugShowCheckedModeBanner: false, 
+            initialRoute: RoutesName.initial, 
             onGenerateRoute: AppRoute.generate,
             theme: buildApp(),
           ),

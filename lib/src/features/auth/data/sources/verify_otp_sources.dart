@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 
 import '../../../../core/error/exception.dart';
@@ -21,7 +22,7 @@ class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: otp);
     final Completer<String> completer = Completer();
-
+    final SharedPreferences pref = await SharedPreferences.getInstance();
     try {
       var result = await auth.signInWithCredential(credential);
 
@@ -34,6 +35,7 @@ class VerifyOtpRemoteDataSourceImp extends VerifyOtpRemoteDataSource {
 
         if (data['emailVerified'] == true &&
             data['isLocationSelected'] == true) {
+          await pref.setBool('LoginStatus', true);
           completer.complete(RoutesName.appPage);
         } else if (data['emailVerified'] == true &&
             data['isLocationSelected'] == false) {

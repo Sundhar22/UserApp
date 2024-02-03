@@ -3,10 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/global/global.dart';
 import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
 
+import '../../../../core/config/config.dart';
+import '../../../../core/constants/app_const.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/routes/routes.dart';
 import '../bloc/register_bloc.dart';
 import '../widgets/otp_field.dart';
 
@@ -23,7 +27,16 @@ class OtpScreen extends StatelessWidget {
               toastMessage(state.error!, context, Colors.red);
             }
             if (state is OtpVerified) {
-              Navigator.pushReplacementNamed(context, state.routesName as String);
+              if (state.routesName == RoutesName.appPage) {
+                  DependencyInjection.storageService
+                      .setBool(AppConstants.FIRST_TIME_OPEN, true);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, state.routesName as String, (route) => false);
+              } else {
+                Navigator.pushReplacementNamed(
+                    context, state.routesName as String);
+              }
+              pinController.clear();
             }
             if (state is Verifying) {
               toastMessage('Verifying...', context, AppColor.primaryColor);

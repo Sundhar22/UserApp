@@ -117,7 +117,7 @@ class OnBoardingPage extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.only(left: 25.w, right: 25.w),
                               child: ElevatedButton(
-                                onPressed: () => Navigator.pushNamed(
+                                onPressed: () => Navigator.pushReplacementNamed(
                                     context, RoutesName.login),
                                 style: ElevatedButton.styleFrom(
                                   splashFactory: NoSplash.splashFactory,

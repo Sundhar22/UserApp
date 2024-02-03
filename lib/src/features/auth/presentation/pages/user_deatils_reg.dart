@@ -23,7 +23,7 @@ class UserDetailsReg extends StatelessWidget {
             }
             if (state is UserDetailsUpdated) {
               toastMessage('Updated', context, Colors.green);
-              Navigator.pushNamed(context, state.routesName!);
+              Navigator.pushReplacementNamed(context, state.routesName!);
             }
             if (state is UpdatingUserDetails) {
               toastMessage('Updating', context, Colors.green);
