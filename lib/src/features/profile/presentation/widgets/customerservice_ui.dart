@@ -127,6 +127,7 @@ class _CustomTextField extends StatelessWidget {
               context
                   .read<ChatBloc>()
                   .add(SendMessageEvent(message: controller.text));
+              controller.clear();
             },
             child: Container(
               height: 35.h,
@@ -157,7 +158,7 @@ class _MessageListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      reverse: true,
+      // reverse: true,
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final message = messages[index];
@@ -186,8 +187,9 @@ class _MessageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isServiceProvider = type == MessageType.serviceProvider;
-    final DateTime dateTime = timestamp.toDate();
+    final dateTime = timestamp.toDate();
 
+    // Format the time with AM/PM
     final formattedTime = DateFormat.jm().format(dateTime);
 
     return Container(
