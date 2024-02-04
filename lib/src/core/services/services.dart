@@ -26,67 +26,86 @@ import 'package:user_app/src/features/location/presentation/bloc/location_bloc.d
 import '../../features/auth/data/sources/verify_otp_sources.dart';
 import '../../features/auth/data/sources/verify_ph_no_sources.dart';
 import '../../features/auth/domain/repositories/user_details_repositories.dart';
+import '../../features/home/data/sources/banner_sources.dart';
 import '../../features/location/data/sources/current_location_source.dart';
 
 final locator = GetIt.instance;
-
-void setUpLocator() {
-  // firebase in getit
+// Command to set up Firebase services
+void _setUpFirebaseServices() {
   locator.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-
   locator.registerLazySingleton<FirebaseFirestore>(
       () => FirebaseFirestore.instance);
-
   locator.registerLazySingleton<CollectionReference>(
-      () => collectionReference(firebaseFirestore: locator()));
+      () => collectionReference(
+          firebaseFirestore: locator(), collectionName: 'users'),
+      instanceName: "userCollection");
+  locator.registerLazySingleton<CollectionReference>(
+      () => collectionReference(
+          firebaseFirestore: locator(), collectionName: 'offerBanner'),
+      instanceName: 'bannerCollection  ');
+}
 
-  // bloc
+// Command to set up Blocs
+void _setUpBlocs() {
   locator.registerFactory(() => LocationBloc(locator(), locator()));
   locator.registerFactory(() => RegisterBloc(locator(), locator(), locator()));
+}
 
-  // usecase
+// Command to set up Use Cases
+void _setUpUseCases() {
   locator
       .registerLazySingleton(() => GetLocationUseCase(repository: locator()));
-
   locator.registerLazySingleton(
       () => CurrentLocationUseCase(currentLocationRepository: locator()));
   locator
       .registerLazySingleton(() => VerifyPhNumUseCase(repository: locator()));
   locator.registerLazySingleton(() => VerifyOtpUseCases(repository: locator()));
-
   locator.registerLazySingleton(
       () => UserDetailsUseCases(userRepository: locator()));
+}
 
-  // repository
+// Command to set up Repositories
+void _setUpRepositories() {
   locator.registerLazySingleton<LocationRepository>(
       () => LocationRepositoryImp(remoteDataSource: locator()));
-
   locator.registerLazySingleton<CurrentLocationRepository>(
       () => CurrentLocationImplementation(currentLocationSource: locator()));
-
   locator.registerLazySingleton<VerifyPhNumRepository>(
       () => VerifyPhNumRepoImpl(remoteDataSource: locator()));
-
   locator.registerLazySingleton<VerifyOtpRepositories>(
       () => VerifyOtpRepositoriesImpl(remoteDataSource: locator()));
-
   locator.registerLazySingleton<UserRepository>(
       () => UserDetailRepositoryImp(locator()));
+}
 
-  // source
-
-  locator.registerLazySingleton<LocationRemoteDataSource>(() =>
-      LocationRemoteDataSourceImp(
-          collectionReference: locator(), firebaseAuth: locator()));
-
+// Command to set up Data Sources
+void _setUpDataSources() {
   locator.registerLazySingleton<CurrentLocationSource>(
       () => CurrentLocationSourceImpl());
-
   locator.registerLazySingleton<VerifyPhNumRemoteDataSource>(
       () => VerifyPhNumRemoteDataSourceImpl(auth: locator()));
-  locator.registerLazySingleton<VerifyOtpRemoteDataSource>(
-      () => VerifyOtpRemoteDataSourceImp(locator(), locator()));
 
+  var userCollection =
+      locator<CollectionReference>(instanceName: 'userCollection');
+  locator.registerLazySingleton<LocationRemoteDataSource>(() =>
+      LocationRemoteDataSourceImp(
+          collectionReference: userCollection, firebaseAuth: locator()));
+
+  locator.registerLazySingleton<VerifyOtpRemoteDataSource>(
+      () => VerifyOtpRemoteDataSourceImp(locator(), userCollection));
   locator.registerLazySingleton<UserDetailRemoteSource>(
-      () => UserDetailRemoteSourceImp(locator(), locator()));
+      () => UserDetailRemoteSourceImp(userCollection, locator()));
+  var bannerCollection = collectionReference(
+      firebaseFirestore: locator(instanceName: 'bannerCollection'));
+  locator.registerLazySingleton<BannerRemoteDataSource>(
+      () => BannerRemoteDataSourceImp(collectionReference: bannerCollection));
+}
+
+// Main setup function
+void setUpLocator() {
+  _setUpFirebaseServices();
+  _setUpBlocs();
+  _setUpUseCases();
+  _setUpRepositories();
+  _setUpDataSources();
 }
