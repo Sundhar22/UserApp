@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 toastMessage(String message, BuildContext context, Color color) {
-  // Fluttertoast.showToast(
-  //     msg: message,
-  //     toastLength: Toast.LENGTH_SHORT,
-  //     gravity: ToastGravity.BOTTOM,
-  //     backgroundColor: Colors.black,
-  //     textColor: Colors.white,
-  //     fontSize: 16.0);
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       animation: CurvedAnimation(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 import 'package:user_app/src/features/auth/presentation/bloc/register_bloc.dart';
-import 'package:user_app/src/features/auth/presentation/func/register_func.dart';
+// import 'package:user_app/src/features/auth/presentation/func/register_func.dart';
 import 'package:user_app/src/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/custom_elevated_button.dart';
 
@@ -94,15 +93,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 onPressed: () {
                   if (context.read<RegisterBloc>().state.email != null &&
                       context.read<RegisterBloc>().state.firstName != null) {
-                    registerUserDetails(
-                      firstName: context.read<RegisterBloc>().state.firstName!,
-                      lastName: context.read<RegisterBloc>().state.lastName!,
-                      email: context.read<RegisterBloc>().state.email!,
-                    );
+                    // registerUserDetails(
+                    //   firstName: context.read<RegisterBloc>().state.firstName!,
+                    //   lastName: context.read<RegisterBloc>().state.lastName!,
+                    //   email: context.read<RegisterBloc>().state.email!,
+                    // );
                   } else {
-                    toastMessage(
-                        'Please enter your first name and email address',
-                        context);
+                    // toastMessage(
+                    //     'Please enter your first name and email address',
+                    //     context);
                   }
                 },
               ),
@@ -218,7 +217,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     if (value.isNotEmpty && value.length > 2 && value != '') {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(firstName: value));
     } else {
-      toastMessage('Please enter a first name', context);
+      // toastMessage('Please enter a first name', context);
     }
   }
 
@@ -226,7 +225,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       context.read<RegisterBloc>().add(RegisterUserWithEmail(email: value));
     } else {
-      toastMessage('Please enter a valid email', context);
+      // toastMessage('Please enter a valid email', context);
     }
   }
 }
