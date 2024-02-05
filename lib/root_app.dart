@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/core/routes/routes.dart';
+import 'package:user_app/src/features/home/presentation/pages/home.dart';
 
 import 'src/core/config/config.dart';
 import 'src/core/theme/theme.dart';
