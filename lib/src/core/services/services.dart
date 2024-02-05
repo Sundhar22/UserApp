@@ -39,10 +39,10 @@ void _setUpFirebaseServices() {
       () => collectionReference(
           firebaseFirestore: locator(), collectionName: 'users'),
       instanceName: "userCollection");
-  locator.registerLazySingleton<CollectionReference>(
-      () => collectionReference(
-          firebaseFirestore: locator(), collectionName: 'offerBanner'),
-      instanceName: 'bannerCollection  ');
+  // locator.registerLazySingleton<CollectionReference>(
+  //     () => collectionReference(
+  //         firebaseFirestore: locator(), collectionName: 'offerBanner'),
+  //     instanceName: 'bannerCollection  ');
 }
 
 // Command to set up Blocs
@@ -95,10 +95,10 @@ void _setUpDataSources() {
       () => VerifyOtpRemoteDataSourceImp(locator(), userCollection));
   locator.registerLazySingleton<UserDetailRemoteSource>(
       () => UserDetailRemoteSourceImp(userCollection, locator()));
-  var bannerCollection = collectionReference(
-      firebaseFirestore: locator(instanceName: 'bannerCollection'));
-  locator.registerLazySingleton<BannerRemoteDataSource>(
-      () => BannerRemoteDataSourceImp(collectionReference: bannerCollection));
+  // var bannerCollection = collectionReference(
+  //     firebaseFirestore: locator(instanceName: 'bannerCollection'));
+  // locator.registerLazySingleton<BannerRemoteDataSource>(
+  //     () => BannerRemoteDataSourceImp(collectionReference: bannerCollection));
 }
 
 // Main setup function

@@ -9,6 +9,9 @@ class Failure {
 class DetailUpdateFailure extends Failure {
   DetailUpdateFailure(super.message);
 }
+class ServerFailure extends Failure {
+  ServerFailure(super.message);
+}
 
 class VerifyPhNumFailure extends Failure {
   VerifyPhNumFailure(super.message);

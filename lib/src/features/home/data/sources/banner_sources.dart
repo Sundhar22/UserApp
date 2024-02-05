@@ -12,6 +12,12 @@ class BannerRemoteDataSourceImp implements BannerRemoteDataSource {
 
   @override
   Future<BannerModel> getBanners() async {
-    throw UnimplementedError();
+    try {
+      final snapshot = await collectionReference.get();
+      final data = snapshot.docs.first.data();
+      return BannerModel.fromJson(data as Map<String, dynamic>);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
