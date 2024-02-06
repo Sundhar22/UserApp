@@ -4,39 +4,29 @@ import 'package:user_app/src/features/profile/data/models/models.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_event.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_state.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
-
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final now = DateTime.now();
-
-  ChatBloc() : super(ChatState(messages: [], isLoading: true)) {
-    // Load previous messages from Firestore
-    FirebaseFirestore.instance
-        .collection('messages')
-        .orderBy('time', descending: true)
-        .get()
-        .then((querySnapshot) {
-      final message =
-          querySnapshot.docs.map((doc) => Message.fromDocument(doc)).toList();
-      add(MessageReceivedEvent(messages: message));
-    });
-
-    on<ChatEvent>(_onEvent);
-
+  ChatBloc() : super(ChatState.loading()) {
     FirebaseFirestore.instance
         .collection('messages')
         .orderBy('time', descending: true)
         .snapshots()
         .listen((snapshot) {
-      add(SendMessageEvent(
-          message: snapshot.docs
-              .map((doc) => Message.fromDocument(doc))
-              .toList()
-              .toString()));
+      final messages = snapshot.docs
+          .map((doc) => Message.fromDocument(doc))
+          .where((message) => message.content.isNotEmpty)
+          .toList();
+      add(MessageReceivedEvent(messages: messages));
     });
+
+    on<MessageReceivedEvent>((event, emit) {
+      emit(state.copyWith(messages: event.messages, isLoading: false));
+    });
+
+    on<SendMessageEvent>(_onSendMessage);
   }
 
-  void _onEvent(ChatEvent event, Emitter<ChatState> emit) async {
-    if (event is SendMessageEvent) {
+  void _onSendMessage(SendMessageEvent event, Emitter<ChatState> emit) async {
+    if (event.message.isNotEmpty) {
       try {
         final Timestamp timestamp = Timestamp.now();
         await FirebaseFirestore.instance.collection('messages').add({
@@ -44,21 +34,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           'time': timestamp,
           'type': MessageType.user.toString(),
         });
-        // Emitting the updated state after sending a message
-        emit(state.copyWith(messages: [
-          ...state.messages,
-          Message(
-              content: event.message,
-              type: MessageType.user,
-              timestamp: timestamp)
-        ], isLoading: false));
       } catch (error) {
-        // Emitting an error state if message sending fails
-        emit(state.copyWith(isLoading: false, error: error.toString()));
+        emit(state.copyWith(error: error.toString()));
       }
-    } else if (event is MessageReceivedEvent) {
-      // Emitting the state with received messages
-      emit(state.copyWith(messages: event.messages, isLoading: false));
     }
   }
 }
+
+

@@ -47,7 +47,14 @@ class _CustomerServiceState extends State<CustomerService> {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state.messages.isNotEmpty) {
-              return _MessageListView(messages: state.messages);
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 550.h,
+                    child: _MessageListView(messages: state.messages),
+                  ),
+                ],
+              );
             } else if (state.error != null) {
               return Center(child: Text(state.error!));
             } else {
@@ -150,6 +157,28 @@ class _CustomTextField extends StatelessWidget {
   }
 }
 
+// class _MessageListView extends StatelessWidget {
+//   final List<Message> messages;
+
+//   const _MessageListView({Key? key, required this.messages}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       reverse: true,
+//       itemCount: messages.length,
+//       itemBuilder: (context, index) {
+//         final message = messages[index];
+//         return _MessageContainer(
+//           content: message.content,
+//           timestamp: message.timestamp,
+//           type: message.type,
+//         );
+//       },
+//     );
+//   }
+// }
+
 class _MessageListView extends StatelessWidget {
   final List<Message> messages;
 
@@ -157,15 +186,75 @@ class _MessageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Sort messages by timestamp in ascending order
+    messages.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+    // Separate messages by date
+    final Map<DateTime, List<Message>> groupedMessages = {};
+    for (final message in messages) {
+      final messageDate = DateTime(
+        message.timestamp.toDate().year,
+        message.timestamp.toDate().month,
+        message.timestamp.toDate().day,
+      );
+      groupedMessages.putIfAbsent(messageDate, () => []);
+      groupedMessages[messageDate]!.add(message);
+    }
+
+    // Build message list view
     return ListView.builder(
-      // reverse: true,
-      itemCount: messages.length,
+      itemCount: groupedMessages.length,
       itemBuilder: (context, index) {
-        final message = messages[index];
-        return _MessageContainer(
-          content: message.content,
-          timestamp: message.timestamp,
-          type: message.type,
+        final date = groupedMessages.keys.elementAt(index);
+        final isToday = DateTime.now().year == date.year &&
+            DateTime.now().month == date.month &&
+            DateTime.now().day == date.day;
+        final isYesterday = DateTime.now()
+                    .subtract(const Duration(days: 1))
+                    .year ==
+                date.year &&
+            DateTime.now().subtract(const Duration(days: 1)).month ==
+                date.month &&
+            DateTime.now().subtract(const Duration(days: 1)).day == date.day;
+
+        return Column(
+          children: [
+            if (isToday) // Show "Today" label for messages of today
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0.sp),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0.sp, vertical: 8.0.sp),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(6.0.sp),
+                ),
+                child: const Text(
+                  'Today',
+                  style: TextStyle(color: Colors.black, fontSize: 12.0),
+                ),
+              ),
+            if (isYesterday) // Show "Yesterday" label for messages of yesterday
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0.sp),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0.sp, vertical: 8.0.sp),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(6.0.sp),
+                ),
+                child: const Text(
+                  'Yesterday',
+                  style: TextStyle(color: Colors.black, fontSize: 12.0),
+                ),
+              ),
+            ...groupedMessages[date]!
+                .map((message) => _MessageContainer(
+                      content: message.content,
+                      timestamp: message.timestamp,
+                      type: message.type,
+                    ))
+                .toList(),
+          ],
         );
       },
     );
