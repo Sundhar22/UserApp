@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/order/presentation/pages/order.dart';
 
 import '../../../location/presentation/widgets/user_choice_widgets.dart';
 import '../widgets/home_page_search_bar.dart';
@@ -113,6 +112,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-        ));
+        ),);
   }
 }
