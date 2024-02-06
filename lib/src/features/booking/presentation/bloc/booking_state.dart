@@ -5,7 +5,7 @@ abstract class BookingState extends Equatable {
   @override
   List<Object?> get props => [];
 }
-  class BookingInitial extends BookingState {}
+class BookingInitial extends BookingState {}
 class BookingLoading extends BookingState {
   @override
   List<Object> get props => [];

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/profile/presentation/pages/profile_edit_page.dart';
+import 'package:user_app/src/features/profile_edit/presentation/pages/profile_edit_page.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/notification_ui.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/payment_ui.dart';
 import '../../../../core/constants/constants.dart';
