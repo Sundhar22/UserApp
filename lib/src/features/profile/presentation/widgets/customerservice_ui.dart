@@ -47,13 +47,9 @@ class _CustomerServiceState extends State<CustomerService> {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state.messages.isNotEmpty) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 550.h,
-                    child: _MessageListView(messages: state.messages),
-                  ),
-                ],
+              return SizedBox(
+                height: 550.h,
+                child: _MessageListView(messages: state.messages),
               );
             } else if (state.error != null) {
               return Center(child: Text(state.error!));

@@ -1,4 +1,4 @@
-library route_pages;
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +13,8 @@ import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_p
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/pages/pages.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
 import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit_bloc.dart';
 import 'package:user_app/src/features/profile_edit/presentation/function/profileedit_firestore.dart';
@@ -75,8 +77,12 @@ class AppRoute {
       PageEntity(
           route: RoutesName.profileEdit,
           bloc: BlocProvider(
-              create: (context) => ProfileeditBloc(ProfileRepository())),
-          pages: const ProfileEditPage()),
+              create: (context) => ProfileeditBloc(ProfileEditRepository())),
+          pages:  ProfileEditPage()),
+      PageEntity(
+          route: RoutesName.profile,
+          bloc: BlocProvider(create: (context) => ProfileBloc()),
+          pages: const ProfilePage())
     ];
   }
 

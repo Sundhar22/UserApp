@@ -27,4 +27,8 @@ class NewProfileUpdate extends ProfileEditEvent {
   });
 }
 
+class AvatarSelected extends ProfileEditEvent {
+  final int selectedIndex;
 
+  AvatarSelected(this.selectedIndex);
+}

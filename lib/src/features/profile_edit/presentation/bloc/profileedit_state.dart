@@ -11,11 +11,13 @@ class ProfileEditLoadedState extends ProfileEditState{
   final String firstName;
   final String lastName;
   final String email;
+  final int selectedAvatarIndex;
 
   ProfileEditLoadedState({
     required this.firstName,
     required this.lastName,
     required this.email,
+    required this.selectedAvatarIndex,
   });
 }
 

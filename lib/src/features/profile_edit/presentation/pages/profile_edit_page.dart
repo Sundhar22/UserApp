@@ -5,15 +5,9 @@ import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit
 import 'package:user_app/src/features/profile_edit/presentation/widgets/avatar_list.dart';
 import 'package:user_app/src/features/profile_edit/presentation/widgets/editingbody.dart';
 
-class ProfileEditPage extends StatefulWidget {
-  const ProfileEditPage({Key? key}) : super(key: key);
-
-  @override
-  _ProfileEditPageState createState() => _ProfileEditPageState();
-}
-
-class _ProfileEditPageState extends State<ProfileEditPage> {
-  int selectedAvatarIndex = 0; 
+// ignore: must_be_immutable
+class ProfileEditPage extends StatelessWidget {
+   ProfileEditPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,51 +19,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               oldFirstName: "",
               oldLastName: "",
               oldEmail: "",
+              
             ));
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProfileEditLoadedState) {
-            print("i am working ");
-
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 40.h),
-                  Padding(
-                    padding: EdgeInsets.all(10.0.h),
-                    child: Row(
-                      children: [
-                        profileAndName(
-                          state.firstName,
-                          state.lastName,
-                          state.email,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(color: Colors.grey.withOpacity(0.1)),
-                  Padding(
-                    padding: EdgeInsets.all(10.0.h),
-                    child: Text(
-                      "Select your Avatar",
-                      style: TextStyle(
-                        fontSize: 15.5.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  AvatarList(
-                    avatarPaths: avatarPaths,
-                    activeIndex: selectedAvatarIndex,
-                    onSelect: onSelect,
-                  ),
-                  SizedBox(height: 10.h),
-                  Divider(color: Colors.grey.withOpacity(0.2)),
-                  const EditingBody(),
-                ],
-              ),
-            );
+            return _buildLoadedStateUI(context, state);
           } else {
             return const Center(child: Text('Error loading profile data.'));
           }
@@ -78,7 +32,51 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
-  Row profileAndName(String firstName, String lastName, String email) {
+  Widget _buildLoadedStateUI(BuildContext context, ProfileEditLoadedState state) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: 40.h),
+          Padding(
+            padding: EdgeInsets.all(10.0.h),
+            child: Row(
+              children: [
+                profileAndName(
+                  state.firstName,
+                  state.lastName,
+                  state.email,
+                  state.selectedAvatarIndex,
+                ),
+              ],
+            ),
+          ),
+          Divider(color: Colors.grey.withOpacity(0.1)),
+          Padding(
+            padding: EdgeInsets.all(10.0.h),
+            child: Text(
+              "Select your Avatar",
+              style: TextStyle(
+                fontSize: 15.5.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          AvatarList(
+            avatarPaths: avatarPaths,
+            activeIndex: state.selectedAvatarIndex,
+            onSelect: (index) => _onSelect(context, index),
+          ),
+          SizedBox(height: 10.h),
+          Divider(color: Colors.grey.withOpacity(0.2)),
+          const EditingBody(),
+        ],
+      ),
+    );
+  }
+
+  Row profileAndName(String firstName, String lastName, String email, int selectedAvatarIndex) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -125,16 +123,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   // Define the list of avatar image paths
   List<String> avatarPaths = [
     "assets/img/user.png",
-    "assets/img/user.png",
+    "assets/img/user3.png",
     "assets/img/user.png",
     "assets/img/user.png",
     "assets/img/user.png",
   ];
 
   // Function to handle avatar selection
-  void onSelect(int index) {
-    setState(() {
-      selectedAvatarIndex = index; // Update selectedAvatarIndex
-    });
+  void _onSelect(BuildContext context, int index) {
+    BlocProvider.of<ProfileeditBloc>(context).add(AvatarSelected(index));
   }
 }

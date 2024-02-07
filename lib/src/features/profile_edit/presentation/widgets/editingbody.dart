@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/core/constants/colors.dart';
-
 import 'package:user_app/src/features/profile/presentation/widgets/custom_elevated_button.dart';
 import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit_bloc.dart';
+import 'package:user_app/src/features/profile_edit/presentation/function/profileedit_firestore.dart';
 
 class EditingBody extends StatefulWidget {
   const EditingBody({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class EditingBody extends StatefulWidget {
 }
 
 class _EditingBodyState extends State<EditingBody> {
+  final ProfileEditRepository repository = ProfileEditRepository();
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController emailController;
@@ -34,6 +35,12 @@ class _EditingBodyState extends State<EditingBody> {
     lastNameController.dispose();
     emailController.dispose();
     super.dispose();
+  }
+
+  void texfieldClear() {
+    firstNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
   }
 
   @override
@@ -83,6 +90,12 @@ class _EditingBodyState extends State<EditingBody> {
                       newEmail: email,
                     ),
                   );
+                  texfieldClear();
+                  // repository.updateProfile(
+                  //   newFirstName: firstNameController.text,
+                  //   newLastName: lastNameController.text,
+                  //   newEmail: emailController.text,
+                  // );
                 },
               ),
             ],
@@ -97,7 +110,8 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.fieldName,
-    required this.onSubmitted, required this.controller,
+    required this.onSubmitted,
+    required this.controller,
   });
 
   final String fieldName;
