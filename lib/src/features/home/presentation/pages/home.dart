@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/order/presentation/pages/order.dart';
 
 import '../../../location/presentation/widgets/user_choice_widgets.dart';
 import '../widgets/home_page_search_bar.dart';
@@ -79,13 +78,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 const HomeWidget(),
-                HomePageSearchBar(
-                  hintText: "Search for service",
-                  onSubmitted: (val) {},
-                  onTap: () {},
-                ),
+                const HomePageSearchBar(),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
