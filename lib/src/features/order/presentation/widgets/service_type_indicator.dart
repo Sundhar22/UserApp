@@ -20,14 +20,13 @@ class ServiceTypeIndicator extends StatelessWidget {
     return OrderTile(
       tileHeading: "Service Type",
       children: [
-        SizedBox(height: 8.h),
         BlocBuilder<OrderBloc, OrderState>(
           buildWhen: (previous, current) {
             return previous.requestType != current.requestType;
           },
           builder: (context, state) {
             return SizedBox(
-              height: 65.h,
+              height: 68.h,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: installationOptions.length,
@@ -41,7 +40,7 @@ class ServiceTypeIndicator extends StatelessWidget {
             );
           },
         ),
-        SizedBox(height: 15.h),
+        SizedBox(height: 20.h),
       ],
     );
   }
@@ -85,7 +84,6 @@ class ServiceIndicatorContainer extends StatelessWidget {
               Icons.auto_awesome_outlined,
               color: isSelected ? Colors.white : Colors.black,
             ),
-            SizedBox(height: 8.h),
             Text(
               serviceName,
               style: TextStyle(

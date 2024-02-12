@@ -15,6 +15,8 @@ import 'package:user_app/src/features/location/presentation/pages/user_location.
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
+import 'package:user_app/src/features/search/bloc/search_bloc.dart';
+import 'package:user_app/src/features/search/pages/search_page.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
 
@@ -75,7 +77,7 @@ class AppRoute {
           bloc: BlocProvider(
               create: (context) => BookingBloc(
                   bookingFirestoreService: BookingFirestoreService())),
-          pages: const BookingPage()),
+          pages: const BookingPage())
     ];
   }
 

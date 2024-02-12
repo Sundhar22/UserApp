@@ -80,22 +80,19 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const HomeWidget(),
-              HomePageSearchBar(
-                hintText: "Search for service",
-                onSubmitted: (val) {},
-                onTap: () {},
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
-                child: headline(
-                  "On-Demand Services",
-                  () => Navigator.push(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const HomeWidget(),
+                const HomePageSearchBar(),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
+                  child: headline(
+                    "On-Demand Services",
+                    () => Navigator.push(
                       context,
                       CustomSlidePageRoute(
                         builder: (context) => MoreService(),
