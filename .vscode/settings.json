@@ -17,7 +17,6 @@
     "**/*.git": true,
     "windows": true,
     ".dart_tool": true,
-    ".vscode": true,
     "build": true,
     "ios": true,
     "linux": true,
@@ -37,7 +36,6 @@
   },
   "hide-files.files": [
     ".dart_tool",
-    ".vscode",
     "build",
     "ios",
     "linux",

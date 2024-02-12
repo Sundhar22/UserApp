@@ -9,7 +9,7 @@ class GetOfferBannerUseCase {
 
   GetOfferBannerUseCase({required this.repository});
 
-  Future<Either<Failure, BannerEntity>> call() async {
+  Future<Either<Failure, List<BannerEntity>>> call() async {
     return await repository.getBanners();
   }
 }

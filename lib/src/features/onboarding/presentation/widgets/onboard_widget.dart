@@ -10,14 +10,18 @@ Widget onboardWidget(
     required bool isType1}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       !isType1
-          ? SizedBox(
-              height: 360.h,
-              width: 360.w,
-              child: Image.asset(
-                "assets/img/$img",
-                fit: BoxFit.cover,
+          ? ClipRect(
+              clipBehavior: Clip.antiAlias,
+              child: SizedBox(
+                height: 360.h,
+                width: 360.w,
+                child: Image.asset(
+                  "assets/img/$img",
+                  fit: BoxFit.cover,
+                ),
               ),
             )
           : const SizedBox(),
@@ -41,12 +45,15 @@ Widget onboardWidget(
         ),
       ),
       isType1
-          ? Container(
-              margin: EdgeInsets.only(top: 15.h),
-              height: 360.h,
-              width: 360.w,
-              child: Image.asset(
-                "assets/img/$img",
+          ? ClipRect(
+              clipBehavior: Clip.antiAlias,
+              child: Container(
+                margin: EdgeInsets.only(top: 15.h),
+                height: 360.h,
+                width: 360.w,
+                child: Image.asset(
+                  "assets/img/$img",
+                ),
               ),
             )
           : const SizedBox()

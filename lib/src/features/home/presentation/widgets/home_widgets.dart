@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user_app/src/core/animation/animation.dart';
+import 'package:user_app/src/core/global/navigation_arg.dart';
+import 'package:user_app/src/core/routes/routes.dart';
 
 import '../../../notification/presentation/pages/notification_page.dart';
+import '../../domain/entities/entities.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
@@ -56,7 +60,7 @@ class HomeWidget extends StatelessWidget {
           NotificationIconCustom(
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>  NotificationPage()),
+              MaterialPageRoute(builder: (context) => NotificationPage()),
             ),
           ),
         ],
@@ -100,21 +104,38 @@ class NotificationIconCustom extends StatelessWidget {
   }
 }
 
-Container offerCard(
-  String img,
-) {
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: 15.w),
-    height: 150.h,
-    width: double.infinity,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10.r),
+class OfferCard extends StatelessWidget {
+  final BannerEntity banner;
+  const OfferCard({super.key, required this.banner});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, RoutesName.order,
+            arguments: RouteArguments(
+                navAnimationType: AnimationType.customSlide,
+                arguments: banner));
+      },
+      child: Banner(
+        location: BannerLocation.topEnd,
+        color: Colors.red,
+        message: "${banner.offerPercentages["average"]}% OFF",
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 15.w),
+          height: 150.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.r),
+            ),
+            image: DecorationImage(
+              image: NetworkImage(banner.imageUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
       ),
-      image: DecorationImage(
-        image: AssetImage("assets/img/$img"),
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
+    );
+  }
 }

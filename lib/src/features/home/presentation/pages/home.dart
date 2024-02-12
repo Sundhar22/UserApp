@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../location/presentation/widgets/user_choice_widgets.dart';
+import '../bloc/home_bloc.dart';
 import '../widgets/home_page_search_bar.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/more_service.dart';
@@ -18,100 +20,101 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context.read<HomeBloc>().add(LoadBanner());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<Widget> services = [
-      serviceCard(
+      const ServiceCard(
         img: "plug-socket-50.png",
         title: "Electrical ",
-        onTap: () {},
-        color: const Color.fromARGB(255, 0, 0, 255),
+        page: Scaffold(),
+        color: Color.fromARGB(255, 0, 0, 255),
       ),
-      serviceCard(
+      const ServiceCard(
         img: "plumber-50.png",
         title: "Plumber",
-        onTap: () {},
+        page: Scaffold(),
         color: Colors.deepOrangeAccent,
       ),
-      serviceCard(
+      const ServiceCard(
         img: "carpenter-50.png",
         title: "Carpenter",
         color: Colors.purpleAccent,
-        onTap: () {},
+        page: Scaffold(),
       ),
-      serviceCard(
+      const ServiceCard(
         img: "broom-50.png",
         title: "Cleaning",
-        onTap: () {},
-        color: const Color.fromARGB(255, 245, 223, 24),
+        page: Scaffold(),
+        color: Color.fromARGB(255, 245, 223, 24),
       ),
-      serviceCard(
+      const ServiceCard(
         img: "air-conditioner-50.png",
         title: "AC Service",
         color: Colors.green,
-        onTap: () {},
+        page: Scaffold(),
       ),
-      serviceCard(
+      const ServiceCard(
         img: "water.png",
         title: "Ro service",
         color: Colors.orangeAccent,
-        onTap: () {},
+        page: Scaffold(),
       ),
-      serviceCard(
+      const ServiceCard(
         img: "electronics-50.png",
         title: "Electronics",
         color: Colors.deepOrangeAccent,
-        onTap: () {},
+        page: Scaffold(),
       ),
-      serviceCard(
+      ServiceCard(
         img: "more-50.png",
         title: "More",
         color: const Color.fromARGB(255, 0, 0, 255),
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const MoreService())),
+        page: MoreService(),
       ),
     ];
-    return Scaffold(
-        extendBody: true,
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.white,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HomeWidget(),
-                HomePageSearchBar(
-                  hintText: "Search for service",
-                  onSubmitted: (val) {},
-                  onTap: () {},
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
-                  child: headline(
-                    "On-Demand Services",
-                    () => Navigator.push(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HomeWidget(),
+              HomePageSearchBar(
+                hintText: "Search for service",
+                onSubmitted: (val) {},
+                onTap: () {},
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
+                child: headline(
+                  "On-Demand Services",
+                  () => Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const MoreService(),
-                      ),
-                    ),
-                  ),
+                      CustomSlidePageRoute(
+                        builder: (context) => MoreService(),
+                        direction: AxisDirection.left,
+                      )),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 2.h),
-                  child: serviceCardWidget(services, 180.h),
-                ),
-                // offer banner
-                offerBannerCarousel(),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 10.h),
-                  child: headline("Recent search", () {}),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 11.0.w, vertical: 2.h),
+                child: serviceCardWidget(services, 200.h),
+              ),
+
+              // offer banner
+              offerBannerCarousel(context),
+            ],
           ),
-        ),);
+        ),
+      ),
+    );
   }
 }

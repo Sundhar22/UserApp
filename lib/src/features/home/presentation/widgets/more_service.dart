@@ -6,84 +6,84 @@ import 'service_card.dart';
 import 'service_card_widget.dart';
 
 class MoreService extends StatelessWidget {
-  const MoreService({super.key});
+  MoreService({super.key});
+  final List<Widget> services = [
+    const ServiceCard(
+      img: "plug-socket-50.png",
+      title: "Electrical ",
+      page: RoutesName.order,
+      color: Color.fromARGB(255, 0, 0, 255),
+    ),
+    ServiceCard(
+      img: "plumber-50.png",
+      title: "Plumber",
+      page: () {},
+      color: Colors.deepOrangeAccent,
+    ),
+    ServiceCard(
+      img: "carpenter-50.png",
+      title: "Carpenter",
+      color: Colors.purpleAccent,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "broom-50.png",
+      title: "Cleaning",
+      page: () {},
+      color: const Color.fromARGB(255, 245, 223, 24),
+    ),
+    ServiceCard(
+      img: "air-conditioner-50.png",
+      title: "AC Service",
+      color: Colors.green,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "water.png",
+      title: "Ro service",
+      color: Colors.orangeAccent,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "electronics-50.png",
+      title: "Electronics",
+      color: Colors.deepOrangeAccent,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "gas-bottle-50.png",
+      title: "Gas stove",
+      color: const Color.fromARGB(255, 0, 0, 255),
+      page: () {},
+    ),
+    ServiceCard(
+      img: "fridge-50.png",
+      title: "Fridge",
+      color: Colors.deepPurpleAccent,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "bullet-camera-100.png",
+      title: "CCTV",
+      color: Colors.redAccent,
+      page: () {},
+    ),
+    ServiceCard(
+      img: "worker-50.png",
+      title: "Builder",
+      color: const Color.fromARGB(255, 0, 0, 255),
+      page: () {},
+    ),
+    ServiceCard(
+      img: "car-battery-100.png",
+      title: "Battery",
+      color: Colors.green,
+      page: () {},
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> services = [
-      serviceCard(
-        img: "plug-socket-50.png",
-        title: "Electrical ",
-        onTap: () => Navigator.pushNamed(context, RoutesName.order),
-        color: const Color.fromARGB(255, 0, 0, 255),
-      ),
-      serviceCard(
-        img: "plumber-50.png",
-        title: "Plumber",
-        onTap: () {},
-        color: Colors.deepOrangeAccent,
-      ),
-      serviceCard(
-        img: "carpenter-50.png",
-        title: "Carpenter",
-        color: Colors.purpleAccent,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "broom-50.png",
-        title: "Cleaning",
-        onTap: () {},
-        color: const Color.fromARGB(255, 245, 223, 24),
-      ),
-      serviceCard(
-        img: "air-conditioner-50.png",
-        title: "AC Service",
-        color: Colors.green,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "water.png",
-        title: "Ro service",
-        color: Colors.orangeAccent,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "electronics-50.png",
-        title: "Electronics",
-        color: Colors.deepOrangeAccent,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "gas-bottle-50.png",
-        title: "Gas stove",
-        color: const Color.fromARGB(255, 0, 0, 255),
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "fridge-50.png",
-        title: "Fridge",
-        color: Colors.deepPurpleAccent,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "bullet-camera-100.png",
-        title: "CCTV",
-        color: Colors.redAccent,
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "worker-50.png",
-        title: "Builder",
-        color: const Color.fromARGB(255, 0, 0, 255),
-        onTap: () {},
-      ),
-      serviceCard(
-        img: "car-battery-100.png",
-        title: "Battery",
-        color: Colors.green,
-        onTap: () {},
-      ),
-    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

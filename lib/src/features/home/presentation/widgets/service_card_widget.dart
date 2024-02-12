@@ -8,7 +8,7 @@ serviceCardWidget(List<Widget> serviceList, double height) {
       crossAxisCount: 4,
       crossAxisSpacing: 10.w,
       mainAxisSpacing: 5.h,
-      childAspectRatio: height == 350.h ? .75 : .8,
+      childAspectRatio: .75,
       children: serviceList,
     ),
   );

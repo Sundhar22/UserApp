@@ -6,15 +6,16 @@ import '../../domain/repositories/banner_repositories.dart';
 import '../models/banner_models.dart';
 import '../sources/banner_sources.dart';
 
-class HomeRepositoryImp implements BannerRepository {
+class BannerRepositoryImp implements BannerRepository {
   final BannerRemoteDataSource remoteDataSource;
-  HomeRepositoryImp({required this.remoteDataSource});
+  BannerRepositoryImp({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, BannerEntity>> getBanners() async {
+  Future<Either<Failure, List<BannerEntity>>> getBanners() async {
     try {
-      BannerModel result = await remoteDataSource.getBanners();
-      return Right(result.toEntity());
+      List<BannerModel> result = await remoteDataSource.getBanners();
+
+      return Right(result.map((e) => e.toEntity()).toList());
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

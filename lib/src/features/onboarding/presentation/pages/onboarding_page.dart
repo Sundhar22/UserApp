@@ -64,7 +64,7 @@ class OnBoardingPage extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                left: 25.w, right: 25.w, top: 70.h),
+                                left: 25.w, right: 25.w, top: 2.h),
                             child: onboardWidget(
                               isType1: true,
                               title:
@@ -76,7 +76,7 @@ class OnBoardingPage extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                left: 25.w, right: 25.w, top: 70.h),
+                                left: 25.w, right: 25.w, top: 2.h),
                             child: onboardWidget(
                               isType1: false,
                               title: "4.8 stars service providers",

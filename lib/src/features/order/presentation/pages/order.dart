@@ -16,6 +16,9 @@ class OrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final argument =
+    //     ModalRoute.of(context)!.settings.arguments as RouteArguments;
+    // final service = argument.arguments as Service;
     return Scaffold(
       appBar: AppBar(
         elevation: 1,

@@ -7,6 +7,8 @@ import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
 import 'package:user_app/src/features/booking/presentation/pages/booking.dart';
+import 'package:user_app/src/features/home/presentation/bloc/home_bloc.dart';
+import 'package:user_app/src/features/home/presentation/pages/home.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
@@ -64,6 +66,10 @@ class AppRoute {
           route: RoutesName.customerService,
           bloc: BlocProvider(create: (context) => ChatBloc()),
           pages: const CustomerService()),
+      PageEntity(
+          route: RoutesName.home,
+          bloc: BlocProvider(create: (context) => locator<HomeBloc>()),
+          pages: const HomePage()),
       PageEntity(
           route: RoutesName.booking,
           bloc: BlocProvider(

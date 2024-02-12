@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 collectionReference({
-  FirebaseFirestore? firebaseFirestore,
-  String? collectionName,
+  required FirebaseFirestore firebaseFirestore,
+  required String collectionName,
 }) {
-  return firebaseFirestore!.collection(collectionName!);
+  return firebaseFirestore.collection(collectionName);
 }
