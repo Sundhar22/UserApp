@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_app/src/core/constants/app_const.dart';
+
+import '../constants/app_const.dart';
 
 class StorageService {
   late final SharedPreferences pref;
@@ -14,6 +15,18 @@ class StorageService {
   }
 
   getDeviceFirstOpen() {
-    return pref.getBool(AppConstants.FIRST_TIME_OPEN) ?? false;
+    return pref.getBool(AppStorageConstants.FIRST_TIME_OPEN) ?? true;
+  }
+
+  getUserDataSavedStatus() {
+    return pref.getBool(AppStorageConstants.USER_DATA_SAVED_STATUS) ?? false;
+  }
+
+  setString(String key, String value) async {
+    return await pref.setString(key, value);
+  }
+
+  getString(String key) {
+    return pref.getString(key);
   }
 }

@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:user_app/src/features/location/domain/usecases/current_location_usecase.dart';
 
 import '../../domain/entities/current_location_entites.dart';
 import '../../domain/repositories/location_update_repositories.dart';
+import '../../domain/usecases/current_location_usecase.dart';
 
 part 'location_event.dart';
 part 'location_state.dart';
@@ -82,11 +82,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     var loc = '';
 
     if (event.flatName!.isNotEmpty && event.apartmentAddress!.isNotEmpty) {
-      loc = '${event.flatName}, ${event.apartmentAddress} ${event.address}';
+      loc =
+          '${event.flatName}, ${event.apartmentAddress} ${event.address},${state.placemark!.administrativeArea!},${state.placemark!.country!}';
     } else if (event.apartmentAddress!.isNotEmpty) {
-      loc = '${event.apartmentAddress} ${event.address}';
-    }else if (event.flatName!.isNotEmpty) {
-      loc = '${event.flatName}, ${event.address}';
+      loc =
+          '${event.apartmentAddress} ${event.address},${state.placemark!.administrativeArea!},${state.placemark!.country!}';
+    } else if (event.flatName!.isNotEmpty) {
+      loc =
+          '${event.flatName}, ${event.address},${state.placemark!.administrativeArea!},${state.placemark!.country!}';
     } else {
       loc = event.address!;
     }

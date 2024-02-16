@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
-import 'package:user_app/src/core/constants/constants.dart';
+import '../../../../core/constants/constants.dart';
 
 import '../../../../core/global/global.dart';
 import '../bloc/register_bloc.dart';

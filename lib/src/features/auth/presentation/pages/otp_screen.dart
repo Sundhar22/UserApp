@@ -7,7 +7,6 @@ import 'package:user_app/src/core/global/global.dart';
 import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
 
-import '../../../../core/config/config.dart';
 import '../../../../core/constants/app_const.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/routes/routes.dart';
@@ -28,10 +27,10 @@ class OtpScreen extends StatelessWidget {
             }
             if (state is OtpVerified) {
               if (state.routesName == RoutesName.appPage) {
-                  DependencyInjection.storageService
-                      .setBool(AppConstants.FIRST_TIME_OPEN, true);
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, state.routesName as String, (route) => false);
+                storageService.setBool(
+                    AppStorageConstants.FIRST_TIME_OPEN, false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, state.routesName as String, (route) => false);
               } else {
                 Navigator.pushReplacementNamed(
                     context, state.routesName as String);

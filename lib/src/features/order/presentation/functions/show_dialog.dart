@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_range/time_range.dart';
-import 'package:user_app/src/core/constants/colors.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_events.dart';
-import 'package:user_app/src/features/order/presentation/functions/format_time.dart';
+import '../../../../core/constants/colors.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_events.dart';
+import 'format_time.dart';
 
 Future<TimeRangeResult?> showTimeRangePicker(BuildContext context) async {
   await showDialog<TimeRangeResult?>(

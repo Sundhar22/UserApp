@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/constants/constants.dart';
-import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
+import '../../../../core/constants/constants.dart';
+import 'order_expansion_tile.dart';
 
 class ServiceIndicator extends StatelessWidget {
   const ServiceIndicator({super.key});

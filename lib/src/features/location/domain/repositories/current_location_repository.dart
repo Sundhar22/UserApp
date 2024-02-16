@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:user_app/src/core/error/error.dart';
+import '../../../../core/error/error.dart';
 
 import '../entities/current_location_entites.dart';
 

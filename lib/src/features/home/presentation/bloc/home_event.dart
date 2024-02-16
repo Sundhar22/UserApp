@@ -9,3 +9,8 @@ class LoadBanner extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
+
+class LoadUserData extends HomeEvent {
+  @override
+  List<Object?> get props => [];
+}

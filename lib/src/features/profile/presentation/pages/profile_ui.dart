@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/profile/presentation/pages/profile_edit_page.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/notification_ui.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/payment_ui.dart';
+import 'profile_edit_page.dart';
+import '../widgets/notification_ui.dart';
+import '../widgets/payment_ui.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../home/presentation/widgets/home_widgets.dart';
 import '../../../notification/presentation/pages/notification_page.dart';

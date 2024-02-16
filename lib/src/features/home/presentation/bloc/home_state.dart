@@ -7,8 +7,6 @@ class HomeState extends Equatable {
 
   @override
   List<Object?> get props => [banner];
-
-
 }
 
 class HomeInitial extends HomeState {
@@ -20,6 +18,7 @@ class BannerLoading extends HomeState {
   @override
   List<Object?> get props => [];
 }
+
 
 class BannerLoaded extends HomeState {
   final List<BannerEntity> banner;

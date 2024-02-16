@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_events.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_state.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_events.dart';
+import '../bloc/order_state.dart';
 
 class UploadImage extends StatelessWidget {
   const UploadImage({

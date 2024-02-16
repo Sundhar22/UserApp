@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/animation/animation.dart';
-import 'package:user_app/src/core/global/navigation_arg.dart';
-import 'package:user_app/src/core/routes/routes.dart';
-import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
+import '../../../../core/animation/animation.dart';
+import '../../../../core/global/navigation_arg.dart';
+import '../../../../core/routes/routes.dart';
+import '../../../../core/widgets/flutterToast/flutter_toast.dart';
 
 import '../bloc/register_bloc.dart';
 import '../widgets/elevated_button.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/animation/animation.dart';
-import 'package:user_app/src/core/global/navigation_arg.dart';
-import 'package:user_app/src/core/routes/routes.dart';
+import '../../../../core/animation/animation.dart';
+import '../../../../core/global/navigation_arg.dart';
+import '../../../../core/routes/routes.dart';
 
 import '../../../notification/presentation/pages/notification_page.dart';
 import '../../domain/entities/entities.dart';

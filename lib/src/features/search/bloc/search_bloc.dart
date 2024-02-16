@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:user_app/src/features/search/model/search_model.dart';
+import '../model/search_model.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';

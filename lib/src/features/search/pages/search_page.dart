@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/search/bloc/search_bloc.dart';
-import 'package:user_app/src/features/search/functions/debouncer.dart';
-import 'package:user_app/src/features/search/widgets/search_page_topbar.dart';
-import 'package:user_app/src/features/search/widgets/search_results.dart';
+import '../bloc/search_bloc.dart';
+import '../functions/debouncer.dart';
+import '../widgets/search_page_topbar.dart';
+import '../widgets/search_results.dart';
 
 Debouncer debouncer = Debouncer(
   milliseconds: 700 * 1,

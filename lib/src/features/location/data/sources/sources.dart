@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:user_app/src/core/error/exception.dart';
+import '../../../../core/error/exception.dart';
 
 import '../models/models.dart';
 

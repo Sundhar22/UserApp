@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/search/functions/search_function.dart';
-import 'package:user_app/src/features/search/pages/search_page.dart';
+
+import '../functions/search_function.dart';
+import '../pages/search_page.dart';
 
 class SearchPageTopBar extends StatelessWidget {
   const SearchPageTopBar({

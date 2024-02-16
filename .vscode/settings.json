@@ -32,7 +32,9 @@
     "devtools_options.yaml": true,
     "flutter_01.log": true,
     "pubspec.lock": true,
-    "README.md": true
+    "README.md": true,
+    ".vscode": true,
+    "android": true
   },
   "hide-files.files": [
     ".dart_tool",
@@ -51,7 +53,9 @@
     "devtools_options.yaml",
     "flutter_01.log",
     "pubspec.lock",
-    "README.md"
+    "README.md",
+    ".vscode",
+    "android"
   ],
   "path-autocomplete.extensionOnImport": true,
   "explorerExclude.backup": {},

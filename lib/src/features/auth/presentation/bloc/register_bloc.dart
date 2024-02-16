@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/auth/domain/usecases/user_details_usecases.dart';
+import '../../domain/usecases/user_details_usecases.dart';
 
 import '../../domain/usecases/verify_otp_usecases.dart';
 import '../../domain/usecases/verify_ph_no_usecases.dart';

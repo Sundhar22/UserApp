@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:user_app/src/core/error/exception.dart';
-import 'package:user_app/src/core/routes/routes.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/routes/routes.dart';
 
 abstract class UserDetailRemoteSource {
   Future<String> updateUserDetails(

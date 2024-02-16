@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/constants/constants.dart';
 
-import 'package:user_app/src/features/search/bloc/search_bloc.dart';
+import '../../../core/constants/constants.dart';
+import '../bloc/search_bloc.dart';
 
 class SearchResults extends StatelessWidget {
   const SearchResults({
@@ -14,6 +14,7 @@ class SearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: BlocBuilder<SearchBloc, SearchState>(
+        bloc: SearchBloc(),
         builder: (context, state) {
           return !state.isProcessing
               ? state.suggestions.isEmpty ||

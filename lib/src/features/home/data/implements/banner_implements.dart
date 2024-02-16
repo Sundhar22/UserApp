@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:user_app/src/core/error/error.dart';
-import 'package:user_app/src/features/home/domain/entities/entities.dart';
+import '../../../../core/error/error.dart';
+import '../../domain/entities/entities.dart';
 
 import '../../domain/repositories/banner_repositories.dart';
 import '../models/banner_models.dart';

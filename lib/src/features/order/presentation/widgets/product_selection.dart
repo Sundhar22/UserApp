@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_events.dart';
-import 'package:user_app/src/features/order/presentation/bloc/order_state.dart';
-import 'package:user_app/src/features/order/presentation/widgets/product_carousel.dart';
-import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
-import 'package:user_app/src/features/order/presentation/widgets/repair_options.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_events.dart';
+import '../bloc/order_state.dart';
+import 'product_carousel.dart';
+import 'order_expansion_tile.dart';
+import 'repair_options.dart';
 
 class ProductIndicator extends StatelessWidget {
   const ProductIndicator({

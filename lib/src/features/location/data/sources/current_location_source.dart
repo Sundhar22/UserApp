@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:user_app/src/core/error/exception.dart';
-import 'package:user_app/src/features/location/data/models/current_location_model.dart';
+import '../../../../core/error/exception.dart';
+import '../models/current_location_model.dart';
 
 abstract class CurrentLocationSource {
   Future<CurrentLocationModel> getCurrentLocation();

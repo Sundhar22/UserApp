@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/animation/animation.dart';
-import 'package:user_app/src/core/global/navigation_arg.dart';
+import '../../../../core/animation/animation.dart';
+import '../../../../core/global/navigation_arg.dart';
 
 class ServiceCard extends StatelessWidget {
   final String img;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/booking/presentation/widgets/booking_deatils.dart';
+import 'booking_deatils.dart';
 
 import '../../../../core/constants/constants.dart';
 

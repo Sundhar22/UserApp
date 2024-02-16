@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:user_app/root_app.dart';
+import 'root_app.dart';
 import 'src/core/config/config.dart';
 
 Future<void> main() async {

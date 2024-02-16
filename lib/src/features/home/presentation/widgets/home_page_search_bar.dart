@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/search/pages/search_page.dart';
+import '../../../search/pages/search_page.dart';
 
 class HomePageSearchBar extends StatelessWidget {
   const HomePageSearchBar({

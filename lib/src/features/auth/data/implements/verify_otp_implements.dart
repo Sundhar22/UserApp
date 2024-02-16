@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:user_app/src/core/error/error.dart';
+import '../../../../core/error/error.dart';
 
 import '../../../../core/error/exception.dart';
 import '../../domain/repositories/verify_otp_repositories.dart';

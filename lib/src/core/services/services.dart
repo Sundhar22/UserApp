@@ -14,6 +14,9 @@ import 'package:user_app/src/features/auth/domain/usecases/user_details_usecases
 import 'package:user_app/src/features/auth/domain/usecases/verify_otp_usecases.dart';
 import 'package:user_app/src/features/auth/domain/usecases/verify_ph_no_usecases.dart';
 import 'package:user_app/src/features/auth/presentation/bloc/register_bloc.dart';
+import 'package:user_app/src/features/home/data/implements/user_data_implementation.dart';
+import 'package:user_app/src/features/home/data/sources/user_data_source.dart';
+import 'package:user_app/src/features/home/domain/repositories/user_data_repo.dart';
 import 'package:user_app/src/features/home/domain/usecases/banner_usecases.dart';
 import 'package:user_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:user_app/src/features/location/data/implements/current_location_implementation.dart';
@@ -31,6 +34,7 @@ import '../../features/auth/domain/repositories/user_details_repositories.dart';
 import '../../features/home/data/implements/banner_implements.dart';
 import '../../features/home/data/sources/banner_sources.dart';
 import '../../features/home/domain/repositories/banner_repositories.dart';
+import '../../features/home/domain/usecases/user_data_usecase.dart';
 import '../../features/location/data/sources/current_location_source.dart';
 
 final locator = GetIt.instance;
@@ -53,7 +57,8 @@ void _setUpFirebaseServices() {
 void _setUpBlocs() {
   locator.registerFactory(() => LocationBloc(locator(), locator()));
   locator.registerFactory(() => RegisterBloc(locator(), locator(), locator()));
-  locator.registerFactory(() => HomeBloc(locator()));
+  locator.registerFactory(() =>
+      HomeBloc(getOfferBannerUseCase: locator(), userDataUseCase: locator()));
 }
 
 // Command to set up Use Cases
@@ -69,6 +74,7 @@ void _setUpUseCases() {
       () => UserDetailsUseCases(userRepository: locator()));
   locator.registerLazySingleton(
       () => GetOfferBannerUseCase(repository: locator()));
+  locator.registerLazySingleton(() => UserDataUseCase(locator()));
 }
 
 // Command to set up Repositories
@@ -85,6 +91,8 @@ void _setUpRepositories() {
       () => UserDetailRepositoryImp(locator()));
   locator.registerLazySingleton<BannerRepository>(
       () => BannerRepositoryImp(remoteDataSource: locator()));
+  locator.registerLazySingleton<UserDataRepo>(
+      () => UserDataImplementation(locator()));
 }
 
 // Command to set up Data Sources
@@ -99,6 +107,9 @@ void _setUpDataSources() {
   locator.registerLazySingleton<LocationRemoteDataSource>(() =>
       LocationRemoteDataSourceImp(
           collectionReference: userCollection, firebaseAuth: locator()));
+  locator.registerLazySingleton<UserDataSource>(() =>
+      UserDataSourceImplementation(
+          auth: locator(), userCollection: userCollection));
 
   locator.registerLazySingleton<VerifyOtpRemoteDataSource>(
       () => VerifyOtpRemoteDataSourceImp(locator(), userCollection));

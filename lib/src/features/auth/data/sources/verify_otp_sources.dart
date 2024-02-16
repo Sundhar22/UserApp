@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_app/src/core/routes/routes.dart';
+import '../../../../core/routes/routes.dart';
 
 import '../../../../core/error/exception.dart';
 

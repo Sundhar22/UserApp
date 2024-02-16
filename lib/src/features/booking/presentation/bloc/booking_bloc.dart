@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/booking/presentation/bloc/booking_event.dart';
-import 'package:user_app/src/features/booking/presentation/bloc/booking_state.dart';
-import 'package:user_app/src/features/booking/presentation/functions/booking_firebase.dart';
+import 'booking_event.dart';
+import 'booking_state.dart';
+import '../functions/booking_firebase.dart';
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {
   final BookingFirestoreService bookingFirestoreService;

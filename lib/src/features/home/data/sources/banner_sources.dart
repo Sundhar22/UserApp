@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_app/src/features/home/data/models/banner_models.dart';
+import '../models/banner_models.dart';
 
 abstract class BannerRemoteDataSource {
   Future<List<BannerModel>> getBanners();

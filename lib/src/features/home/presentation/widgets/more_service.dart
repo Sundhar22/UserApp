@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/routes/names.dart';
+import '../../../../core/routes/names.dart';
 
 import 'service_card.dart';
 import 'service_card_widget.dart';

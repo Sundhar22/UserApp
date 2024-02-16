@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:user_app/src/core/config/config.dart';
-import 'package:user_app/src/core/constants/app_const.dart';
-import 'package:user_app/src/core/routes/routes.dart';
-import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
 
+import '../../../../core/constants/app_const.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/global/global.dart';
+import '../../../../core/routes/routes.dart';
+import '../../../../core/widgets/flutterToast/flutter_toast.dart';
 import '../bloc/location_bloc.dart';
 
 Container locationHead(BuildContext context) {
@@ -290,8 +290,8 @@ DraggableScrollableSheet saveSheet() {
                     }
                     if (state is SaveAddressSuccessState) {
                       toastMessage('Address Saved', context, Colors.green);
-                      DependencyInjection.storageService
-                          .setBool(AppConstants.FIRST_TIME_OPEN, true);
+                      storageService.setBool(
+                          AppStorageConstants.FIRST_TIME_OPEN, false);
                       Navigator.pushNamedAndRemoveUntil(
                           context, RoutesName.appPage, (route) => false);
                     }

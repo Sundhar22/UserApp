@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/auth/presentation/widgets/custom_text_field.dart';
-import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/elevated_button.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/widgets/flutterToast/flutter_toast.dart';

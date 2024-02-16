@@ -29,3 +29,36 @@ class BannerEntity extends Service {
   @override
   List<Object?> get props => [imageUrl, offerPercentages, ...super.props];
 }
+
+class UserDataEntity extends Equatable {
+  final String name;
+  final String email;
+  final String phoneNumber;
+  final String address;
+
+  const UserDataEntity(
+      {required this.name,
+      required this.email,
+      required this.phoneNumber,
+      required this.address});
+  factory UserDataEntity.fromJson(Map<String, dynamic> json) {
+    return UserDataEntity(
+      name: json['name'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      address: json['address'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'address': address,
+    };
+  }
+
+  @override
+  List<Object?> get props => [name, email, phoneNumber, address];
+}

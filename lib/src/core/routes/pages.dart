@@ -15,10 +15,9 @@ import 'package:user_app/src/features/location/presentation/pages/user_location.
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
-import 'package:user_app/src/features/search/bloc/search_bloc.dart';
-import 'package:user_app/src/features/search/pages/search_page.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
+import 'package:user_app/src/features/search/bloc/search_bloc.dart';
 
 import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
@@ -28,6 +27,7 @@ import '../../features/booking/presentation/bloc/booking_bloc.dart';
 import '../../features/booking/presentation/functions/booking_firebase.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import '../animation/animation.dart';
+import '../global/global.dart';
 
 class AppRoute {
   static List<PageEntity> routes() {
@@ -82,7 +82,9 @@ class AppRoute {
   }
 
   List<BlocProvider> allBlocProvider() {
-    var blocs = <BlocProvider>[];
+    var blocs = <BlocProvider>[
+      BlocProvider(create: (context) => SearchBloc()),
+    ];
     routes().forEach((element) {
       if (!blocs.contains(element.bloc)) {
         blocs.add(element.bloc);
@@ -96,7 +98,7 @@ class AppRoute {
       var route = routes().where((element) => element.route == settings.name);
 
       if (route.isNotEmpty) {
-        if (DependencyInjection.storageService.getDeviceFirstOpen() &&
+        if (!storageService.getDeviceFirstOpen() &&
             settings.name == RoutesName.initial) {
           return getAnimateRoute(
             const ApplicationPage(),

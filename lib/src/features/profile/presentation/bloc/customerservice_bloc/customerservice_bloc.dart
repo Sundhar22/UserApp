@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/profile/data/models/models.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_event.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_state.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
+import '../../../data/models/models.dart';
+import 'customerservice_event.dart';
+import 'customerservice_state.dart';
+import '../../widgets/customerservice_ui.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final now = DateTime.now();

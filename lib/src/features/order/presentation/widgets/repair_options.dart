@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:user_app/src/features/order/presentation/widgets/custom_dropdown.dart';
-import 'package:user_app/src/features/order/presentation/widgets/product_carousel.dart';
+import 'custom_dropdown.dart';
+import 'product_carousel.dart';
 
 class RepairOptions extends StatelessWidget {
   const RepairOptions({

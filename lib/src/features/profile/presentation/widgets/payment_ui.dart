@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/custom_appbar.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/models/paymenthistory_model.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/paymenthistory_widget.dart';
+import 'custom_appbar.dart';
+import 'models/paymenthistory_model.dart';
+import 'paymenthistory_widget.dart';
 
 
 class PaymentHistory extends StatefulWidget {

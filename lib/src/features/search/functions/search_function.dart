@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/search/bloc/search_bloc.dart';
-import 'package:user_app/src/features/search/model/search_model.dart';
+import '../bloc/search_bloc.dart';
+import '../model/search_model.dart';
 
 Map<String, Map<String, List>> mapArray = {
   "Light": {

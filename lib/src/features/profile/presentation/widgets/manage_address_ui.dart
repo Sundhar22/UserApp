@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
+import '../../../location/presentation/pages/user_location.dart';
 
 import '../../../../core/constants/constants.dart';
 import 'custom_appbar.dart';
