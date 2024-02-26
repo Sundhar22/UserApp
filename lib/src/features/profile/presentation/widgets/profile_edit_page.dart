@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit_bloc.dart';
-import 'package:user_app/src/features/profile_edit/presentation/widgets/avatar_list.dart';
-import 'package:user_app/src/features/profile_edit/presentation/widgets/editingbody.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_state.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/avatar_list.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/editingbody.dart';
 
 // ignore: must_be_immutable
 class ProfileEditPage extends StatelessWidget {
@@ -12,17 +14,17 @@ class ProfileEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ProfileeditBloc, ProfileEditState>(
+      body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
-          if (state is ProfileEditInitialState) {
-            BlocProvider.of<ProfileeditBloc>(context).add(ProfileDataFetchEvent(
+          if (state is ProfileInitialState) {
+            BlocProvider.of<ProfileBloc>(context).add(ProfileDataFetchEvent(
               oldFirstName: "",
               oldLastName: "",
               oldEmail: "",
               
             ));
             return const Center(child: CircularProgressIndicator());
-          } else if (state is ProfileEditLoadedState) {
+          } else if (state is ProfileLoadedState) {
             return _buildLoadedStateUI(context, state);
           } else {
             return const Center(child: Text('Error loading profile data.'));
@@ -32,7 +34,7 @@ class ProfileEditPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLoadedStateUI(BuildContext context, ProfileEditLoadedState state) {
+  Widget _buildLoadedStateUI(BuildContext context, ProfileLoadedState state) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,6 +133,6 @@ class ProfileEditPage extends StatelessWidget {
 
   // Function to handle avatar selection
   void _onSelect(BuildContext context, int index) {
-    BlocProvider.of<ProfileeditBloc>(context).add(AvatarSelected(index));
+    BlocProvider.of<ProfileBloc>(context).add(AvatarSelected(index));
   }
 }

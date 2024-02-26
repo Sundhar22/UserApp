@@ -1,9 +1,8 @@
-// profileedit_event.dart
-part of 'profileedit_bloc.dart';
 
-sealed class ProfileEditEvent {}
 
-class ProfileDataFetchEvent extends ProfileEditEvent {
+sealed class ProfileEvent {}
+
+class ProfileDataFetchEvent extends ProfileEvent {
   final String oldFirstName;
   final String oldLastName;
   final String oldEmail;
@@ -15,7 +14,7 @@ class ProfileDataFetchEvent extends ProfileEditEvent {
   });
 }
 
-class NewProfileUpdate extends ProfileEditEvent {
+class NewProfileUpdate extends ProfileEvent {
   final String newFirstName;
   final String newLastName;
   final String newEmail;
@@ -27,7 +26,7 @@ class NewProfileUpdate extends ProfileEditEvent {
   });
 }
 
-class AvatarSelected extends ProfileEditEvent {
+class AvatarSelected extends ProfileEvent {
   final int selectedIndex;
 
   AvatarSelected(this.selectedIndex);

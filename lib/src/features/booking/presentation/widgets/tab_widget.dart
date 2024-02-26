@@ -21,7 +21,7 @@ class CustomTabs extends StatelessWidget {
       ),
       child: TabBar(
         controller: _tabController,
-        tabAlignment: TabAlignment.start,
+        // tabAlignment: TabAlignment.start,
         automaticIndicatorColorAdjustment: true,
         isScrollable: true,
         indicatorColor: AppColor.primaryColor,
@@ -41,20 +41,6 @@ class CustomTabs extends StatelessWidget {
           Tab(
             text: "Cancelled",
           ),
-          // Tab(
-          //   text: "Past",
-          // ),
-
-          // Tab(
-          //   text: "Pending",
-          // ),
-
-          // Tab(
-          //   text: "Rejected",
-          // ),
-          // Tab(
-          //   text: "All",
-          // ),
         ],
       ),
     );

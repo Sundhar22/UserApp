@@ -33,7 +33,7 @@ class _BookingPageState extends State<BookingPage>
         builder: (context, state) {
           if (state is BookingLoaded) {
             List<BookingModel> bookingDatas = state.bookingsDetails;
-            print('Booking Data Length: ${bookingDatas.length}');
+            
             bookingDatas.sort((a, b) {
               int dateComparison = b.date.compareTo(a.date);
               if (dateComparison == 0) {

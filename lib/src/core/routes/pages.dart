@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/src/core/routes/routes.dart';
@@ -13,13 +11,10 @@ import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_p
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/pages/pages.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
-import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit_bloc.dart';
-import 'package:user_app/src/features/profile_edit/presentation/function/profileedit_firestore.dart';
-import 'package:user_app/src/features/profile_edit/presentation/pages/profile_edit_page.dart';
-
+import 'package:user_app/src/features/profile/presentation/widgets/profile_edit_page.dart';
 import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
 import '../../features/auth/presentation/pages/user_deatils_reg.dart';
@@ -77,7 +72,7 @@ class AppRoute {
       PageEntity(
           route: RoutesName.profileEdit,
           bloc: BlocProvider(
-              create: (context) => ProfileeditBloc(ProfileEditRepository())),
+              create: (context) => ProfileBloc()),
           pages:  ProfileEditPage()),
       PageEntity(
           route: RoutesName.profile,

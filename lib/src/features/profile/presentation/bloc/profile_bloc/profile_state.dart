@@ -1,6 +1,3 @@
-
-
-
 sealed class ProfileState{}
 
 class ProfileInitialState extends ProfileState{}
@@ -21,4 +18,4 @@ class ProfileLoadedState extends ProfileState{
   });
 }
 
-class ProfileEditErrorState extends ProfileState{}
+class ProfileErrorState extends ProfileState{}

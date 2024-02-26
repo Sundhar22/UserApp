@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/profile_event.dart';
-import 'package:user_app/src/features/profile/presentation/bloc/profile_state.dart';
-import 'package:user_app/src/features/profile_edit/presentation/pages/profile_edit_page.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_state.dart';
+import 'package:user_app/src/features/profile/presentation/widgets/profile_edit_page.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/notification_ui.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/payment_ui.dart';
 import '../../../../core/constants/constants.dart';
@@ -16,7 +16,7 @@ import '../widgets/rateus_ui.dart';
 
 // ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
-   ProfilePage({super.key});
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,26 +24,25 @@ class ProfilePage extends StatelessWidget {
         appBar: profileAppBar(context),
         body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
           if (state is ProfileInitialState) {
+            
             BlocProvider.of<ProfileBloc>(context).add(ProfileDataFetchEvent(
-              firstName: "",
-              lastName: "",
-              email: "",
+              oldFirstName: "",
+              oldLastName: "",
+              oldEmail: "",
+              
             ));
+            
             return Container();
           } else if (state is ProfileLoadedState) {
+            print("hii");
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    profileEditWidget(
-                      context,
-                      state.firstName,
-                      state.lastName,
-                      state.email,
-                      state.selectedAvatarIndex
-                    ),
+                    profileEditWidget(context, state.firstName, state.lastName,
+                        state.email, state.selectedAvatarIndex),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -248,13 +247,18 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Row profileEditWidget(
-      BuildContext context, String firstName, String lastName, String email,int selectedIndex) {
+  Row profileEditWidget(BuildContext context, String firstName, String lastName,
+      String email, int selectedIndex) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Profile Image, Name and Email widget
-        profileAndName(firstName, lastName, email,selectedIndex,),
+        profileAndName(
+          firstName,
+          lastName,
+          email,
+          selectedIndex,
+        ),
         // Edit Icon
         SizedBox(
           height: 26.h,
@@ -264,7 +268,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) =>  ProfileEditPage(),
+                    builder: (BuildContext context) => ProfileEditPage(),
                   ),
                 );
               },
@@ -289,7 +293,8 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Row profileAndName(String firstName, String lastName, String email, int selectedAvatarIndex) {
+  Row profileAndName(String firstName, String lastName, String email,
+      int selectedAvatarIndex) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -359,13 +364,12 @@ class ProfilePage extends StatelessWidget {
       ],
     );
   }
-    List<String> avatarPaths = [
+
+  List<String> avatarPaths = [
     "assets/img/user.png",
     "assets/img/user3.png",
     "assets/img/user.png",
     "assets/img/user.png",
     "assets/img/user.png",
   ];
-
-
 }

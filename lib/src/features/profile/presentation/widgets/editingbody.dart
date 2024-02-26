@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/core/constants/colors.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
+import 'package:user_app/src/features/profile/presentation/functions/profile_repository.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/custom_elevated_button.dart';
-import 'package:user_app/src/features/profile_edit/presentation/bloc/profileedit_bloc.dart';
-import 'package:user_app/src/features/profile_edit/presentation/function/profileedit_firestore.dart';
+
 
 class EditingBody extends StatefulWidget {
   const EditingBody({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class EditingBody extends StatefulWidget {
 }
 
 class _EditingBodyState extends State<EditingBody> {
-  final ProfileEditRepository repository = ProfileEditRepository();
+  final ProfileRepository repository = ProfileRepository();
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController emailController;
@@ -83,7 +85,7 @@ class _EditingBodyState extends State<EditingBody> {
                   final firstName = firstNameController.text;
                   final lastName = lastNameController.text;
                   final email = emailController.text;
-                  BlocProvider.of<ProfileeditBloc>(context).add(
+                  BlocProvider.of<ProfileBloc>(context).add(
                     NewProfileUpdate(
                       newFirstName: firstName,
                       newLastName: lastName,

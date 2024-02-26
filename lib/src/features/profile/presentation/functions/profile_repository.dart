@@ -5,12 +5,15 @@ class ProfileRepository {
   final auth = FirebaseAuth.instance;
   final docReference = FirebaseFirestore.instance
       .collection('users')
-      .doc('5mMOYqNsWegTkq43liV4d7g0tyf2');
+      .doc('TvqNnmcfW7uYuMJSRYMN');
 
   Future<ProfileData> fetchProfileData() async {
+    
     try {
       // Fetch old profile data from Firestore
+      
       final docSnapshot = await docReference.get();
+      
 
       final data = docSnapshot.data() as Map<String, dynamic>;
       return ProfileData(
@@ -21,6 +24,31 @@ class ProfileRepository {
       );
     } catch (e) {
       throw Exception("Failed to fetch profile data: $e");
+    }
+  }
+
+  Future<void> updateProfile({
+    required String newFirstName,
+    required String newLastName,
+    required String newEmail,
+    required int newselectedIndex,
+  }) async {
+    try {
+      // Check if the document exists
+      final docSnapshot = await docReference.get();
+      if (docSnapshot.exists) {
+        // Update profile data in Firestore
+        await docReference.update({
+          'firstName': newFirstName,
+          'lastName': newLastName,
+          'userEmail': newEmail,
+          'selectedIndex': newselectedIndex,
+        });
+      } else {
+        throw Exception("Document does not exist");
+      }
+    } catch (e) {
+      throw Exception("Failed to update profile: $e");
     }
   }
 }
