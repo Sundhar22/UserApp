@@ -33,7 +33,7 @@ class _BookingPageState extends State<BookingPage>
         builder: (context, state) {
           if (state is BookingLoaded) {
             List<BookingModel> bookingDatas = state.bookingsDetails;
-            
+
             bookingDatas.sort((a, b) {
               int dateComparison = b.date.compareTo(a.date);
               if (dateComparison == 0) {
@@ -145,14 +145,14 @@ class _BookingPageState extends State<BookingPage>
                 ),
               ],
             );
-          } else if (state is BookingLoading) {
+          } 
+          else if (state is BookingLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else {
-            return Container(
-              color: Colors.red,
-            );
+          } 
+          else {
+            return Container();
           }
         },
       ),

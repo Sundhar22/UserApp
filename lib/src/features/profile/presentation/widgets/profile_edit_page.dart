@@ -16,13 +16,7 @@ class ProfileEditPage extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
-          if (state is ProfileInitialState) {
-            BlocProvider.of<ProfileBloc>(context).add(ProfileDataFetchEvent(
-              oldFirstName: "",
-              oldLastName: "",
-              oldEmail: "",
-              
-            ));
+          if (state is ProfileLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProfileLoadedState) {
             return _buildLoadedStateUI(context, state);
@@ -132,7 +126,21 @@ class ProfileEditPage extends StatelessWidget {
   ];
 
   // Function to handle avatar selection
-  void _onSelect(BuildContext context, int index) {
-    BlocProvider.of<ProfileBloc>(context).add(AvatarSelected(index));
+void _onSelect(BuildContext context, int index) {
+  // Fetch current state to get existing details
+  final currentState = context.read<ProfileBloc>().state;
+  if (currentState is ProfileLoadedState) {
+    // Dispatch ProfileUpdateEvent with the existing details and new avatar index
+    BlocProvider.of<ProfileBloc>(context).add(
+      ProfileUpdateEvent(
+        newFirstName: currentState.firstName,
+        newLastName: currentState.lastName,
+        newEmail: currentState.email,
+        selectedIndex: index,
+      ),
+    );
   }
+}
+
+
 }

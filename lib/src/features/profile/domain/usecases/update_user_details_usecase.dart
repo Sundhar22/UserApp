@@ -5,14 +5,14 @@ import 'package:user_app/src/features/profile/domain/entities/profile_edit_entit
 import 'package:user_app/src/features/profile/domain/repositories/profile_edit_repository.dart';
 
 class UpdateUserDetailsUsecae
-    implements UseCase<Either<Failure, ProfileEditEntity>, void> {
+    implements UseCase<Either<Failure, ProfileEditEntity>, ProfileEditEntity> {
   final ProfileEditRepository _profileEditRepository;
 
   UpdateUserDetailsUsecae(this._profileEditRepository);
 
   @override
-  Future<Either<Failure, ProfileEditEntity>> call({void params}) {
+  Future<Either<Failure, ProfileEditEntity>> call( {ProfileEditEntity? params}) {
     return _profileEditRepository
-        .updateUserDetails(ProfileEditEntity as ProfileEditEntity);
+        .updateUserDetails(params!);
   }
 }

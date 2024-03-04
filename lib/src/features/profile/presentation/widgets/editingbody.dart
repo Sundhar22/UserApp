@@ -4,9 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/core/constants/colors.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
-import 'package:user_app/src/features/profile/presentation/functions/profile_repository.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_state.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/custom_elevated_button.dart';
-
 
 class EditingBody extends StatefulWidget {
   const EditingBody({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class EditingBody extends StatefulWidget {
 }
 
 class _EditingBodyState extends State<EditingBody> {
-  final ProfileRepository repository = ProfileRepository();
+  // final ProfileRepository repository = ProfileRepository();
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController emailController;
@@ -81,23 +80,32 @@ class _EditingBodyState extends State<EditingBody> {
               CustomElevatedButton(
                 fieldName: "Confirm",
                 onPressed: () {
-                  // Dispatch event to update profile
                   final firstName = firstNameController.text;
                   final lastName = lastNameController.text;
                   final email = emailController.text;
-                  BlocProvider.of<ProfileBloc>(context).add(
-                    NewProfileUpdate(
-                      newFirstName: firstName,
-                      newLastName: lastName,
-                      newEmail: email,
-                    ),
-                  );
-                  texfieldClear();
-                  // repository.updateProfile(
-                  //   newFirstName: firstNameController.text,
-                  //   newLastName: lastNameController.text,
-                  //   newEmail: emailController.text,
-                  // );
+
+                  if (firstName.isEmpty || email.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("First name and email must not be empty"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    final currentState = context.read<ProfileBloc>().state;
+                    if (currentState is ProfileLoadedState) {
+                      final selectedIndex = currentState.selectedAvatarIndex;
+                      BlocProvider.of<ProfileBloc>(context).add(
+                        ProfileUpdateEvent(
+                          newFirstName: firstName,
+                          newLastName: lastName,
+                          newEmail: email,
+                          selectedIndex: selectedIndex,
+                        ),
+                      );
+                    }
+                    texfieldClear();
+                  }
                 },
               ),
             ],

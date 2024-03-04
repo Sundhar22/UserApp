@@ -23,15 +23,14 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
         appBar: profileAppBar(context),
         body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-          if (state is ProfileInitialState) {
-            
+          if (state is ProfileLoadingState) {
             BlocProvider.of<ProfileBloc>(context).add(ProfileDataFetchEvent(
               oldFirstName: "",
               oldLastName: "",
               oldEmail: "",
-              
+              selectedIndex: 1,
             ));
-            
+
             return Container();
           } else if (state is ProfileLoadedState) {
             print("hii");

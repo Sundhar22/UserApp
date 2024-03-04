@@ -7,9 +7,9 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   final BookingFirestoreService bookingFirestoreService;
 
   BookingBloc({required this.bookingFirestoreService})
-      : super(BookingInitial()) {
+      : super(BookingLoading()) {
     on<FetchBookingDetails>((event, emit) async {
-      print('Fetching booking details...');
+      
       emit(BookingLoading());
       await Future.delayed(const Duration(seconds: 1));
       try {

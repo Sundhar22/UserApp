@@ -29,8 +29,14 @@ class ProfileEditImpl implements ProfileEditRepository {
   Future<Either<Failure, ProfileEditEntity>> updateUserDetails(
       ProfileEditEntity profile) async {
     try {
+       var profileModel = ProfileEditModel(
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      userEmail: profile.userEmail,
+      selectedIndex: profile.selectedIndex,
+    );
       var updatedDetails = await _userDetailsUpdateSource
-          .updateUserDetails(ProfileEditEntity as ProfileEditModel);
+          .updateUserDetails(profileModel);
       return Right(updatedDetails);
     } catch (e) {
       return Left(Failure("Failed to update user details: $e"));

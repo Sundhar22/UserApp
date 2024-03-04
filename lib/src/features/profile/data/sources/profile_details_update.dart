@@ -6,9 +6,8 @@ abstract class ProfileDataUpdate {
 }
 
 class UserDetailsUpdateSource extends ProfileDataUpdate {
-  final docReference = FirebaseFirestore.instance
-      .collection('users')
-      .doc('TvqNnmcfW7uYuMJSRYMN');
+  final docReference =
+      FirebaseFirestore.instance.collection('profiles').doc('user');
 
   @override
   Future<ProfileEditModel> updateUserDetails(ProfileEditModel profile) async {
@@ -23,7 +22,7 @@ class UserDetailsUpdateSource extends ProfileDataUpdate {
           'userEmail': profile.userEmail,
           'selectedIndex': profile.selectedIndex,
         });
-        
+
         // Return the updated profile
         return profile;
       } else {

@@ -1,77 +1,69 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/src/features/profile/domain/entities/profile_edit_entity.dart.dart';
+
+import 'package:user_app/src/features/profile/domain/usecases/fetch_user_details_usecase.dart';
+import 'package:user_app/src/features/profile/domain/usecases/update_user_details_usecase.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_state.dart';
-import 'package:user_app/src/features/profile/presentation/functions/profile_repository.dart';
+
 
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final ProfileRepository repository=ProfileRepository();
+  final FetchUserDetailsUsecase _fetchUserDetailsUsecase;
+  final UpdateUserDetailsUsecae _updateUserDetailsUsecae;
 
-  ProfileBloc() : super(ProfileInitialState()) {
-    on<ProfileEvent>((event, emit) async {
-      if (event is ProfileDataFetchEvent) {
-        await _fetchProfileData(event, emit);
-      }else if (event is NewProfileUpdate) {
-        await _updateProfile(event, emit);
-      }
-      else if (event is AvatarSelected) {
-        emit(_mapAvatarSelectedToState(event, state));
-      }
-    });
+  ProfileBloc(
+    this._fetchUserDetailsUsecase,
+    this._updateUserDetailsUsecae,
+  ) : super(ProfileLoadingState()) {
+    on<ProfileDataFetchEvent>(_onFetchUserProfile);
+    on<ProfileUpdateEvent>(_onUpdateProfile);
   }
 
-      ProfileState _mapAvatarSelectedToState(
-      AvatarSelected event, ProfileState state) {
-    if (state is ProfileLoadedState) {
-      return ProfileLoadedState(
-        firstName: state.firstName,
-        lastName: state.lastName,
-        email: state.email,
-        selectedAvatarIndex: event.selectedIndex,
-      );
-    }
-    return state;
+  void _onFetchUserProfile(
+    ProfileDataFetchEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(ProfileLoadingState());
+
+    final result = await _fetchUserDetailsUsecase.call();
+    emit(result.fold(
+      (failure) => ProfileErrorState(),
+      (data) => ProfileLoadedState(
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.userEmail,
+        selectedAvatarIndex: data.selectedIndex,
+      ),
+    ));
   }
 
-  Future<void> _fetchProfileData(
-      // Change return type to Future<void>
-      ProfileDataFetchEvent event,
-      Emitter<ProfileState> emit) async {
-    try {
-      // Fetch old profile details from repository (Firebase)
-      final profile = await repository.fetchProfileData();
-      print("i am working");
-      emit(ProfileLoadedState(
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        email: profile.email,
-        selectedAvatarIndex: profile.selectedIndex,
-      ));
-    } catch (e) {
-      emit(ProfileErrorState());
-    }
-  }
-
-  Future<void> _updateProfile(
-  NewProfileUpdate event,
+void _onUpdateProfile(
+  ProfileUpdateEvent event,
   Emitter<ProfileState> emit,
 ) async {
-  try {
-    // Update profile details in repository (Firebase)
-    await repository.updateProfile(
-      newFirstName: event.newFirstName,
-      newLastName: event.newLastName,
-      newEmail: event.newEmail,
-      newselectedIndex: (state as ProfileLoadedState).selectedAvatarIndex,
-    );
-    emit(ProfileLoadedState(
-      firstName: event.newFirstName,
-      lastName: event.newLastName,
-      email: event.newEmail,
-      selectedAvatarIndex: (state as ProfileLoadedState).selectedAvatarIndex,
-    ));
-  } catch (e) {
-    emit(ProfileErrorState());
-  }
+  emit(ProfileLoadingState());
+
+  // Assuming you have newFirstName, newLastName, newEmail, and selectedIndex
+  final entity = ProfileEditEntity(
+    firstName: event.newFirstName,
+    lastName: event.newLastName,
+    userEmail: event.newEmail,
+    selectedIndex: event.selectedIndex,
+  );
+
+  final result = await _updateUserDetailsUsecae.call(params: entity); // <-- Pass the entity here
+
+  emit(result.fold(
+    (failure) => ProfileErrorState(),
+    (details) => ProfileLoadedState(
+      firstName: details.firstName,
+      lastName: details.lastName,
+      email: details.userEmail,
+      selectedAvatarIndex: details.selectedIndex,
+    ),
+  ));
 }
+
+
 }

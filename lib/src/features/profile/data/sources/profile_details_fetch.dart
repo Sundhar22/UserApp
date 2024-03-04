@@ -9,8 +9,8 @@ abstract class ProfileDataFetch {
 class UserDetailsFetchSource extends ProfileDataFetch {
   // final auth = FirebaseAuth.instance;
   final docReference = FirebaseFirestore.instance
-      .collection('users')
-      .doc('TvqNnmcfW7uYuMJSRYMN');
+      .collection('profiles')
+      .doc('user');
   @override
   Future<ProfileEditModel> fetchUserDetails() async {
     try {
