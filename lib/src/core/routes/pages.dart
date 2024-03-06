@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/src/core/config/config.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
 import 'package:user_app/src/features/booking/presentation/pages/booking.dart';
+import 'package:user_app/src/features/home/presentation/bloc/home_bloc.dart';
+import 'package:user_app/src/features/home/presentation/pages/home.dart';
 import 'package:user_app/src/features/location/presentation/bloc/location_bloc.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_choice.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
@@ -22,7 +25,7 @@ import 'package:user_app/src/features/profile/presentation/bloc/customerservice_
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/pages/pages.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/profile_edit_page.dart';
+
 import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
 import '../../features/auth/presentation/pages/user_deatils_reg.dart';
@@ -31,6 +34,7 @@ import '../../features/booking/presentation/bloc/booking_bloc.dart';
 import '../../features/booking/presentation/functions/booking_firebase.dart';
 import '../../features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import '../animation/animation.dart';
+import '../global/global.dart';
 
 class AppRoute {
   static List<PageEntity> routes() {
@@ -41,15 +45,15 @@ class AppRoute {
           pages: const OnBoardingPage()),
       PageEntity(
           route: RoutesName.login,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const UserRegistrationScreen()),
       PageEntity(
           route: RoutesName.otp,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const OtpScreen()),
       PageEntity(
           route: RoutesName.register,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const UserDetailsReg()),
       PageEntity(
           route: RoutesName.location,
@@ -61,7 +65,7 @@ class AppRoute {
           pages: const UserLocation()),
       PageEntity(
           route: RoutesName.appPage,
-          bloc: BlocProvider(create: (context) => RegisterBloc()),
+          bloc: BlocProvider(create: (context) => locator<RegisterBloc>()),
           pages: const ApplicationPage()),
       PageEntity(
           route: RoutesName.order,
@@ -72,60 +76,22 @@ class AppRoute {
           bloc: BlocProvider(create: (context) => ChatBloc()),
           pages: const CustomerService()),
       PageEntity(
+          route: RoutesName.home,
+          bloc: BlocProvider(create: (context) => locator<HomeBloc>()),
+          pages: const HomePage()),
+      PageEntity(
           route: RoutesName.booking,
           bloc: BlocProvider(
               create: (context) => BookingBloc(
                   bookingFirestoreService: BookingFirestoreService())),
           pages: const BookingPage()),
-      PageEntity(
-          route: RoutesName.profileEdit,
-          bloc: BlocProvider(
-            create: (context) => ProfileBloc(
-              FetchUserDetailsUsecase(ProfileEditImpl(
-                UserDetailsFetchSourceImpl(),
-                UserDetailsUpdateSourceImpl(),
-              )),
-              UpdateUserDetailsUsecae(
-                ProfileEditImpl(
-                  UserDetailsFetchSourceImpl(),
-                  UserDetailsUpdateSourceImpl(),
-                ),
-              ),
-              ManageAddressUsecase(
-                ManageAddressImplementation(
-                  ManageAddressSourceImpl(),
-                ),
-              ),
-            ),
-          ),
-          pages: ProfileEditPage()),
-      PageEntity(
-          route: RoutesName.profile,
-          bloc: BlocProvider(
-            create: (context) => ProfileBloc(
-              FetchUserDetailsUsecase(ProfileEditImpl(
-                UserDetailsFetchSourceImpl(),
-                UserDetailsUpdateSourceImpl(),
-              )),
-              UpdateUserDetailsUsecae(
-                ProfileEditImpl(
-                  UserDetailsFetchSourceImpl(),
-                  UserDetailsUpdateSourceImpl(),
-                ),
-              ),
-              ManageAddressUsecase(
-                ManageAddressImplementation(
-                  ManageAddressSourceImpl(),
-                ),
-              ),
-            ),
-          ),
-          pages: const ProfilePage())
     ];
   }
 
   List<BlocProvider> allBlocProvider() {
-    var blocs = <BlocProvider>[];
+    var blocs = <BlocProvider>[
+      BlocProvider(create: (context) => SearchBloc()),
+    ];
     routes().forEach((element) {
       if (!blocs.contains(element.bloc)) {
         blocs.add(element.bloc);
@@ -139,6 +105,14 @@ class AppRoute {
       var route = routes().where((element) => element.route == settings.name);
 
       if (route.isNotEmpty) {
+        if (!storageService.getDeviceFirstOpen() &&
+            settings.name == RoutesName.initial) {
+          return getAnimateRoute(
+            const ApplicationPage(),
+            settings,
+          );
+        }
+
         return getAnimateRoute(
           route.first.pages,
           settings,

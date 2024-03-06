@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:user_app/src/features/booking/data/models/models.dart';
+import '../../data/models/models.dart';
 
 class BookingFirestoreService {
   final CollectionReference bookingDetailsCollection =

@@ -14,4 +14,5 @@ class RoutesName {
   static const order = '/order';
   static const customerService = '/customerService';
   static const profileEdit = '/profileEdit';
+  static const search = '/search';
 }

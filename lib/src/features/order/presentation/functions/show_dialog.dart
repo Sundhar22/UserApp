@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_range/time_range.dart';
+import '../../../../core/constants/colors.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_events.dart';
+import 'format_time.dart';
 
 Future<TimeRangeResult?> showTimeRangePicker(BuildContext context) async {
   await showDialog<TimeRangeResult?>(
     context: context,
     builder: (BuildContext context) {
       return SimpleDialog(
-        insetPadding: const EdgeInsets.all(20),
+        insetPadding: EdgeInsets.all(20.h),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(0))),
         elevation: 0,
@@ -15,16 +21,16 @@ Future<TimeRangeResult?> showTimeRangePicker(BuildContext context) async {
         title: const Text('Select Service Time Range'),
         children: <Widget>[
           SizedBox(
-            height: 200,
-            width: 190,
+            height: 180.h,
+            width: 190.w,
             child: TimeRange(
-              fromTitle: const Text(
+              fromTitle: Text(
                 'From',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                style: TextStyle(fontSize: 18.sp, color: Colors.black),
               ),
-              toTitle: const Text(
+              toTitle: Text(
                 'To',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                style: TextStyle(fontSize: 18.sp, color: Colors.black),
               ),
               titlePadding: 20,
               textStyle: const TextStyle(
@@ -33,16 +39,21 @@ Future<TimeRangeResult?> showTimeRangePicker(BuildContext context) async {
                   fontWeight: FontWeight.bold, color: Colors.white),
               borderColor: Colors.black,
               backgroundColor: Colors.transparent,
-              activeBackgroundColor: Colors.blue,
+              activeBackgroundColor: AppColor.primaryColor,
               activeBorderColor: Colors.transparent,
-              firstTime: const TimeOfDay(hour: 08, minute: 30),
+              firstTime: const TimeOfDay(hour: 09, minute: 00),
               lastTime: const TimeOfDay(hour: 20, minute: 00),
-              timeStep: 10,
+              timeStep: 30,
               timeBlock: 30,
               onRangeCompleted: (TimeRangeResult? range) {
                 if (range != null) {
-                  print(range.start);
-                  print(range.end);
+                  BlocProvider.of<OrderBloc>(context).add(
+                    OrderTimingsUpdate(
+                      timeOfService:
+                          "${formatTimeOfDay(range.start)} - ${formatTimeOfDay(range.end)}",
+                    ),
+                  );
+                  Navigator.pop(context);
                 }
               },
             ),

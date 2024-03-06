@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:user_app/src/core/error/error.dart';
-import 'package:user_app/src/features/location/domain/entities/entities.dart';
+import '../../../../core/error/error.dart';
+import '../../domain/entities/entities.dart';
 
 import '../../../../core/error/exception.dart';
 import '../../domain/repositories/location_update_repositories.dart';
@@ -13,8 +13,8 @@ class LocationRepositoryImp implements LocationRepository {
 
   @override
   Future<Either<Failure, LocationEntity>> upDateLocation(
-      GeoPoint location) async {
-    var result = await remoteDataSource.upDateLocation(location);
+      GeoPoint location, String address) async {
+    var result = await remoteDataSource.upDateLocation(location, address);
     try {
       return Right(result.toEntity());
     } on DBException {

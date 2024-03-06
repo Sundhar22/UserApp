@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
+import '../../presentation/widgets/customerservice_ui.dart';
 
 class Message {
   final String content;

@@ -1,55 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../search/pages/search_page.dart';
 
 class HomePageSearchBar extends StatelessWidget {
   const HomePageSearchBar({
     super.key,
-    required this.hintText,
-    required this.onSubmitted,
-    this.onTap,
-    this.padding,
   });
-
-  final String hintText;
-  final Function(String val) onSubmitted;
-  final void Function()? onTap;
-  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding ??
-          EdgeInsets.only(top: 15.h, bottom: 10.h, left: 10.w, right: 10.w),
-      child: SizedBox(
-        height: 39.h,
-        child: SearchBar(
-          onTap: onTap ?? () {},
-          onSubmitted: onSubmitted,
-          textStyle: MaterialStatePropertyAll(
-            TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.normal,
-              color: Colors.black.withOpacity(0.8),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SearchPage(),
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(12.h),
+        margin:
+            EdgeInsets.only(top: 15.h, bottom: 10.h, left: 10.w, right: 10.w),
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(.2),
+          borderRadius: BorderRadius.all(Radius.circular(18.r)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.search),
+            SizedBox(
+              width: 10.w,
             ),
-          ),
-          elevation: const MaterialStatePropertyAll(0),
-          backgroundColor: MaterialStatePropertyAll(Colors.grey.shade100),
-          hintText: hintText,
-          hintStyle: MaterialStatePropertyAll(
-            TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          leading: Image.asset(
-            'assets/icons/search-50.png',
-            height: 20.h,
-            width: 20.w,
-            color: Colors.grey.shade700,
-          ),
-          padding: MaterialStatePropertyAll(
-            EdgeInsets.symmetric(horizontal: 15.w, vertical: 2.h),
-          ),
+            const Text("Search for services"),
+          ],
         ),
       ),
     );

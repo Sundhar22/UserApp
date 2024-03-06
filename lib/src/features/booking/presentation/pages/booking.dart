@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/features/booking/data/models/models.dart';
-import 'package:user_app/src/features/booking/presentation/bloc/booking_bloc.dart';
-import 'package:user_app/src/features/booking/presentation/bloc/booking_event.dart';
-import 'package:user_app/src/features/booking/presentation/bloc/booking_state.dart';
-import 'package:user_app/src/features/booking/presentation/widgets/booking_card_widget.dart';
-import 'package:user_app/src/features/booking/presentation/widgets/booking_widgets.dart';
+import '../../data/models/models.dart';
+import '../bloc/booking_bloc.dart';
+import '../bloc/booking_event.dart';
+import '../bloc/booking_state.dart';
+import '../widgets/booking_card_widget.dart';
+import '../widgets/booking_widgets.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});

@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:user_app/src/core/config/firebase_options.dart';
 import 'package:user_app/src/core/services/services.dart';
 
+import '../global/global.dart';
+
 class DependencyInjection {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    setUpLocator();
+
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+
+    await storageService.init();
+    setUpLocator();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/core/constants/colors.dart';
+import '../../../../core/constants/colors.dart';
 
 
 Container paymnetHistoryWidget(String title, String content, String date,

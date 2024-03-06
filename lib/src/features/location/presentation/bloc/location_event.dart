@@ -23,3 +23,14 @@ class SearchLocationEvent extends LocationEvent {
   @override
   List<Object?> get props => [address];
 }
+
+class SaveAddressEvent extends LocationEvent {
+  final String? flatName;
+  final String? apartmentAddress;
+  final String? address;
+
+  SaveAddressEvent({this.flatName, this.apartmentAddress, this.address});
+
+  @override
+  List<Object?> get props => [flatName, apartmentAddress, address];
+}

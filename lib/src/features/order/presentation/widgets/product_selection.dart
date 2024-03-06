@@ -1,64 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/order/presentation/widgets/order_expansion_tile.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_events.dart';
+import '../bloc/order_state.dart';
+import 'product_carousel.dart';
+import 'order_expansion_tile.dart';
+import 'repair_options.dart';
 
-class ProductIndicator extends StatefulWidget {
-  const ProductIndicator({super.key});
+class ProductIndicator extends StatelessWidget {
+  const ProductIndicator({
+    super.key,
+    required this.productChoices,
+    required this.serviceChoices,
+  });
 
-  @override
-  State<ProductIndicator> createState() => ProductIndicatorState();
-}
+  final List<String> productChoices;
+  final List<String> serviceChoices;
 
-class ProductIndicatorState extends State<ProductIndicator> {
   @override
   Widget build(BuildContext context) {
-    return OrderTile(
-      tileHeading: "Product",
-      children: [
-        SizedBox(
-          height: 90.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => const AlertDialog(
-                            title: Text('Quantity Selection Comes Here !!'),
-                            content: Text('Add 7 Subtract Comes here'),
-                          ));
-                },
-                child: Container(
-                  width: 70.w,
-                  margin: EdgeInsets.all(10.r),
-                  padding: EdgeInsets.all(10.r),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0.r),
-                        child: Icon(
-                          Icons.grade_outlined,
-                          size: 20.sp,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      const Text("Home")
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        )
-      ],
+    return BlocBuilder<OrderBloc, OrderState>(
+      builder: (context, state) {
+        if (state.productCountTracker.isEmpty) {
+          List<int> countTracker = [];
+          List<bool> tracker = [];
+          for (int idx = 0; idx < productChoices.length; idx++) {
+            countTracker.add(0);
+            tracker.add(false);
+          }
+          BlocProvider.of<OrderBloc>(context).add(OrderDetailsUpdate(
+            countTracker: countTracker,
+          ));
+        }
+        final bool isInstallation = state.requestType == "Install";
+        return state.requestType != "YTU"
+            ? OrderTile(
+                tileHeading: isInstallation ? "Product" : "Product Issue",
+                children: [
+                  isInstallation && productChoices.isNotEmpty
+                      ? ProductCarousel(
+                          productOptions: productChoices,
+                          isInstallation: true,
+                        )
+                      : serviceChoices.isNotEmpty
+                          ? RepairOptions(
+                              productChoices: productChoices,
+                              optionList: serviceChoices,
+                            )
+                          : const SizedBox(),
+                ],
+              )
+            : const SizedBox();
+      },
     );
   }
 }

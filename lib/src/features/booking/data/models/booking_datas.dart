@@ -1,4 +1,4 @@
-import 'package:user_app/src/features/booking/data/models/models.dart';
+import 'models.dart';
 
 final List<BookingModel> bookings = [
   BookingModel(

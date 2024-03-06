@@ -1,4 +1,4 @@
-import 'package:user_app/src/features/profile/data/models/models.dart';
+import '../../../data/models/models.dart';
 
 abstract class ChatEvent {}
 

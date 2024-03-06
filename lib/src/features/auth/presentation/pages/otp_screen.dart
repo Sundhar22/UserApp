@@ -1,14 +1,17 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user_app/src/features/auth/presentation/widgets/counter.dart';
-import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
+import 'package:user_app/src/core/global/global.dart';
 import 'package:user_app/src/core/widgets/flutterToast/flutter_toast.dart';
+import 'package:user_app/src/features/auth/presentation/widgets/elevated_button.dart';
 
+import '../../../../core/constants/app_const.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/routes/routes.dart';
 import '../bloc/register_bloc.dart';
-import '../func/verify_otp_func.dart';
+import '../widgets/otp_field.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});
@@ -17,44 +20,49 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<RegisterBloc, RegisterState>(
+        child: BlocConsumer<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterError) {
+              toastMessage(state.error!, context, Colors.red);
+            }
+            if (state is OtpVerified) {
+              if (state.routesName == RoutesName.appPage) {
+                storageService.setBool(
+                    AppStorageConstants.FIRST_TIME_OPEN, false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, state.routesName as String, (route) => false);
+              } else {
+                Navigator.pushReplacementNamed(
+                    context, state.routesName as String);
+              }
+              pinController.clear();
+            }
+            if (state is Verifying) {
+              toastMessage('Verifying...', context, AppColor.primaryColor);
+            }
+          },
           builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const OptRichText(),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15.h,
-                  ),
-                  child: OtpTextField(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    numberOfFields: 6,
-                    focusedBorderColor: AppColor.primaryColor,
-                    autoFocus: true,
-                    showFieldAsBox: true,
-                    onSubmit: (String verificationCode) {
-                      BlocProvider.of<RegisterBloc>(context).add(
-                        VerifyOtp(
-                          otp: verificationCode,
-                        ),
-                      );
-                      toastMessage('You entered $verificationCode', context);
-                    }, // end onSubmit
-                  ),
+            return SingleChildScrollView(
+              child: SizedBox(
+                height: 690.h,
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const OptRichText(),
+                    otpPinField(context),
+                    const Spacer(),
+                    CustomElevatedButton(
+                      onPressed: () {
+                        BlocProvider.of<RegisterBloc>(context).add(
+                          VerifyOtp(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                  ],
                 ),
-                const SecondsCounter(),
-                const Spacer(),
-                CustomElevatedButton(
-                  onPressed: () {
-                    VerifyOtpFunc(context: context).verifyOtp(
-                      context.read<RegisterBloc>().state.otp!,
-                      context.read<RegisterBloc>().state.verificationId!,
-                    );
-                  },
-                ),
-                const SizedBox(height: 50),
-              ],
+              ),
             );
           },
         ),

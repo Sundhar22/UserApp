@@ -2,6 +2,8 @@ library animation;
 
 import 'package:flutter/material.dart';
 
+import '../global/navigation_arg.dart';
+
 enum AnimationType {
   defaultTransition,
   fade,
@@ -22,7 +24,12 @@ Route getAnimateRoute(Widget pageClass, RouteSettings settings) {
     transitionDuration: const Duration(milliseconds: 345),
     pageBuilder: (context, animation, secondaryAnimation) => pageClass,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      switch (settings.arguments as AnimationType?) {
+      if (settings.arguments == null) {
+        return child;
+      }
+      var args = settings.arguments as RouteArguments;
+
+      switch (args.navAnimationType) {
         case AnimationType.fade:
           return FadeTransition(opacity: animation, child: child);
         case AnimationType.slideUp:

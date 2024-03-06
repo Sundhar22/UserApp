@@ -1,9 +1,9 @@
 // code with bloc
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:user_app/src/features/profile/data/models/models.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_event.dart';
