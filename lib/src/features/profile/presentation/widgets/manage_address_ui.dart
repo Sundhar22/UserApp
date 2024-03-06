@@ -1,35 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user_app/src/features/location/presentation/pages/user_location.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_event.dart';
+import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_state.dart';
 
 import '../../../../core/constants/constants.dart';
 import 'custom_appbar.dart';
 
 class ManageAddresses extends StatefulWidget {
-  const ManageAddresses({super.key});
+  const ManageAddresses({Key? key}) : super(key: key);
 
   @override
+  
   State<ManageAddresses> createState() => _ManageAddressesState();
 }
 
 class _ManageAddressesState extends State<ManageAddresses> {
   @override
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar("Manage Addresses"),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: Column(
-          children: [
-            _addressContainer(),
-            _addAddressButton(),
-          ],
-        ),
-      ),
+      body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+        if (state is ProfileLoadedState) {
+          BlocProvider.of<ProfileBloc>(context).add(ManageAddressFetchEvent(
+            desiny: "",
+            address: "",
+          ));
+          print("hello");
+          return Center(child: Container());
+        } else if (state is ManageAddressLoadedState) {
+          print("hello2");
+          // Handle ManageAddressLoadedState
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: _addressContainer(state.destiny, state.address),
+          );
+        } else if (state is ProfileErrorState) {
+          return const Center(child: Text('Error loading profile.'));
+        } else {
+          return const Center(child: Text('Unknown State.'));
+        }
+      }),
     );
   }
 
-  Widget _addressContainer() {
+  Widget _addressContainer(String destiny, String address) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15.h),
       child: Container(
@@ -48,7 +67,7 @@ class _ManageAddressesState extends State<ManageAddresses> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Home",
+                    destiny,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.normal,
@@ -64,7 +83,7 @@ class _ManageAddressesState extends State<ManageAddresses> {
                 height: 10.h,
               ),
               Text(
-                "6A, Anna Nagar, Veeravanallur, Tirunelveli District, TamilNadu - 6274216.",
+                address,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -93,7 +112,7 @@ class _ManageAddressesState extends State<ManageAddresses> {
             Icons.add_circle_outline_rounded,
             color: AppColor.primaryColor,
             size: 25,
-            weight: 10,
+            // weight: 10, // Remove this line
           ),
           SizedBox(
             width: 8.w,

@@ -1,10 +1,10 @@
-sealed class ProfileState{}
+sealed class ProfileState {}
 
-class ProfileInitialState extends ProfileState{}
+class ProfileInitialState extends ProfileState {}
 
-class ProfileLoadingState extends ProfileState{}
+class ProfileLoadingState extends ProfileState {}
 
-class ProfileLoadedState extends ProfileState{
+class ProfileLoadedState extends ProfileState {
   final String firstName;
   final String lastName;
   final String email;
@@ -18,4 +18,16 @@ class ProfileLoadedState extends ProfileState{
   });
 }
 
-class ProfileErrorState extends ProfileState{}
+class ManageAddressLoadingState extends ProfileState {}
+
+class ManageAddressLoadedState extends ProfileState {
+  final String destiny;
+  final String address;
+
+  ManageAddressLoadedState({
+    required this.destiny,
+    required this.address,
+  });
+}
+
+class ProfileErrorState extends ProfileState {}

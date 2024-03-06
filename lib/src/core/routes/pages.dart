@@ -10,11 +10,13 @@ import 'package:user_app/src/features/location/presentation/pages/user_location.
 import 'package:user_app/src/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:user_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:user_app/src/features/order/presentation/pages/order.dart';
+import 'package:user_app/src/features/profile/data/implements/manage_address_implementation.dart';
 import 'package:user_app/src/features/profile/data/implements/profile_edit_implementation.dart';
+import 'package:user_app/src/features/profile/data/sources/manage_address_source.dart';
 import 'package:user_app/src/features/profile/data/sources/profile_details_fetch.dart';
 import 'package:user_app/src/features/profile/data/sources/profile_details_update.dart';
-import 'package:user_app/src/features/profile/domain/repositories/profile_edit_repository.dart';
 import 'package:user_app/src/features/profile/domain/usecases/fetch_user_details_usecase.dart';
+import 'package:user_app/src/features/profile/domain/usecases/manage_address_usecase.dart';
 import 'package:user_app/src/features/profile/domain/usecases/update_user_details_usecase.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/customerservice_bloc/customerservice_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -78,28 +80,46 @@ class AppRoute {
       PageEntity(
           route: RoutesName.profileEdit,
           bloc: BlocProvider(
-              create: (context) => ProfileBloc(
-                  FetchUserDetailsUsecase(ProfileEditImpl(
-                    UserDetailsFetchSource(),
-                    UserDetailsUpdateSource(),
-                  )),
-                  UpdateUserDetailsUsecae(ProfileEditImpl(
-                    UserDetailsFetchSource(),
-                    UserDetailsUpdateSource(),
-                  )))),
+            create: (context) => ProfileBloc(
+              FetchUserDetailsUsecase(ProfileEditImpl(
+                UserDetailsFetchSourceImpl(),
+                UserDetailsUpdateSourceImpl(),
+              )),
+              UpdateUserDetailsUsecae(
+                ProfileEditImpl(
+                  UserDetailsFetchSourceImpl(),
+                  UserDetailsUpdateSourceImpl(),
+                ),
+              ),
+              ManageAddressUsecase(
+                ManageAddressImplementation(
+                  ManageAddressSourceImpl(),
+                ),
+              ),
+            ),
+          ),
           pages: ProfileEditPage()),
       PageEntity(
           route: RoutesName.profile,
           bloc: BlocProvider(
-              create: (context) => ProfileBloc(
-                  FetchUserDetailsUsecase(ProfileEditImpl(
-                    UserDetailsFetchSource(),
-                    UserDetailsUpdateSource(),
-                  )),
-                  UpdateUserDetailsUsecae(ProfileEditImpl(
-                    UserDetailsFetchSource(),
-                    UserDetailsUpdateSource(),
-                  )))),
+            create: (context) => ProfileBloc(
+              FetchUserDetailsUsecase(ProfileEditImpl(
+                UserDetailsFetchSourceImpl(),
+                UserDetailsUpdateSourceImpl(),
+              )),
+              UpdateUserDetailsUsecae(
+                ProfileEditImpl(
+                  UserDetailsFetchSourceImpl(),
+                  UserDetailsUpdateSourceImpl(),
+                ),
+              ),
+              ManageAddressUsecase(
+                ManageAddressImplementation(
+                  ManageAddressSourceImpl(),
+                ),
+              ),
+            ),
+          ),
           pages: const ProfilePage())
     ];
   }

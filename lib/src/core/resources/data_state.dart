@@ -16,3 +16,6 @@ class DataFetchFailure extends Failure {
   DataFetchFailure(super.message);
 }
 
+class DataUpdateFailure extends Failure {
+  DataUpdateFailure(super.message);
+}

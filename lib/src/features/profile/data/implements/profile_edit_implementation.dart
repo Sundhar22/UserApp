@@ -7,8 +7,8 @@ import 'package:user_app/src/features/profile/domain/entities/profile_edit_entit
 import 'package:user_app/src/features/profile/domain/repositories/profile_edit_repository.dart';
 
 class ProfileEditImpl implements ProfileEditRepository {
-  final UserDetailsFetchSource _userDetailsFetchSource;
-  final UserDetailsUpdateSource _userDetailsUpdateSource;
+  final ProfileDataFetchSource _userDetailsFetchSource;
+  final ProfileDataUpdateSource _userDetailsUpdateSource;
 
   ProfileEditImpl(
     this._userDetailsFetchSource,
@@ -16,30 +16,30 @@ class ProfileEditImpl implements ProfileEditRepository {
   );
 
   @override
-  Future<Either<Failure, ProfileEditEntity>> fetchUserDetails() async {
+  Future<Either<DataFetchFailure, ProfileEditEntity>> fetchUserDetails() async {
     try {
       var details = await _userDetailsFetchSource.fetchUserDetails();
       return Right(details);
     } catch (e) {
-      return Left(Failure("Failed to fetch user details: $e"));
+      return Left(DataFetchFailure("Failed to fetch user details: $e"));
     }
   }
 
   @override
-  Future<Either<Failure, ProfileEditEntity>> updateUserDetails(
+  Future<Either<DataUpdateFailure, ProfileEditEntity>> updateUserDetails(
       ProfileEditEntity profile) async {
     try {
-       var profileModel = ProfileEditModel(
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      userEmail: profile.userEmail,
-      selectedIndex: profile.selectedIndex,
-    );
-      var updatedDetails = await _userDetailsUpdateSource
-          .updateUserDetails(profileModel);
+      var profileModel = ProfileEditModel(
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        userEmail: profile.userEmail,
+        selectedIndex: profile.selectedIndex,
+      );
+      var updatedDetails =
+          await _userDetailsUpdateSource.updateUserDetails(profileModel);
       return Right(updatedDetails);
     } catch (e) {
-      return Left(Failure("Failed to update user details: $e"));
+      return Left(DataUpdateFailure("Failed to update user details: $e"));
     }
   }
 }

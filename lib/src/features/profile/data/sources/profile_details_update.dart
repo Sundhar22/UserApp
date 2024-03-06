@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:user_app/src/core/resources/data_state.dart';
 import 'package:user_app/src/features/profile/data/models/profile_edit_model.dart';
 
-abstract class ProfileDataUpdate {
+abstract class ProfileDataUpdateSource {
   Future<ProfileEditModel> updateUserDetails(ProfileEditModel profile);
 }
 
-class UserDetailsUpdateSource extends ProfileDataUpdate {
+class UserDetailsUpdateSourceImpl implements ProfileDataUpdateSource {
   final docReference =
-      FirebaseFirestore.instance.collection('profiles').doc('user');
+      FirebaseFirestore.instance.collection('profile').doc('user1');
 
   @override
   Future<ProfileEditModel> updateUserDetails(ProfileEditModel profile) async {
@@ -26,10 +27,10 @@ class UserDetailsUpdateSource extends ProfileDataUpdate {
         // Return the updated profile
         return profile;
       } else {
-        throw Exception("Document does not exist");
+        throw const Failure("Document does not exist");
       }
     } catch (e) {
-      throw Exception("Failed to update profile: $e");
+      throw DataUpdateFailure("Failed to update profile: $e");
     }
   }
 }

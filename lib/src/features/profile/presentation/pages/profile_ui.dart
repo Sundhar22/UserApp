@@ -28,12 +28,16 @@ class ProfilePage extends StatelessWidget {
               oldFirstName: "",
               oldLastName: "",
               oldEmail: "",
-              selectedIndex: 1,
+              selectedIndex: 0,
             ));
 
-            return Container();
+            // return Container(
+            //   color: Colors.red,
+            // );
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (state is ProfileLoadedState) {
-            print("hii");
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),

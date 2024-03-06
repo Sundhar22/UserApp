@@ -1,5 +1,3 @@
-
-
 sealed class ProfileEvent {}
 
 class ProfileDataFetchEvent extends ProfileEvent {
@@ -30,3 +28,12 @@ class ProfileUpdateEvent extends ProfileEvent {
   });
 }
 
+class ManageAddressFetchEvent extends ProfileEvent {
+  final String desiny;
+  final String address;
+
+  ManageAddressFetchEvent({
+    required this.desiny,
+    required this.address,
+  });
+}

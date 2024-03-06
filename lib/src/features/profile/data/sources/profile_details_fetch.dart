@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:user_app/src/core/resources/data_state.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:user_app/src/features/profile/data/models/profile_edit_model.dart';
 
-abstract class ProfileDataFetch {
+abstract class ProfileDataFetchSource {
   Future<ProfileEditModel> fetchUserDetails();
 }
 
-class UserDetailsFetchSource extends ProfileDataFetch {
+class UserDetailsFetchSourceImpl implements ProfileDataFetchSource {
   // final auth = FirebaseAuth.instance;
-  final docReference = FirebaseFirestore.instance
-      .collection('profiles')
-      .doc('user');
+  final docReference =
+      FirebaseFirestore.instance.collection('profile').doc('user1');
   @override
   Future<ProfileEditModel> fetchUserDetails() async {
     try {
@@ -26,7 +26,7 @@ class UserDetailsFetchSource extends ProfileDataFetch {
         selectedIndex: data['selectedIndex'],
       );
     } catch (e) {
-      throw Exception("Failed to fetch profile data: $e");
+      throw DataFetchFailure("Failed to fetch profile data: $e");
     }
   }
 }
