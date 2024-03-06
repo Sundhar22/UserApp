@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/src/core/config/config.dart';
 import 'package:user_app/src/core/routes/routes.dart';
 import 'package:user_app/src/core/services/services.dart';
 import 'package:user_app/src/features/auth/presentation/pages/otp_screen.dart';
@@ -25,7 +24,7 @@ import 'package:user_app/src/features/profile/presentation/bloc/customerservice_
 import 'package:user_app/src/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:user_app/src/features/profile/presentation/pages/pages.dart';
 import 'package:user_app/src/features/profile/presentation/widgets/customerservice_ui.dart';
-
+import 'package:user_app/src/features/search/bloc/search_bloc.dart';
 import '../../features/application/presentation/pages/app_pages.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
 import '../../features/auth/presentation/pages/user_deatils_reg.dart';
@@ -85,6 +84,28 @@ class AppRoute {
               create: (context) => BookingBloc(
                   bookingFirestoreService: BookingFirestoreService())),
           pages: const BookingPage()),
+      PageEntity(
+          route: RoutesName.profile,
+          bloc: BlocProvider(
+            create: (context) => ProfileBloc(
+              FetchUserDetailsUsecase(ProfileEditImpl(
+                UserDetailsFetchSourceImpl(),
+                UserDetailsUpdateSourceImpl(),
+              )),
+              UpdateUserDetailsUsecae(
+                ProfileEditImpl(
+                  UserDetailsFetchSourceImpl(),
+                  UserDetailsUpdateSourceImpl(),
+                ),
+              ),
+              ManageAddressUsecase(
+                ManageAddressImplementation(
+                  ManageAddressSourceImpl(),
+                ),
+              ),
+            ),
+          ),
+          pages: const ProfilePage())
     ];
   }
 
