@@ -13,14 +13,11 @@ class ManageAddresses extends StatefulWidget {
   const ManageAddresses({Key? key}) : super(key: key);
 
   @override
-  
   State<ManageAddresses> createState() => _ManageAddressesState();
 }
 
 class _ManageAddressesState extends State<ManageAddresses> {
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar("Manage Addresses"),

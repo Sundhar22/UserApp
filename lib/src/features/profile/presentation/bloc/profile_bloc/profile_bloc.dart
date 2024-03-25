@@ -17,7 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     this._fetchUserDetailsUsecase,
     this._updateUserDetailsUsecae,
     this._manageAddressUsecase,
-  ) : super(ProfileLoadingState()) {
+  ) : super(ProfileInitialState()) {
     on<ProfileDataFetchEvent>(_onFetchUserProfile);
     on<ProfileUpdateEvent>(_onUpdateProfile);
     on<ManageAddressFetchEvent>(_onFetchUserAddress);
